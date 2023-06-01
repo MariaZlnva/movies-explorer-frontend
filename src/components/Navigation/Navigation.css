@@ -1,0 +1,29 @@
+.navBar {
+display: flex;
+}
+
+.navBar__link-unLogged {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-decoration: none;
+  margin-right: 10px;
+  padding: 8px 20px;
+}
+
+.navBar__link-unLogged:last-child {
+  color: black;
+  background-color: #3DDC84;
+  border-radius: 3px;
+  margin-right: 0px;
+}
+
+@media screen and (max-width: 560px) {
+  .navBar__link-unLogged {
+    font-size: 10px;
+    line-height: 1.6;
+    padding: 5px 12px;
+    margin-right: 4px;
+  }
+ }

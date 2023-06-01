@@ -1,0 +1,36 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 70px;
+
+}
+
+.header_unLogged {
+  background-color: #073042;
+}
+
+.header__logo {
+  display: block;
+  height: 38px;
+  width: 38px;
+  background-size: contain;
+  background-image: url(../../images/logo.svg);
+  background-repeat: no-repeat;
+  /* cursor: pointer; */
+}
+
+@media screen and (max-width: 960px) {
+  .header {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+@media screen and (max-width: 560px) {
+  .header {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}
+
