@@ -6,7 +6,7 @@ import './Navigation.css'
 
 function Navigation() {
   return (
-    <nav classname = 'navBar'>
+    <div classname = 'navBar'>
       {/* не авторизованный пользователь 
       isLogged === false ?  */}
       <Link to={'/signup'} className='navBar__link-unLogged hover'>Регистрация</Link>
@@ -15,7 +15,7 @@ function Navigation() {
       isLogged =  true*/}
 
       {/* // бургером станет */}
-    </nav>
+    </div>
   
   )
   
