@@ -11,4 +11,5 @@
   border-radius: 3px;
   text-align: center;
   line-height: 36px;
+  box-sizing: border-box;
 }
