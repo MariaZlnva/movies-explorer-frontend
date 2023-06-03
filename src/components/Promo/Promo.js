@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Promo.css';
 import NavTab from '../NavTab/NavTab';
-import promologo from '../../images/promo-logo.svg';
+import promologo from '../../images/promo-logo-min.svg';
 
 function Promo () {
   return(

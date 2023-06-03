@@ -1,10 +1,11 @@
 import React from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 
 import './NavTab.css';
 
 function NavTab () {
   return(
-    <a className='promo__link hover' href='#about-project'>Узнать больше</a>
+    <Link to='/#about-project' className='promo__link hover'>Узнать больше</Link>
   )
 };
 
