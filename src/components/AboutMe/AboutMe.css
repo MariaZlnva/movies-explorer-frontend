@@ -63,6 +63,12 @@
   border-radius: 10px;
 }
 
+@media screen and (max-width: 1050px) {
+  .about-me__wrap{
+    padding-right: 50px;
+  }
+}
+
 @media screen and (max-width: 960px) {
   .about-me {
     padding: 90px 50px;
@@ -92,10 +98,6 @@
     width: 46px;
   }
 
-  .about-me__wrap {
-    max-width: 364px;
-  }
-
   .about-me__foto {
     max-width: 255px;
     height: 307px;
@@ -110,6 +112,10 @@
     font-size: 18px;
     line-height: 1.22;
     margin-bottom: 60px;
+  }
+
+  .about-me__wrap {
+    padding-right: 0;
   }
 
   .about-me__container {
