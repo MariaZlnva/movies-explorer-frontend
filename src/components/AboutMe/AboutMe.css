@@ -1,5 +1,5 @@
 .about-me {
-  padding: 110px 70px;
+  padding: 110px 70px 100px;
 }
 
 .about-me__container {
@@ -40,7 +40,7 @@
 }
 
 .about-me__desctiption {
-  margin: 0 0 99px 0;
+  margin: 0 0 77px 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.57;
@@ -81,7 +81,7 @@
   }
 
   .about-me__desctiption {
-    margin-bottom: 87px;
+    margin-bottom: 69px;
     font-weight: 400;
     font-size: 12px;
     line-height: 1.5;
@@ -130,7 +130,7 @@
   }
   
   .about-me__desctiption {
-    margin-bottom: 40px;
+    margin-bottom: 8px;
     font-weight: 400;
     font-size: 11px;
     line-height: 1.45;
