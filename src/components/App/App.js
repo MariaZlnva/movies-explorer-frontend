@@ -5,22 +5,26 @@ import './App.css';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer'
+import Footer from '../Footer/Footer';
+import PageNotFound from '../PageNotFound/PageNotFound';
 
-
+// const path = [
+//     "/",
+//     "/movies",
+//     "/saved-movies",
+//   ]
 function App() {
   return (
     // <CurrentUserContext.Provider value={currentUser}>
     // {loading ? (<Loader />) : (
-      <div className='page'>
+      <div className='app__container'>
         <Header />
-        <Main />
         <Routes> 
-        {/* <Route path='/'element={Main}/>  */}
+          <Route path='/' element={<Main/>}/> 
               {/* <Route path='/sign-up' element={<Register/> }/>
               <Route path='/sign-in'element={<Login/>}/> */}
               {/* <Route path='/'element={<ProtectedRouteElement element={Main}/>}/> */}
-              {/* <Route path='*' element={<PageNotFound />} /> */}
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
         <Footer />
      {/* попапы тут */}
