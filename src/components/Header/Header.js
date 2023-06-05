@@ -1,14 +1,14 @@
 import React from "react";
-import { Link, Routes, Route } from "react-router-dom";
 
 import './Header.css';
+import LogoApp from '../LogoApp/LogoApp';
 import Navigation from '../Navigation/Navigation';
 
 
 function Header() {
 return (
   <header className='header header_unLogged'>
-    <Link to = '/' className = 'header__logo hover'/>
+    <LogoApp />
     <Navigation />
   </header>
   )
