@@ -21,3 +21,10 @@
   padding: 15px;
   border: none;
 }
+
+@media screen and (max-width: 560px) {
+  .register__feilds{
+    margin-bottom: 157px;
+  }
+  
+}

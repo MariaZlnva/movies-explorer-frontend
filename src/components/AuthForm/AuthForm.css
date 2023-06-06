@@ -54,3 +54,26 @@
   color: #4285F4;
   text-decoration: none;
 }
+
+@media screen and (max-width: 560px) {
+  .authForm__container{
+    align-items: center;
+  }
+
+  .authForm__title {
+    margin: 50px auto 80px;
+  }
+
+  .authForm__submit {
+    max-width: 260px;
+    font-size: 12px;
+  }
+
+  .authForm__wrap{
+    font-size: 12px;
+  }
+
+  .authForm__form{
+    margin-bottom: 14px;
+  }
+ }

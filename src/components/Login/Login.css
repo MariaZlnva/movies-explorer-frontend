@@ -22,3 +22,10 @@
   padding: 15px;
   border: none;
 }
+
+@media screen and (max-width: 560px) {
+  .login__fields{
+    margin-bottom: 247px;
+  }
+}
+
