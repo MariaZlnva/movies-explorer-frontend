@@ -14,30 +14,27 @@ function Portfolio() {
           <p className='portfolio__item'>Статичный сайт</p>
           <Link
             to='https://mariazlnva.github.io/how-to-learn'
-            className='portfolio__link hover'
+            className='portfolio__link'
             target='_blank'
           >
-            {/* <img src={arrow} className='hover' alt='Стрелка' /> */}
           </Link>
         </li>
         <li className='portfolio__wrap'>
           <p className='portfolio__item'>Адаптивный сайт</p>
           <Link
             to='https://mariazlnva.github.io/russian-travel'
-            className='portfolio__link hover'
+            className='portfolio__link'
             target='_blank'
           >
-            {/* <img src={arrow} className='hover' alt='Стрелка' /> */}
           </Link>
         </li>
         <li className='portfolio__wrap'>
           <p className='portfolio__item'>Одностраничное приложение</p>
           <Link
             to='https://mesto.zlnva.nomoredomains.monster'
-            className='portfolio__link hover'
+            className='portfolio__link'
             target='_blank'
           >
-            {/* <img src={arrow} className='hover' alt='Стрелка' /> */}
           </Link>
         </li>
       </ul>

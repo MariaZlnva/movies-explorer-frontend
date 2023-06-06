@@ -22,6 +22,10 @@
   border: none;
 }
 
+.register__input:focus{
+  outline-color: #8B8B8B;
+}
+
 @media screen and (max-width: 560px) {
   .register__feilds{
     margin-bottom: 157px;

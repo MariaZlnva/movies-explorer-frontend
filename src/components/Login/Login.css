@@ -23,6 +23,10 @@
   border: none;
 }
 
+.login__input:focus{
+  outline-color: #8B8B8B;
+}
+
 @media screen and (max-width: 560px) {
   .login__fields{
     margin-bottom: 247px;

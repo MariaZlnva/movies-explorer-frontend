@@ -9,8 +9,8 @@ function Navigation() {
     <div className = 'navBar'>
       {/* не авторизованный пользователь 
       isLogged === false ?  */}
-      <Link to={'/signup'} className='navBar__link-unLogged hover'>Регистрация</Link>
-      <Link to={'/signin'} className='navBar__link-unLogged hover'>Войти</Link>
+      <Link to={'/signup'} className='navBar__link-unLogged'>Регистрация</Link>
+      <Link to={'/signin'} className='navBar__link-unLogged'>Войти</Link>
       {/* авторизованный 
       isLogged =  true*/}
 

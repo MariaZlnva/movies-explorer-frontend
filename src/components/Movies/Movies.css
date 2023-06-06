@@ -1,0 +1,26 @@
+.movies__container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.movies__main{
+  position: absolute;
+  top: 70px;
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .movies__main  {
+  
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .movies__main {
+ 
+    
+  }
+}

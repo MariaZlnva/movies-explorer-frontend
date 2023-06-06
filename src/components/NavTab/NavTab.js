@@ -5,7 +5,7 @@ import './NavTab.css';
 
 function NavTab () {
   return(
-    <Link to='/#about-project' className='promo__link hover'>Узнать больше</Link>
+    <Link to='/#about-project' className='promo__link'>Узнать больше</Link>
   )
 };
 

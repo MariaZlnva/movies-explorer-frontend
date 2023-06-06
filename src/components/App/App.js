@@ -5,6 +5,7 @@ import './App.css';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
           <Route path='/' element={<Main/>}/> 
           <Route path='/signup' element={<Register/> }/>
           <Route path='/signin'element={<Login/>}/>
-              {/* <Route path='/'element={<ProtectedRouteElement element={Main}/>}/> */}
+              {/* <Route path='/'element={<ProtectedRouteElement element={Movies}/>}/> */}
+          <Route path='/movies' element={<Movies/>} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
      {/* попапы тут */}

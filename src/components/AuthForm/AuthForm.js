@@ -11,11 +11,11 @@ function AuthForm({title, textSubmitBtn, children, path, text, textLink, name}) 
       <h2 className='authForm__title'>{title}</h2>
       <form name='' className='authForm__form'>
         {children}
-        <button type="button" className='authForm__submit hover'>{textSubmitBtn}</button>
+        <button type="button" className='authForm__submit'>{textSubmitBtn}</button>
       </form>
       <div className='authForm__wrap'>
         <p className='authForm__text'>{text}</p>
-        <Link to={path} className='authForm__link hover' type="button">{textLink}</Link>
+        <Link to={path} className='authForm__link' type="button">{textLink}</Link>
       </div>
     </div>
     

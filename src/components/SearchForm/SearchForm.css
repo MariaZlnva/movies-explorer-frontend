@@ -1,0 +1,126 @@
+.seach {
+  padding: 70px 70px 48px 70px;
+}
+
+.seach__field {
+  border-bottom: 1px solid #424242;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 33px;
+}
+
+.seach__input{
+  width: 100%;
+  margin-right: 46px;
+  background-color: transparent;
+  border: none;
+  /* padding-bottom: 13px; */
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.21;
+  color: #8B8B8B;
+}
+
+.seach__input:focus {
+  outline: none;
+}
+
+.seach__submit {
+  background-image: url('../../images/find.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  min-width: 35px;
+  min-height: 35px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 13px;
+  /* box-sizing: border-box; */
+}
+
+.seach__submit:hover {
+  transform: scale(1.05);
+  opacity: 0.7;
+  
+}
+
+.seach__checkbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.seach__checkbox-input{
+  width: 34px;
+  height: 14px;
+  border: none;
+  border-radius: 20px;
+  background: #3DDC84;
+  position: relative;
+  cursor: pointer;
+}
+
+/* .seach__checkbox-input:focus {
+  outline: none;
+} */
+
+.seach__checkbox-label{
+  padding-left: 14px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+
+@media screen and (max-width: 960px) {
+  .seach {
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 84px;
+  }
+
+  .seach__checkbox{
+    flex-direction: row-reverse;
+  }
+
+  .seach__checkbox-label{
+    padding-left: 0;
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .seach {
+    padding-right: 14px;
+    padding-left: 14px;
+    padding-top: 95px;
+  }
+  
+  .seach__field{
+    margin-bottom: 41px;
+  }
+
+  .seach__input{
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .seach__checkbox{
+    justify-content: center;
+  }
+
+  .seach__checkbox-label{
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}
+
+@media screen and (max-width: 560px){
+  .seach{
+    padding-top: 85px;
+  }
+}

@@ -4,7 +4,7 @@ import './LogoApp.css';
 
 function LogoApp() {
   return(
-    <Link to = '/' className = 'logo hover'/>
+    <Link to = '/' className = 'logo'/>
   )
 }
 

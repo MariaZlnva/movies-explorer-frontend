@@ -13,3 +13,8 @@
   line-height: 36px;
   box-sizing: border-box;
 }
+
+.promo__link:hover{
+    transform: scale(1.04);
+    opacity: 0.7;
+}
