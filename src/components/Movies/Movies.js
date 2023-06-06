@@ -8,7 +8,7 @@ import Footer from '../Footer/Footer';
 function Movies() {
   return (
     <div className='movies__container'>
-     <Header loggedIn='true'/>
+     <Header/>
      <div className='movies__main'>
       <SearchForm />
       <MoviesCardList />

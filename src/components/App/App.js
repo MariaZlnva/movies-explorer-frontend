@@ -5,6 +5,7 @@ import './App.css';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/signin'element={<Login/>}/>
               {/* <Route path='/'element={<ProtectedRouteElement element={Movies}/>}/> */}
           <Route path='/movies' element={<Movies/>} />
+          <Route path='/profile' element={<Profile/>} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
      {/* попапы тут */}
