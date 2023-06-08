@@ -24,7 +24,7 @@
 }
 
 .login__input:focus{
-  outline-color: #8B8B8B;
+  outline: none;
 }
 
 @media screen and (max-width: 560px) {
