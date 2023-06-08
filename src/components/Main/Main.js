@@ -12,7 +12,7 @@ import Footer from '../Footer/Footer';
 function Main () {
   return (
       <main className='content'>
-        <Header />
+        <Header isLoggedIn={false} />
         <Promo />
         <AboutProject />
         <Techs />
