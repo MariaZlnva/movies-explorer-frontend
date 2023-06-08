@@ -1,0 +1,128 @@
+.profile{
+  min-width: 410px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* margin: auto; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 74px;
+}
+
+.profile__title{
+  margin: 0 0 107px 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.profile__fieldsets {
+  padding: 0;
+  margin: 0 0 206px 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  line-height: 1.18;
+}
+
+.profile__label{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.profile__label:first-child {
+  border-bottom: 1px solid #424242;
+}
+
+.profile__input {
+  color:inherit;
+  width: calc(100% - 80px);
+  text-align: end;
+  background-color: inherit;
+  padding: 15px;
+  border: none;
+  font-weight: 400;
+  padding: 0;
+  padding-bottom: 16px;
+  padding-top: 16px;
+}
+
+.profile__input:focus{
+  outline: none;
+   /* outline-style: dashed;
+   outline-color: #8B8B8B;
+   outline-width: 0.5px; */
+}
+
+.profile__btn-edit{
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.24;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 130px;
+  margin: 0 auto 16px;
+  color: inherit;
+}
+
+.profile__btn-edit:hover{
+  transform: scale(1.03);
+  opacity: 0.7;
+}
+
+.profile__btn-exit{
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.24;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 180px;
+  margin: 0 auto;
+  color: #EE3465;;
+}
+
+.profile__btn-exit:hover{
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+@media screen and (max-width: 960px) {
+  .profile{
+    margin-top: 236px;
+  }
+
+  .profile__title{
+    margin-bottom: 82px;
+  }
+
+  .profile__fieldsets{
+    margin-bottom: 196px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .profile{
+    min-width: 260px;
+    margin-top: 66px;
+  }
+
+  .profile__title{
+    margin-bottom: 65px;
+  }
+
+  .profile__fieldsets{
+    margin-bottom: 365px;
+  }
+}
