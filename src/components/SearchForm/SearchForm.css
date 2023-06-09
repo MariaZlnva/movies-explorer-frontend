@@ -80,7 +80,8 @@
   .seach {
     padding-right: 30px;
     padding-left: 30px;
-    padding-top: 84px;
+    padding-top: 75px;
+    padding-bottom: 62px;
   }
 
   .seach__checkbox{
@@ -97,7 +98,8 @@
   .seach {
     padding-right: 14px;
     padding-left: 14px;
-    padding-top: 95px;
+    padding-top: 79px;
+    padding-bottom: 51px;
   }
   
   .seach__field{
@@ -116,11 +118,5 @@
   .seach__checkbox-label{
     font-size: 11px;
     line-height: 1.64;
-  }
-}
-
-@media screen and (max-width: 560px){
-  .seach{
-    padding-top: 85px;
   }
 }
