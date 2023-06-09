@@ -86,6 +86,7 @@
   display: none;
 }
 
+
 @media screen and (max-width: 960px) {
 .navBar_burgerPosition {
   display: flex;
@@ -106,42 +107,42 @@
     display: block;
     background-color: transparent;
     border: none;
+    z-index: 8;
   }
 
   .navBar__burger:hover{
     opacity: 0.7;
   }
   
-    .navBar__burgerLine {
-      position: absolute;
-      width: 28px;
-      height: 3px;
-      background-color: white;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  
-    .navBar__burgerLine:nth-of-type(2) {
-      top: calc(50% - 10px);
-    }
-    .navBar__burgerLine:nth-of-type(3) {
-      top: calc(50% + 10px);
-    }
- /* делаем бургер активным - класс будет доб.при клике на бургер */
-    .navBar__burger_active:nth-of-type(1){
-      display: none;
-    }
-    .navBar__burger_active:nth-of-type(2){
-      top: 50%;
-      transform: translate(-50%, 0)  rotate(45deg)
-    }
-    .navBar__burger_active:nth-of-type(3){
-      top: 50%;
-      transform: translate(-50%, 0)  rotate(-45deg)
-    }
-
+  .navBar__burgerLine {
+    position: absolute;
+    width: 28px;
+    height: 3px;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
+
+  .navBar__burgerLine:nth-of-type(2) {
+    top: calc(50% - 10px);
+  }
+  .navBar__burgerLine:nth-of-type(3) {
+    top: calc(50% + 10px);
+  }
+/* делаем бургер активным - класс будет доб.при клике на бургер */
+  .navBar__burger_active:nth-of-type(1){
+    display: none;
+  }
+  .navBar__burger_active:nth-of-type(2){
+    top: 50%;
+    transform: translate(-50%, 0)  rotate(45deg)
+  }
+  .navBar__burger_active:nth-of-type(3){
+    top: 50%;
+    transform: translate(-50%, 0)  rotate(-45deg)
+  }
+}
 
 @media screen and (max-width: 560px) {
   .navBar__link-unLogged {

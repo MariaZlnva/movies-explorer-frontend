@@ -5,12 +5,11 @@ import LogoApp from '../LogoApp/LogoApp';
 import Navigation from '../Navigation/Navigation';
 
 
-function Header({isLoggedIn}) {
-  console.log(isLoggedIn);
+function Header({isLoggedIn, onClickBurger, isBurgerOpen}) {
   return (
     <header className={isLoggedIn ? 'header' : 'header header_unLogged'}>
       <LogoApp />
-      <Navigation isLoggedIn={isLoggedIn}/> 
+      <Navigation isLoggedIn={isLoggedIn} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen}/> 
     </header>
     )
 }

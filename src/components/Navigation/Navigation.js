@@ -2,15 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import './Navigation.css'
-// import iconAvat from '../../images/foto__avatar';
 
-function Navigation({ isLoggedIn }) {
-  const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-
-  const handleClickBurger = () => {
-    setIsBurgerOpen(!isBurgerOpen);
-  }
-
+function Navigation({ isLoggedIn, onClickBurger, isBurgerOpen }) {
   return (
       <div className = 'navBar navBar_burgerPosition'>
         {
@@ -26,7 +19,7 @@ function Navigation({ isLoggedIn }) {
                 <span className='navBar__profile-logo'></span>
               </Link>
             </div>
-            <button className="navBar__burger" onClick={handleClickBurger}>
+            <button className="navBar__burger" onClick={onClickBurger}>
               <span
                 className={
                   isBurgerOpen

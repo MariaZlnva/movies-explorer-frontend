@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import './App.css';
@@ -8,8 +8,16 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import NavBarPopup from '../NavBarPopup/NavBarPopup';
 
 function App() {
+
+const [isOpenPopup, setIsOpenPopup] = useState(false);
+
+function handleClickBurger() {
+  setIsOpenPopup(!isOpenPopup);
+}
+
   return (
     // <CurrentUserContext.Provider value={currentUser}>
     // {loading ? (<Loader />) : (
@@ -19,11 +27,15 @@ function App() {
           <Route path='/signup' element={<Register/> }/>
           <Route path='/signin'element={<Login/>}/>
               {/* <Route path='/'element={<ProtectedRouteElement element={Movies}/>}/> */}
-          <Route path='/movies' element={<Movies/>} />
-          <Route path='/profile' element={<Profile/>} />
+          <Route path='/movies' element={<Movies onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/>} />
+          <Route path='/profile' element={<Profile onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/> } />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
-     {/* попапы тут */}
+        <NavBarPopup isOpen={isOpenPopup} onClickBurger = {handleClickBurger}
+          // isOpen={isEditProfilePopupOpen}
+          // onClose={closeAllPopups}
+          // onUpdateUser={handleUpdateUser}
+        />
     </div>
     // </CurrentUserContext.Provider>
   );

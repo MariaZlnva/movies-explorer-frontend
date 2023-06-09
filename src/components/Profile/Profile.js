@@ -1,9 +1,9 @@
 import './Profile.css';
 import Header from '../Header/Header';
-function Profile () {
+function Profile ({ onClickBurger, isBurgerOpen }) {
   return(
     <>
-    <Header isLoggedIn={true}/>
+    <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen}/>
     <div className='profile'>
       <h3 className='profile__title'>Привет, --name--!</h3>
       <form className='profile__form'>
