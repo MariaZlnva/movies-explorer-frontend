@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
 import './Navigation.css'
 
 function Navigation({ isLoggedIn, onClickBurger, isBurgerOpen }) {
+  const location = useLocation();
   return (
       <div className = 'navBar navBar_burgerPosition'>
         {
@@ -11,13 +12,13 @@ function Navigation({ isLoggedIn, onClickBurger, isBurgerOpen }) {
           <>
            <div className = 'navBar__logged'>
               <div className='navBar__wrap'>
-                <Link to={'/movies'} className='navBar__link-logged'>Фильмы</Link>
-                <Link to={'/saved-movies'} className='navBar__link-logged'>Сохранённые фильмы</Link>
+                <NavLink to={'/movies'} className={location.pathname === '/movies' ? 'navBar__link-logged navBar__link-logged_active' : 'navBar__link-logged'}>Фильмы</NavLink>
+                <NavLink to={'/saved-movies'} className={location.pathname === '/saved-movies' ? 'navBar__link-logged navBar__link-logged_active' : 'navBar__link-logged'}>Сохранённые фильмы</NavLink>
               </div>
-              <Link to={'/profile'} className='navBar__profile'>
+              <NavLink to={'/profile'} className='navBar__profile'>
                 Аккаунт
                 <span className='navBar__profile-logo'></span>
-              </Link>
+              </NavLink>
             </div>
             <button className="navBar__burger" onClick={onClickBurger}>
               <span

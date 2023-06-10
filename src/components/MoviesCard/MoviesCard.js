@@ -1,7 +1,12 @@
 import './MoviesCard.css';
 
-function MoviesCard ({movie}) {
+function MoviesCard ({movie, onClickLike, isLiked}) {
   const imageUrl = `https://api.nomoreparties.co/${movie.image.url}`;
+
+  function handleLikeClick(movie) {
+    onClickLike(movie)
+  }
+
   return (
     <div className='movie'>
       <div className='movie__info'>
@@ -9,7 +14,7 @@ function MoviesCard ({movie}) {
           <h3 className='movie__title'>{movie.nameRU}</h3>
           <p className='movie__duration'>{movie.duration}</p>
         </div>
-        <button aria-label="Нравится" className='movie__like' type="button"/>
+        <button aria-label="Нравится" className={isLiked ? 'movie__like movie__like_active' : 'movie__like'} type="button" onClick={handleLikeClick}/>
       </div>
       <img className='movie__image' src={imageUrl} alt={movie.nameRU} />
     </div>

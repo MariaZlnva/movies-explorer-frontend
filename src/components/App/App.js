@@ -15,9 +15,14 @@ import listFilms from '../../utils/listFilms';
 function App() {
 
 const [isOpenPopup, setIsOpenPopup] = useState(false);
+const [isLiked, setIsLiked] = useState(false);
 
-function handleClickBurger() {
+function burgerClickHandler() {
   setIsOpenPopup(!isOpenPopup);
+}
+
+function likeClickHandler(movie) {
+  setIsLiked(!isLiked);
 }
 
   return (
@@ -28,11 +33,11 @@ function handleClickBurger() {
           <Route path='/' element={<Main/>}/> 
           <Route path='/signup' element={<Register/> }/>
           <Route path='/signin'element={<Login/>}/>
-          <Route path='/movies' element={<Movies listFilms={listFilms.slice(0, 7)} onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/>} />
-          <Route path='/profile' element={<Profile onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/> } />
+          <Route path='/movies' element={<Movies listFilms={listFilms.slice(0, 7)} onClickBurger = {burgerClickHandler} onClickLike={likeClickHandler} isBurgerOpen={isOpenPopup} isLiked={isLiked}/>} />
+          <Route path='/profile' element={<Profile onClickBurger = {burgerClickHandler} isBurgerOpen={isOpenPopup}/> } />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
-        <NavBarPopup isOpen={isOpenPopup} onClickBurger = {handleClickBurger}
+        <NavBarPopup isOpen={isOpenPopup} onClickBurger = {burgerClickHandler}
         />
     </div>
     // </CurrentUserContext.Provider>

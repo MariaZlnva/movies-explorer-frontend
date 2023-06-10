@@ -45,6 +45,10 @@
   text-decoration: none;
 }
 
+.navBar__link-logged_active {
+  font-weight: 900;
+}
+
 .navBar__link-logged:hover{
   opacity: 0.7;
 }

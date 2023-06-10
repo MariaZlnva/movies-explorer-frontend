@@ -44,16 +44,26 @@ padding-left: 22px;
   opacity: 0.5;
 }
 
+.movie__like_active {
+  background-image: url('../../images/heart-active.svg');
+}
+
 .movie__image {
 width: 220px;
 height: 122px;
 padding: 6px;
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 960px) {
+  .movie__title {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
+@media screen and (max-width: 460px) {
   .movie {
     flex-direction: column-reverse;
-    /* align-items: flex-start; */
     align-items: center;
   }
 
@@ -67,14 +77,11 @@ padding: 6px;
   }
 
   .movie__data{
-    /* padding-left: 12px; */
     margin-bottom: 14px;
     margin-right: 10px;
   }
 
   .movie__title {
-    font-size: 12px;
-    line-height: 1.25;
     margin: 14px 0 8px;
   }
 
