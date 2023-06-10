@@ -10,6 +10,8 @@ import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import NavBarPopup from '../NavBarPopup/NavBarPopup';
 
+import listFilms from '../../utils/listFilms';
+
 function App() {
 
 const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -26,15 +28,11 @@ function handleClickBurger() {
           <Route path='/' element={<Main/>}/> 
           <Route path='/signup' element={<Register/> }/>
           <Route path='/signin'element={<Login/>}/>
-              {/* <Route path='/'element={<ProtectedRouteElement element={Movies}/>}/> */}
-          <Route path='/movies' element={<Movies onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/>} />
+          <Route path='/movies' element={<Movies listFilms={listFilms.slice(0, 7)} onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/>} />
           <Route path='/profile' element={<Profile onClickBurger = {handleClickBurger} isBurgerOpen={isOpenPopup}/> } />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
         <NavBarPopup isOpen={isOpenPopup} onClickBurger = {handleClickBurger}
-          // isOpen={isEditProfilePopupOpen}
-          // onClose={closeAllPopups}
-          // onUpdateUser={handleUpdateUser}
         />
     </div>
     // </CurrentUserContext.Provider>

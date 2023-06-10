@@ -5,11 +5,11 @@
 }
 
 .movie__info {
-/* padding-left: 22px; */
+padding-left: 22px;
 }
 
 .movie__data {
-  padding-left: 22px;
+  /* padding-left: 22px; */
   margin-bottom: 27px;
 }
 
@@ -46,7 +46,7 @@
 
 .movie__image {
 width: 220px;
-min-height: 122px;
+height: 122px;
 padding: 6px;
 }
 
@@ -59,7 +59,7 @@ padding: 6px;
 
 
   .movie__info {
-    /* padding-left: 12px; */
+    padding-left: 12px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -67,7 +67,7 @@ padding: 6px;
   }
 
   .movie__data{
-    padding-left: 12px;
+    /* padding-left: 12px; */
     margin-bottom: 14px;
     margin-right: 10px;
   }
