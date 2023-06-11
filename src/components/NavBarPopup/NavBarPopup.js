@@ -1,9 +1,37 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import './NavBarPopup.css';
 
 function NavBarPopup ({isOpen, onClickBurger}) {
+   
   const location = useLocation();
+
+  useEffect(() => {
+    if (isOpen){
+      document.addEventListener("keydown", handleEscClose);
+      document.addEventListener("mousedown", handleMousedown);
+      console.log('вешаю слушателей')  
+    }
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("mousedown", handleMousedown);
+      console.log('удаляю слушателей')
+    };
+  }, [isOpen]);
+
+  function handleEscClose(evt) {
+    if (evt.key === "Escape") {
+      onClickBurger();
+    }
+  }
+
+  function handleMousedown(evt) {
+    if (evt.target.classList.contains("popup_opened")) {
+      onClickBurger();
+    }
+  }
+
   return (
   <>
     <div className = {`popup__navBar ${isOpen ? 'popup_opened' : ''}`}>
@@ -19,8 +47,6 @@ function NavBarPopup ({isOpen, onClickBurger}) {
         </Link>
         </div>
       </div>
-      
-    {/* <button className="navBar__burger" onClick={handleClickBurger}></button> */}
   </>
     )
 }

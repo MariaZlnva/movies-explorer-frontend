@@ -48,6 +48,10 @@ padding-left: 22px;
   background-image: url('../../images/heart-active.svg');
 }
 
+.movie__like_delete {
+  background-image: url('../../images/heart-delete.svg');
+}
+
 .movie__image {
 width: 220px;
 height: 122px;

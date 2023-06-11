@@ -5,12 +5,12 @@ function Profile ({ onClickBurger, isBurgerOpen }) {
     <>
     <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen}/>
     <div className='profile'>
-      <h3 className='profile__title'>Привет, --name--!</h3>
+      <h3 className='profile__title'>Привет, Мария!</h3>
       <form className='profile__form'>
         <fieldset className='profile__fieldsets'>
           <label className='profile__label'>
             Имя
-            <input className='profile__input' type='text' name='nameProfile' value='--name--' required ></input>
+            <input className='profile__input' type='text' name='nameProfile' value='Мария' required ></input>
           </label>
           <label className='profile__label'>
             E-mail
