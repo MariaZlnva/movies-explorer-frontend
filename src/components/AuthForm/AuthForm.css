@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  
+  width: 396px;
 }
 
 .authForm__title{
@@ -33,6 +33,12 @@
   border-radius: 3px;
   border: none; 
   cursor: pointer;
+}
+
+.authForm__submit_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+
 }
 
 .authForm__submit:hover, .authForm__link:hover{
@@ -63,6 +69,7 @@
 @media screen and (max-width: 560px) {
   .authForm__container{
     align-items: center;
+    max-width: 260px;
   }
 
   .authForm__title {

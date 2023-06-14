@@ -11,12 +11,10 @@ function NavBarPopup ({isOpen, onClickBurger}) {
     if (isOpen){
       document.addEventListener("keydown", handleEscClose);
       document.addEventListener("mousedown", handleMousedown);
-      console.log('вешаю слушателей')  
     }
     return () => {
       document.removeEventListener("keydown", handleEscClose);
       document.removeEventListener("mousedown", handleMousedown);
-      console.log('удаляю слушателей')
     };
   }, [isOpen]);
 
