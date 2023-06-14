@@ -36,9 +36,6 @@ function App() {
        setIsLoggedIn(true);
        navigate('/movies', { replace: true });
     }
-    else {
-      console.log('должна появляться сообщ об ошибке')
-    } 
   }
 
   function handleRegisterSubmit (data) {
@@ -48,16 +45,11 @@ function App() {
     console.log(data.name, data.email, data.password)
     if (data.name === validName && data.email === validEmail && data.password === validPassword ) {
        navigate('/signin', { replace: true });
-       
     }
     else {
       console.log('ошибка сабмита регистрации')
-      
     }
-    
-    
   }
-
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана

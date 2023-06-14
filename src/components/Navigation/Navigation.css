@@ -155,4 +155,9 @@
     padding: 5px 12px;
     margin-right: 4px;
   }
+
+  .navBar__burgerLine {
+    position: absolute;
+    width: 22px;
+  }
  }

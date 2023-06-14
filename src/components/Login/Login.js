@@ -1,19 +1,25 @@
+import { useState } from 'react';
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
-import useValidation from '../../hooks/useValidation';
 
 function Login({ onSubmit }) {
-  const { values, errors, onChange } = useValidation();
+
+  const [values, setValues] = useState({});
 
   function handleLoginSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
+  function onChange (evt) {
+    const { name, value } = evt.target;
+    setValues((values) => ({ ...values, [name]: value }));
+  }
+
   return (
     <AuthForm
       title='Рады видеть!'
-      nameForm = 'login'
+      nameForm='login'
       textSubmitBtn='Войти'
       children
       path='/signup'
@@ -21,41 +27,35 @@ function Login({ onSubmit }) {
       textLink='Регистрация'
       onSubmit={handleLoginSubmit}
     >
-      <div className='login__fields'>
-        <div className='login__field'>
-          <label htmlFor='email' className='login__label'>
-            E-mail
-          </label>
-          <input
-            id='email'
-            name='email'
-            type='email'
-            className='login__input'
-            value={values.name}
-            placeholder='E-mail'
-            required
-            onChange={onChange}
-          />
-          <span className='login__error_active'>{errors.email}</span>
-        </div>
-        <div className='login__field'>
-          <label htmlFor='password' className='login__label'>
-            Пароль
-          </label>
-          <input
-            id='password'
-            name='password'
-            type='password'
-            className='login__input'
-            value={values.name}
-            minLength='8'
-            placeholder='Пароль'
-            required
-            onChange={onChange}
-          />
-          <span className='login__error_active'>{errors.password}</span>
-        </div>
-      </div>
+      <label htmlFor='email' className='login__label'>
+        E-mail
+        <input
+          id='email'
+          name='email'
+          type='email'
+          className='login__input'
+          value={values.email || ''}
+          placeholder='E-mail'
+          required
+          onChange={onChange}
+        />
+        <span className='login__error_active'></span>
+      </label>
+      <label htmlFor='password' className='login__label'>
+        Пароль
+        <input
+          id='password'
+          name='password'
+          type='password'
+          className='login__input'
+          value={values.password || ''}
+          minLength='8'
+          placeholder='Пароль'
+          required
+          onChange={onChange}
+        />
+        <span className='login__error_active'></span>
+      </label>
     </AuthForm>
   );
 }
