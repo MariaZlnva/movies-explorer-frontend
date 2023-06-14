@@ -1,18 +1,17 @@
 import './SearchForm.css';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm () {
   return (
-  <form className='seach'>
-    <div className='seach__field'>
-      <input className='seach__input' name='seachFilm' type='text' required value='' placeholder='Фильм'/>
+  <section className='seach'>
+    <form className='seach__form'>
+      <input className='seach__input' name='seachFilm' type='text' required placeholder='Фильм'/>
       <button className='seach__submit' type='submit'>
-      </button>
-    </div>
-    <div className='seach__checkbox'>
-      <input className='seach__checkbox-input' name="shortFilms"/>
-      <label className='seach__checkbox-label'>Короткометражки</label>
-    </div>
+      </button>  
   </form>
+  <FilterCheckbox/>
+  </section>
+  
   )
 }
 

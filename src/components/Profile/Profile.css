@@ -1,4 +1,4 @@
-.profile{
+.profile {
   min-width: 410px;
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   margin-top: 74px;
 }
 
-.profile__title{
+.profile__title {
   margin: 0 0 107px 0;
   font-weight: 500;
   font-size: 24px;
@@ -31,7 +31,7 @@
   line-height: 1.18;
 } */
 
-.profile__label{
+.profile__label {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -46,7 +46,7 @@
 }
 
 .profile__input {
-  color:inherit;
+  color: inherit;
   width: calc(100% - 80px);
   text-align: end;
   background-color: inherit;
@@ -60,15 +60,12 @@
   padding-top: 16px;
 }
 
-.profile__input:focus{
+.profile__input:focus {
   outline: none;
-   /* outline-style: dashed;
-   outline-color: #8B8B8B;
-   outline-width: 0.5px; */
-   border-bottom: 1px dotted gray; 
+  border-bottom: 1px dotted gray;
 }
 
-.profile__btn-edit{
+.profile__btn-edit {
   font-weight: 400;
   font-size: 13px;
   line-height: 1.24;
@@ -80,17 +77,17 @@
   color: inherit;
 }
 
-.profile__btn-edit:hover{
+.profile__btn-edit:hover {
   transform: scale(1.03);
   opacity: 0.7;
 }
 .profile__btn-edit:focus {
-  outline:  none;
+  outline: none;
   font-weight: 900;
   opacity: 0.7;
 }
 
-.profile__btn-exit{
+.profile__btn-exit {
   font-weight: 500;
   font-size: 13px;
   line-height: 1.24;
@@ -99,46 +96,45 @@
   cursor: pointer;
   width: 180px;
   margin: 0 auto;
-  color: #EE3465;;
+  color: #ee3465;
 }
 
-.profile__btn-exit:hover{
+.profile__btn-exit:hover {
   transform: scale(1.03);
   opacity: 0.9;
 }
 
 .profile__btn-exit:focus {
-  outline:  none;
+  outline: none;
   font-weight: 900;
   opacity: 0.7;
 }
 
 @media screen and (max-width: 960px) {
-  .profile{
+  .profile {
     margin-top: 236px;
   }
 
-  .profile__title{
+  .profile__title {
     margin-bottom: 82px;
   }
 
-  .profile__btn-edit{
+  .profile__btn-edit {
     margin-top: 195px;
   }
 }
 
 @media screen and (max-width: 560px) {
-  .profile{
+  .profile {
     min-width: 260px;
     margin-top: 69px;
   }
 
-  .profile__title{
+  .profile__title {
     margin-bottom: 65px;
   }
 
-  .profile__btn-edit{
+  .profile__btn-edit {
     margin-top: 363px;
   }
-
 }
