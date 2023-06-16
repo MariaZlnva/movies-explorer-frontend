@@ -11,7 +11,6 @@
   font-weight: 400;
   font-size: 140px;
   line-height: 1.21;
-  /* color: #FFFFFF; */
 }
 
 .not-found__text{
@@ -29,6 +28,15 @@ color: #4285F4;
 cursor: pointer;
 background-color: transparent;
 border: none;
+}
+
+.not-found__btn:hover {
+  opacity: 0.7;
+}
+
+.not-found__btn:focus {
+  outline: none;
+  font-weight: 900;
 }
 
 @media screen and (max-width: 560px) {

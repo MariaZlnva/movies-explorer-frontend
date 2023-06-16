@@ -14,7 +14,6 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import listFilms from '../../utils/listFilms';
 
 function App() {
-
   const navigate = useNavigate();
 
   const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -29,25 +28,28 @@ function App() {
     setIsLiked(!isLiked);
   }
 
-  function handleLoginSubmit ({email, password}) {
+  function handleLoginSubmit({ email, password }) {
     const validEmail = 'pochta@yandex.ru';
     const validPassword = '12345678';
-    if(email === validEmail && password === validPassword) {
-       setIsLoggedIn(true);
-       navigate('/movies', { replace: true });
+    if (email === validEmail && password === validPassword) {
+      setIsLoggedIn(true);
+      navigate('/movies', { replace: true });
     }
   }
 
-  function handleRegisterSubmit (data) {
+  function handleRegisterSubmit(data) {
     const validEmail = 'pochta@yandex.ru';
     const validPassword = '12345678';
-    const validName = 'Мария'
-    console.log(data.name, data.email, data.password)
-    if (data.name === validName && data.email === validEmail && data.password === validPassword ) {
-       navigate('/signin', { replace: true });
-    }
-    else {
-      console.log('ошибка сабмита регистрации')
+    const validName = 'Мария';
+    console.log(data.name, data.email, data.password);
+    if (
+      data.name === validName &&
+      data.email === validEmail &&
+      data.password === validPassword
+    ) {
+      navigate('/signin', { replace: true });
+    } else {
+      console.log('ошибка сабмита регистрации');
     }
   }
 
@@ -66,13 +68,17 @@ function App() {
   }, []);
 
   return (
-    // <CurrentUserContext.Provider value={currentUser}>
-    // {loading ? (<Loader />) : (
     <div className='app__container'>
       <Routes>
         <Route path='/' element={<Main />} />
-        <Route path='/signup' element={<Register onSubmit={handleRegisterSubmit}/>} />
-        <Route path='/signin' element={<Login  onSubmit={handleLoginSubmit}/>} />
+        <Route
+          path='/signup'
+          element={<Register onSubmit={handleRegisterSubmit} />}
+        />
+        <Route
+          path='/signin'
+          element={<Login onSubmit={handleLoginSubmit} />}
+        />
         <Route
           path='/movies'
           element={
@@ -112,7 +118,6 @@ function App() {
       </Routes>
       <NavBarPopup isOpen={isOpenPopup} onClickBurger={burgerClickHandler} />
     </div>
-    // </CurrentUserContext.Provider>
   );
 }
 

@@ -2,7 +2,7 @@
   padding: 70px 70px 48px 70px;
 }
 
-.seach__form{
+.seach__form {
   border-bottom: 1px solid #424242;
   display: flex;
   flex-direction: row;
@@ -11,7 +11,7 @@
   margin-bottom: 22px;
 }
 
-.seach__input{
+.seach__input {
   width: 100%;
   margin-right: 46px;
   background-color: transparent;
@@ -44,13 +44,11 @@
   opacity: 0.7;
 }
 
-.seach__submit:focus{
+.seach__submit:focus {
   outline: none;
   min-width: 39px;
   min-height: 39px;
 }
-
-
 
 @media screen and (max-width: 960px) {
   .seach {
@@ -59,7 +57,6 @@
     padding-top: 75px;
     padding-bottom: 62px;
   }
-
 }
 
 @media screen and (max-width: 560px) {
@@ -69,12 +66,12 @@
     padding-top: 79px;
     padding-bottom: 51px;
   }
-  
-  .seach__form{
+
+  .seach__form {
     margin-bottom: 30px;
   }
 
-  .seach__input{
+  .seach__input {
     font-size: 18px;
     line-height: 1.22;
   }

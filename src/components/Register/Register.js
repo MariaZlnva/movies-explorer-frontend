@@ -1,4 +1,3 @@
-
 import './Register.css';
 import AuthForm from '../AuthForm/AuthForm';
 
@@ -60,7 +59,7 @@ function Register({ onSubmit }) {
           placeholder='Пароль'
           required
         />
-        <span className='register__error_active'></span>
+        <span className='register__error_active register__error_active_last'>Что-то пошло не так...</span>
       </label>
     </AuthForm>
   );

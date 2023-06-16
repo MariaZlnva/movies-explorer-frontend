@@ -72,7 +72,6 @@
   }
 
   .techs__list {
-    /* width: 648px; */
     grid-template-columns: repeat(auto-fit, 84px);
   }
 

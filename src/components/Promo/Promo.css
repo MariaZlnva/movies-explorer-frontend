@@ -1,12 +1,11 @@
 .promo {
-background-color: #073042;
-color: white;
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-padding: 75px 70px;
-
-} 
+  background-color: #073042;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 75px 70px;
+}
 
 .promo__container {
   display: flex;
@@ -45,7 +44,6 @@ padding: 75px 70px;
     flex-direction: column-reverse;
     align-items: center;
     padding: 140px 50px 76px;
-
   }
 
   .promo__container {
@@ -65,7 +63,7 @@ padding: 75px 70px;
     margin-bottom: 92px;
     text-align: center;
     max-width: 260px;
-    }
+  }
 
   .promo__img {
     margin-bottom: 49px;
@@ -84,7 +82,7 @@ padding: 75px 70px;
 
   .promo__subtitle {
     margin-bottom: 80px;
-    }
+  }
 
   .promo__img {
     min-width: 210px;

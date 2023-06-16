@@ -9,7 +9,7 @@
 }
 
 .register__label:last-of-type {
-  margin-bottom: 73px;
+  margin-bottom: 59px;
 }
 
 .register__input {
@@ -43,8 +43,12 @@
   height: 20px;
 }
 
+.register__error_active_last {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 560px) {
   .register__label:last-of-type {
-    margin-bottom: 159px;
+    margin-bottom: 149px;
   }
 }

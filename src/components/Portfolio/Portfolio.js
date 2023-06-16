@@ -1,9 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-
 import './Portfolio.css';
-import arrow from '../../images/arrow.svg';
 
 function Portfolio() {
   return (
@@ -11,31 +8,20 @@ function Portfolio() {
       <h1 className='portfolio__title'>Портфолио</h1>
       <ul className='portfolio__list'>
         <li className='portfolio__wrap'>
-          <p className='portfolio__item'>Статичный сайт</p>
-          <Link
-            to='https://mariazlnva.github.io/how-to-learn'
-            className='portfolio__link'
-            target='_blank'
-          >
-          </Link>
+          <a className='portfolio__link' href='https://mariazlnva.github.io/how-to-learn' target='_blank' rel='noreferrer'>Статичный сайт</a>
+          <span className='portfolio__item'></span>
         </li>
         <li className='portfolio__wrap'>
-          <p className='portfolio__item'>Адаптивный сайт</p>
-          <Link
-            to='https://mariazlnva.github.io/russian-travel'
+          <a href='https://mariazlnva.github.io/russian-travel'
             className='portfolio__link'
-            target='_blank'
-          >
-          </Link>
+            target='_blank' rel='noreferrer'>Адаптивный сайт</a>
+          <span className='portfolio__item'></span>
         </li>
         <li className='portfolio__wrap'>
-          <p className='portfolio__item'>Одностраничное приложение</p>
-          <Link
-            to='https://mesto.zlnva.nomoredomains.monster'
+          <a href='https://mesto.zlnva.nomoredomains.monster'
             className='portfolio__link'
-            target='_blank'
-          >
-          </Link>
+            target='_blank' rel='noreferrer'>Одностраничное приложение</a>
+          <span className='portfolio__item'></span>
         </li>
       </ul>
     </section>

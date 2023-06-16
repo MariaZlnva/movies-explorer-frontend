@@ -21,16 +21,6 @@
   width: 100%;
 }
 
-/* .profile__fieldsets {
-  padding: 0;
-  margin: 0 0 206px 0;
-  border: none;
-  display: flex;
-  flex-direction: column;
-  font-size: 11px;
-  line-height: 1.18;
-} */
-
 .profile__label {
   display: flex;
   flex-direction: row;

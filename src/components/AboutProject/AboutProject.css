@@ -8,7 +8,7 @@
   font-size: 22px;
   line-height: 1.23;
   letter-spacing: -0.04em;
-  border-bottom: 1px solid #DADADA;
+  border-bottom: 1px solid #dadada;
   box-sizing: border-box;
   height: 50px;
   margin-bottom: 70px;
@@ -30,7 +30,7 @@
   line-height: 1.2;
 }
 
-.about-project__description{
+.about-project__description {
   margin: 0;
   font-weight: 400;
   font-size: 14px;
@@ -47,7 +47,7 @@
 }
 
 .about-project__deadline:first-child {
-  background-color: #3DDC84;
+  background-color: #3ddc84;
   color: black;
 }
 
@@ -62,9 +62,8 @@
 
 .about-project__stage {
   font-weight: 500;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
-
 
 @media screen and (max-width: 960px) {
   .about-project {
@@ -76,11 +75,11 @@
     margin-bottom: 93px;
   }
 
-  .about-project__description{
+  .about-project__description {
     line-height: 1.28;
   }
 
-  .about-project__title{
+  .about-project__title {
     margin-top: 0px;
   }
 }
@@ -103,13 +102,13 @@
     margin-bottom: 62px;
   }
 
-  .about-project__subtitle{
-      font-size: 18px;
-      line-height: 1.22;
-      margin-top: 40px;
-    }
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: 1.22;
+    margin-top: 40px;
+  }
 
-  .about-project__description{
+  .about-project__description {
     font-size: 11px;
     line-height: 1.45;
   }

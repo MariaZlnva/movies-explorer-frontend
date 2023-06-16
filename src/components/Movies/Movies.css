@@ -6,21 +6,6 @@
   position: relative;
 }
 
-.movies__main{
-  /* position: absolute;
-  top: 70px; */
+.movies__main {
   width: 100%;
-}
-
-@media screen and (max-width: 960px) {
-  .movies__main  {
-  
-  }
-}
-
-@media screen and (max-width: 560px) {
-  .movies__main {
- 
-    
-  }
 }

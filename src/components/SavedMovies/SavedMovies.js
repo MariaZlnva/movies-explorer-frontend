@@ -1,4 +1,3 @@
-
 import './SavedMovies.css';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
 
