@@ -1,0 +1,66 @@
+
+.checkbox__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.checkbox__input_hidden{
+  position: absolute;
+  width: 1px; 
+  height: 1px;
+  overflow: hidden; 
+  clip-path: inset(0 0 0 0); /* отвечает за область, внутри которой будет показано содержимое этого элемента.
+  Если все координаты нулевые, элемент не будет показан. Такой код скроет чекбокс, и это будет кроссбраузерно */
+}
+
+/* селектор первого соседа, следующего за нашим скрытым чекбоксом  */
+.checkbox__input_hidden + .checkbox__visible {
+  display: block;
+  width: 36px;
+  height: 20px;
+  background-image: url('../../images/checkbox-disable.svg');
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox__input_hidden:checked + .checkbox__visible {
+  background-image: url('../../images/checkbox-active.svg');
+}
+
+
+.checkbox__text{
+  padding-left: 14px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+}
+
+/* :checked — применяет стили к отмеченным чекбоксам  */
+/* свойство есть только у чекбоксов и радиокнопок. Оно содержит true, если чекбокс отмечен, и false — если нет. */
+
+@media screen and (max-width: 960px) {
+  .checkbox__container{
+    flex-direction: row-reverse;
+  }
+
+  .checkbox__text{
+    padding-left: 0;
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .checkbox__container{
+    justify-content: center;
+  }
+
+  .checkbox__text{
+    font-size: 11px;
+    line-height: 1.64;
+  }
+}

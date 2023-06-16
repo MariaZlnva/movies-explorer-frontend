@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
   return (
-    <div className='moviesList'>
+    <section className='moviesList'>
       <ul className='moviesList__movies'>
         {listFilms.map((movie, i) => (
           <li key={movie._id}>
@@ -17,7 +17,7 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
         ))}
       </ul>
       <button className='moviesList__button'>Ещё</button>
-    </div>
+    </section>
   );
 }
 

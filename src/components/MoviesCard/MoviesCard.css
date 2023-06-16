@@ -59,10 +59,7 @@ padding: 6px;
 }
 
 @media screen and (max-width: 960px) {
-  .movie__title {
-    font-size: 12px;
-    line-height: 1.25;
-  }
+ 
 }
 
 @media screen and (max-width: 460px) {
@@ -73,7 +70,7 @@ padding: 6px;
 
 
   .movie__info {
-    padding-left: 12px;
+    padding-left: 26px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -87,6 +84,8 @@ padding: 6px;
 
   .movie__title {
     margin: 14px 0 8px;
+    font-size: 12px;
+    line-height: 1.25;
   }
 
   .movie__image {
@@ -97,6 +96,6 @@ padding: 6px;
   }
 
   .movie__like {
-    margin-right: 16px;
+    margin-right: 30px;
   }
 }
