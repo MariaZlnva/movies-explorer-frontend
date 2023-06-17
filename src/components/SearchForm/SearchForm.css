@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 22px;
 }
 
@@ -20,6 +20,7 @@
   font-size: 28px;
   line-height: 1.21;
   color: white;
+  padding: 0;
 }
 
 .seach__input:focus {
@@ -54,8 +55,12 @@
   .seach {
     padding-right: 30px;
     padding-left: 30px;
-    padding-top: 75px;
+    padding-top: 77px;
     padding-bottom: 62px;
+  }
+
+  .seach__form {
+    margin-bottom: 19px;
   }
 }
 

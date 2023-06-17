@@ -21,8 +21,8 @@
   line-height: 1.23;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #dadada;
-  height: 50px;
-  margin: 0 0 66px 0;
+  margin: 0 0 60px 0;
+  padding-bottom: 28px;
 }
 
 .about-me__name {
@@ -30,6 +30,7 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 1.16;
+  letter-spacing: -0.04em;
 }
 
 .about-me__subtitle {
@@ -41,7 +42,7 @@
 
 .about-me__desctiption {
   margin: 0 0 77px 0;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.57;
   mix-blend-mode: normal;
@@ -50,7 +51,7 @@
 .about-me__icon {
   font-weight: 500;
   font-size: 14px;
-  line-height: 1.24;
+  line-height: 1.21;
   text-decoration: none;
   color: white;
   width: 64px;

@@ -1,6 +1,6 @@
 .authForm__container {
-  min-height: 100vh;
-  margin: 0 auto;
+  /* min-height: 100vh; */
+  margin: 70px auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -78,6 +78,7 @@
 
 @media screen and (max-width: 560px) {
   .authForm__container {
+    margin: 54px auto 30px;
     align-items: center;
     max-width: 260px;
   }

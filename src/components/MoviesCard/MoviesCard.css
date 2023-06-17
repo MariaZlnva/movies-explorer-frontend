@@ -50,25 +50,29 @@
   background-image: url('../../images/heart-delete.svg');
 }
 
+.movie__trailer {
+  display: flex;
+  padding: 6px;
+}
+
 .movie__image {
+  object-fit: contain;
+  object-position: center;
   width: 220px;
   height: 122px;
-  padding: 6px;
+  background-color: #242121;
 }
 
 @media screen and (max-width: 460px) {
   .movie {
     flex-direction: column-reverse;
-    /* align-items: center; */
   }
 
   .movie__info {
     padding-left: 12px;
-    /* width: 100%; */
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    
   }
 
   .movie__data {
@@ -81,16 +85,23 @@
     font-size: 12px;
     line-height: 1.25;
   }
-
-  .movie__image {
+  
+  .movie__trailer {
     margin: auto;
+  }
+  .movie__image {
     max-width: 100%;
     width: 300px;
-    padding: 0;
-    min-height: 168px;
+    height: 168px;
   }
 
   .movie__like {
     margin-right: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movie__trailer{
+    padding: 0;
   }
 }

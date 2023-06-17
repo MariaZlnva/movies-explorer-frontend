@@ -91,7 +91,7 @@
 
 .profile__btn-exit:hover {
   transform: scale(1.03);
-  opacity: 0.9;
+  opacity: 0.7;
 }
 
 .profile__btn-exit:focus {

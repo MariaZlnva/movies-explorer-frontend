@@ -1,6 +1,7 @@
 .techs {
   padding: 100px 70px;
   background-color: #272727;
+  letter-spacing: -0.04em;
 }
 
 .techs__title {
@@ -8,10 +9,9 @@
   font-size: 22px;
   line-height: 1.23;
   border-bottom: 1px solid #dadada;
-  height: 50px;
   margin-bottom: 90px;
   margin-top: 0;
-  letter-spacing: -0.04em;
+  padding-bottom: 23px;
 }
 
 .techs__subtitle {
@@ -20,7 +20,6 @@
   line-height: 1.16;
   text-align: center;
   margin: 0 0 26px 0;
-  letter-spacing: -0.04em;
 }
 
 .techs__description {
@@ -61,14 +60,17 @@
 
   .techs__title {
     margin-bottom: 80px;
+    padding-bottom: 21px;
   }
 
   .techs__subtitle {
-    margin-bottom: 19px;
+    margin-bottom: 22px;
   }
 
   .techs__description {
     margin-bottom: 83px;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
   .techs__list {
@@ -77,6 +79,8 @@
 
   .techs__item {
     height: 57px;
+    font-size: 12px;
+    line-height: 1.25;
   }
 }
 
@@ -91,12 +95,13 @@
     font-size: 18px;
     line-height: 1.22;
     border-color: black;
+    padding-bottom: 27px;
   }
 
   .techs__subtitle {
     font-size: 30px;
     line-height: 1.2;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
   }
 
   .techs__description {

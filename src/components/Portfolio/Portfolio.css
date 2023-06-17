@@ -1,5 +1,5 @@
 .portfolio {
-  padding: 0 70px 125px;
+  padding: 0 70px 107px;
 }
 
 .portfolio__title {
@@ -34,6 +34,10 @@
 
 .portfolio__link {
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
   color: white;
   text-decoration: none;
   font-weight: 400;
@@ -48,16 +52,17 @@
   background-repeat: no-repeat;
   height: 18px;
   background-size: contain;
+  margin-right: 5px;
 }
 
 .portfolio__link:hover {
-  transform: scale(1.1);
+  transform: scale(1.02);
   opacity: 0.7;
 }
 
 @media screen and (max-width: 960px) {
   .portfolio {
-    padding: 0 50px 90px;
+    padding: 0 50px 70px;
   }
 
   .portfolio__link {
@@ -68,7 +73,7 @@
 
 @media screen and (max-width: 680px) {
   .portfolio {
-    padding: 0 14px 70px;
+    padding: 0 14px 50px;
   }
 
   .portfolio__title {
@@ -84,7 +89,7 @@
   }
 
   .portfolio__item {
-    width: 18px;
-    height: 11px;
+    width: 12px;
+    height: 14px;
   }
 }

@@ -1,7 +1,9 @@
+import { useLocation } from "react-router-dom";
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
+  const location = useLocation();
   return (
     <section className='moviesList'>
       <ul className='moviesList__movies'>
@@ -16,7 +18,7 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
           </li>
         ))}
       </ul>
-      <button className='moviesList__button'>Ещё</button>
+      {location.pathname === '/movies' && <button className='moviesList__button'>Ещё</button>}
     </section>
   );
 }

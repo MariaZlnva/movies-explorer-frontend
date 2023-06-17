@@ -1,7 +1,7 @@
 .popup__navBar {
   display: none;
 }
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 768px) {
   .popup__navBar {
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
@@ -47,8 +47,7 @@
   }
 
   .popup__navBar-link_active {
-    border-bottom: 1px solid white;
-    padding-bottom: 6px;
+    border-bottom: 2px solid white;
   }
 
   .popup__navBar-link:hover {

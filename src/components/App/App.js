@@ -53,11 +53,15 @@ function App() {
     }
   }
 
+  const handlerLogout = () => {
+    navigate('/', { replace: true });
+  }
+
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
     function handleResize() {
       const windowInnerWidth = window.innerWidth;
-      if (windowInnerWidth > 960) {
+      if (windowInnerWidth > 768) {
         setIsOpenPopup(false);
       }
     }
@@ -111,6 +115,7 @@ function App() {
             <Profile
               onClickBurger={burgerClickHandler}
               isBurgerOpen={isOpenPopup}
+              onLogout={handlerLogout}
             />
           }
         />

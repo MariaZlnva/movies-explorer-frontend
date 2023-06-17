@@ -24,7 +24,9 @@ function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
         </div>
         <button aria-label="Нравится" className={isLiked ? `movie__like movie__like_${buttonClass}` : 'movie__like'} type="button" onClick={handleLikeClick}/>
       </div>
-      <img className='movie__image' src={imageUrl} alt={movie.nameRU} />
+      <a className='movie__trailer' href={movie.trailerLink} target='_blank' rel='noreferrer'>
+        <img className='movie__image' src={imageUrl} alt={movie.nameRU} />
+      </a>
     </div>
   )
 }

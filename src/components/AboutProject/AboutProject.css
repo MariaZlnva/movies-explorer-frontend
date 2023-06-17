@@ -10,16 +10,16 @@
   letter-spacing: -0.04em;
   border-bottom: 1px solid #dadada;
   box-sizing: border-box;
-  height: 50px;
   margin-bottom: 70px;
   margin-top: 4px;
+  padding-bottom: 23px;
 }
 
 .about-project__container {
   display: grid;
   grid-template-rows: repeat(2, auto);
   grid-auto-flow: column;
-  gap: 26px 40px;
+  gap: 26px 21px;
   margin-bottom: 110px;
 }
 
@@ -28,6 +28,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 1.2;
+  letter-spacing: -0.04em;
 }
 
 .about-project__description {
@@ -71,16 +72,24 @@
   }
 
   .about-project__container {
-    gap: 22px 30px;
+    gap: 23px 30px;
     margin-bottom: 93px;
   }
 
   .about-project__description {
-    line-height: 1.28;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
   .about-project__title {
     margin-top: 0px;
+  }
+  .about-project__period {
+    grid-template-columns: 21% 79%;
+    row-gap: 12px;
+  }
+  .about-project__stage {
+    font-weight: 400;
   }
 }
 
@@ -92,7 +101,7 @@
   .about-project__title {
     font-size: 18px;
     line-height: 1.22;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   .about-project__container {

@@ -14,10 +14,10 @@ function Footer () {
             <p className='footer__copyright'>© {year}</p>
             <ul className='footer__list'>
               <li className='footer__link'>
-                <Link to='https://practicum.yandex.ru/' className='footer__item'>Яндекс.Практикум</Link>
+                <a href='https://practicum.yandex.ru/' className='footer__item' target='_blank' rel='noreferrer'>Яндекс.Практикум</a>
               </li>
               <li className='footer__link'>
-                <Link to='https://github.com/Yandex-Practicum' className='footer__item'>Github</Link>
+                <a href='https://github.com/Yandex-Practicum' className='footer__item' target='_blank' rel='noreferrer'>Github</a>
               </li>
               
             </ul>

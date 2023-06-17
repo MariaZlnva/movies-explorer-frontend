@@ -1,7 +1,8 @@
 import './Profile.css';
 import Header from '../Header/Header';
 
-function Profile({ onClickBurger, isBurgerOpen }) {
+function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
+ 
   return (
     <>
       <Header
@@ -9,7 +10,7 @@ function Profile({ onClickBurger, isBurgerOpen }) {
         onClickBurger={onClickBurger}
         isBurgerOpen={isBurgerOpen}
       />
-      <div className='profile'>
+      <section className='profile'>
         <h3 className='profile__title'>Привет, Мария!</h3>
         <form className='profile__form'>
           <label className='profile__label'>
@@ -34,10 +35,10 @@ function Profile({ onClickBurger, isBurgerOpen }) {
             Редактировать
           </button>
         </form>
-        <button className='profile__btn-exit' type='button'>
+        <button className='profile__btn-exit' type='button' onClick={onLogout}>
           Выйти из аккаунта
         </button>
-      </div>
+      </section>
     </>
   );
 }
