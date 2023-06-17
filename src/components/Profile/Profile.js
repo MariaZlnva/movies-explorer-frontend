@@ -10,8 +10,9 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
         onClickBurger={onClickBurger}
         isBurgerOpen={isBurgerOpen}
       />
-      <section className='profile'>
-        <h3 className='profile__title'>Привет, Мария!</h3>
+      <main className='content'>
+        <section className='profile'>
+        <h1 className='profile__title'>Привет, Мария!</h1>
         <form className='profile__form'>
           <label className='profile__label'>
             Имя
@@ -39,6 +40,8 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
           Выйти из аккаунта
         </button>
       </section>
+     </main>
+      
     </>
   );
 }

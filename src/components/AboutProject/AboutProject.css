@@ -12,7 +12,7 @@
   box-sizing: border-box;
   margin-bottom: 70px;
   margin-top: 4px;
-  padding-bottom: 23px;
+  padding-bottom: 20px;
 }
 
 .about-project__container {
@@ -83,6 +83,7 @@
 
   .about-project__title {
     margin-top: 0px;
+    padding-bottom: 23px
   }
   .about-project__period {
     grid-template-columns: 21% 79%;
@@ -101,7 +102,8 @@
   .about-project__title {
     font-size: 18px;
     line-height: 1.22;
-    margin-bottom: 25px;
+    margin-bottom: 21px;
+    padding-bottom: 27px;
   }
 
   .about-project__container {

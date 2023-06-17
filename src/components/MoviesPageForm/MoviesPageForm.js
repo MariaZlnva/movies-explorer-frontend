@@ -1,19 +1,13 @@
-import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Footer from '../Footer/Footer';
 
-function MoviesPageForm ({isLoggedIn, listFilms, onClickBurger, onClickLike, isBurgerOpen, isLiked, buttonClass}) {
+
+function MoviesPageForm ({listFilms, onClickLike, isLiked, buttonClass}) {
   return (
-    <div className='movies__container'>
-     <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen}/>
-     <div className='movies__main'>
+    <section className='movies__container'>
       <SearchForm />
       <MoviesCardList listFilms={listFilms} onClickLike={onClickLike} isLiked={isLiked} buttonClass={buttonClass}/>
-     </div>
-     
-     <Footer />  
-    </div>
+    </section>
   )
 }
 

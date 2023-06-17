@@ -11,15 +11,20 @@ import Footer from '../Footer/Footer';
 
 function Main () {
   return (
-      <main className='content'>
-        <Header isLoggedIn={false} />
+    <>
+     <Header isLoggedIn={false} />
+     <main className='content'>
         <Promo />
         <AboutProject />
         <Techs />
         <AboutMe />
         <Portfolio />
-        <Footer />
-      </main>
+     </main>
+     <Footer />
+    </>
+      
+        
+     
   )
 }
 

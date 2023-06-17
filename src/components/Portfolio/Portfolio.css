@@ -68,6 +68,7 @@
   .portfolio__link {
     font-size: 28px;
     line-height: 1.79;
+    align-items: baseline;
   }
 }
 
@@ -91,5 +92,6 @@
   .portfolio__item {
     width: 12px;
     height: 14px;
+    margin-right: 2px;
   }
 }

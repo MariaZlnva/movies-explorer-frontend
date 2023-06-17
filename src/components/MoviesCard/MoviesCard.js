@@ -19,7 +19,7 @@ function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
     <div className='movie'>
       <div className='movie__info'>
         <div className='movie__data'>
-          <h3 className='movie__title'>{movie.nameRU}</h3>
+          <h2 className='movie__title'>{movie.nameRU}</h2>
           <p className='movie__duration'>{getDurationInHours(movie.duration)}</p>
         </div>
         <button aria-label="Нравится" className={isLiked ? `movie__like movie__like_${buttonClass}` : 'movie__like'} type="button" onClick={handleLikeClick}/>

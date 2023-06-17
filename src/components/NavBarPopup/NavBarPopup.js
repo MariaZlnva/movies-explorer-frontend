@@ -30,9 +30,10 @@ function NavBarPopup({ isOpen, onClickBurger }) {
   }
 
   return (
-      <div className={`popup__navBar ${isOpen ? 'popup_opened' : ''}`}>
-        <div className='popup__navBar-content'>
-          <div className='popup__wrap'>
+    <div className={`popup__navBar ${isOpen ? 'popup_opened' : ''}`}>
+      <nav className='popup__navBar-content'>
+        <ul className='popup__wrap'>
+          <li className='popup__navBar-item'>
             <NavLink
               to={'/'}
               className={
@@ -44,6 +45,8 @@ function NavBarPopup({ isOpen, onClickBurger }) {
             >
               Главная
             </NavLink>
+          </li>
+          <li className='popup__navBar-item'>
             <NavLink
               to={'/movies'}
               className={
@@ -55,6 +58,8 @@ function NavBarPopup({ isOpen, onClickBurger }) {
             >
               Фильмы
             </NavLink>
+          </li>
+          <li className='popup__navBar-item'>
             <NavLink
               to={'/saved-movies'}
               className={
@@ -66,17 +71,18 @@ function NavBarPopup({ isOpen, onClickBurger }) {
             >
               Сохранённые фильмы
             </NavLink>
-          </div>
-          <Link
-            to={'/profile'}
-            className='popup__navBar-profile'
-            onClick={onClickBurger}
-          >
-            Аккаунт
-            <span className='popup__navBar-profileLogo'></span>
-          </Link>
-        </div>
-      </div>
+          </li>
+        </ul>
+        <Link
+          to={'/profile'}
+          className='popup__navBar-profile'
+          onClick={onClickBurger}
+        >
+          Аккаунт
+          <span className='popup__navBar-profileLogo'></span>
+        </Link>
+      </nav>
+    </div>
   );
 }
 

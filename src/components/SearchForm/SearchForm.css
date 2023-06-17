@@ -55,7 +55,7 @@
   .seach {
     padding-right: 30px;
     padding-left: 30px;
-    padding-top: 77px;
+    padding-top: 80px;
     padding-bottom: 62px;
   }
 
@@ -68,16 +68,21 @@
   .seach {
     padding-right: 14px;
     padding-left: 14px;
-    padding-top: 79px;
+    padding-top: 90px;
     padding-bottom: 51px;
   }
 
   .seach__form {
     margin-bottom: 30px;
+    padding-bottom: 3px;
   }
 
   .seach__input {
     font-size: 18px;
     line-height: 1.22;
+  }
+
+  .seach__submit {
+    margin-bottom: 0px;
   }
 }

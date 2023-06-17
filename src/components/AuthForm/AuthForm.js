@@ -14,9 +14,10 @@ function AuthForm({
   onSubmit,
 }) {
   return (
-    <div className='authForm__container'>
+    <main className='content'>
+      <section className='authForm__container'>
       <LogoApp />
-      <h2 className='authForm__title'>{title}</h2>
+      <h1 className='authForm__title'>{title}</h1>
       <form name={nameForm} className='authForm__form' onSubmit={onSubmit}>
         {children}
         <button type='submit' className='authForm__submit'>
@@ -29,7 +30,9 @@ function AuthForm({
           {textLink}
         </Link>
       </div>
-    </div>
+    </section>
+    </main>
+    
   );
 }
 

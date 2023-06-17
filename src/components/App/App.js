@@ -72,7 +72,7 @@ function App() {
   }, []);
 
   return (
-    <div className='app__container'>
+    <div className='page__content'>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route
