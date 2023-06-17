@@ -50,6 +50,7 @@ function Login({ onSubmit }) {
           className='login__input'
           value={values.password || ''}
           minLength='8'
+          maxLength='20'
           placeholder='Пароль'
           required
           onChange={onChange}

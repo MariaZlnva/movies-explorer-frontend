@@ -32,6 +32,10 @@
   background-image: url('../../images/checkbox-active.svg');
 }
 
+.checkbox__input_hidden + .checkbox__visible:hover {
+  opacity: 0.8;
+}
+
 .checkbox__text {
   padding-left: 14px;
   font-weight: 400;

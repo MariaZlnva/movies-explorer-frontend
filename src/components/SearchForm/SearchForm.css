@@ -51,6 +51,15 @@
   min-height: 39px;
 }
 
+.seach__input:focus {
+  outline: none;
+  box-shadow: inset 0 0 2px #7e7f85;
+}
+
+.seach__input:invalid {
+    color: #ee3465;
+}
+
 @media screen and (max-width: 960px) {
   .seach {
     padding-right: 30px;

@@ -12,7 +12,7 @@ function Promo () {
         <p className='promo__subtitle'>Листайте ниже, чтобы узнать больше про этот проект и его создателя.</p>
         <NavTab />
       </div>
-      <img className='promo__img' src={promologo} alt = ''/>
+      <img className='promo__img' src={promologo} alt = 'Логотип'/>
 
     </section>
   )

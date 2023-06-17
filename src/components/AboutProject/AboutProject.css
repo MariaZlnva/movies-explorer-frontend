@@ -59,11 +59,13 @@
 .about-project__deadline {
   font-weight: 400;
   padding: 10px 0;
+  margin: 0;
 }
 
 .about-project__stage {
   font-weight: 500;
   color: #8b8b8b;
+  margin: 0;
 }
 
 @media screen and (max-width: 960px) {

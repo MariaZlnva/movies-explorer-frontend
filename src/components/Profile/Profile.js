@@ -13,13 +13,15 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
       <main className='content'>
         <section className='profile'>
         <h1 className='profile__title'>Привет, Мария!</h1>
-        <form className='profile__form'>
+        <form className='profile__form' name='profile'>
           <label className='profile__label'>
             Имя
             <input
               className='profile__input'
               type='text'
               name='nameProfile'
+              minLength='2'
+              maxLength='30'
               required
             ></input>
           </label>

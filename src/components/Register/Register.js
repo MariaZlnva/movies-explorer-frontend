@@ -56,6 +56,7 @@ function Register({ onSubmit }) {
           type='password'
           className='register__input'
           minLength='8'
+          maxLength='20'
           placeholder='Пароль'
           required
         />

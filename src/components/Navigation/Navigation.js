@@ -41,7 +41,7 @@ function Navigation({ isLoggedIn, onClickBurger, isBurgerOpen }) {
               <span className='navBar__profile-logo'></span>
             </NavLink>
           </nav>
-          <button className='navBar__burger' onClick={onClickBurger}>
+          <button className='navBar__burger' onClick={onClickBurger} type='button'>
             <span
               className={
                 isBurgerOpen
