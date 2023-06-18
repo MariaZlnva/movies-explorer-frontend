@@ -24,6 +24,10 @@ function App() {
     setIsOpenPopup(!isOpenPopup);
   }
 
+  function handlerBurgerClose() {
+    setIsOpenPopup(false);
+  }
+
   function likeClickHandler(movie) {
     setIsLiked(!isLiked);
   }
@@ -72,7 +76,7 @@ function App() {
   }, []);
 
   return (
-    <div className='page__content'>
+    <div className='page'>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route
@@ -121,7 +125,7 @@ function App() {
         />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
-      <NavBarPopup isOpen={isOpenPopup} onClickBurger={burgerClickHandler} />
+      <NavBarPopup isOpen={isOpenPopup} onClickBurger={burgerClickHandler} onCloseBurger={handlerBurgerClose}/>
     </div>
   );
 }

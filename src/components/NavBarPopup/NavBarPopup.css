@@ -1,8 +1,9 @@
-.popup__navBar {
+.popup {
   display: none;
 }
+
 @media screen and (max-width: 768px) {
-  .popup__navBar {
+  .popup {
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
     width: 100%;
@@ -12,7 +13,7 @@
     left: 0;
   }
 
-  .popup__navBar-content {
+  .popup__content {
     display: flex;
     position: absolute;
     right: 0;
@@ -30,6 +31,24 @@
     display: flex;
   }
 
+  .popup__btn-close {
+    width: 44px;
+    height: 44px;
+    background-image: url('../../images/icon__burgerClose.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    right: 14px;
+    top: 22px;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .popup__btn-close:hover {
+    opacity: 0.8;
+  }
+
   .popup__wrap {
     list-style: none;
     padding: 0;
@@ -39,33 +58,28 @@
     margin: 159px 0 0 0;
   }
 
-  .popup__navBar-item {
+  .popup__item {
     margin-bottom: 28px;
-
-    /* font-weight: 500;
-    font-size: 18px;
-    line-height: 1.22; */
   }
 
-  .popup__navBar-link {
+  .popup__link {
     color: white;
     font-weight: 500;
     font-size: 18px;
     line-height: 1.22;
     text-decoration: none;
-    /* margin-bottom: 28px; */
   }
 
-  .popup__navBar-link_active {
+  .popup__link_active {
     border-bottom: 2px solid white;
     padding-bottom: 6px;
   }
 
-  .popup__navBar-link:hover {
+  .popup__link:hover {
     opacity: 0.7;
   }
 
-  .popup__navBar-profile {
+  .popup__profile {
     display: flex;
     align-items: center;
     color: white;
@@ -76,12 +90,12 @@
     margin-bottom: 92px;
   }
 
-  .popup__navBar-profile:hover {
+  .popup__profile:hover {
     transform: scale(1.04);
     opacity: 0.7;
   }
 
-  .popup__navBar-profileLogo {
+  .popup__profile-Logo {
     margin-left: 17px;
     display: block;
     background-color: #313131;
@@ -96,8 +110,9 @@
 }
 
 @media screen and (max-width: 560px) {
-  .popup__navBar-content {
+  .popup__content {
     width: 100%;
+    height: 100%;
   }
 
   .popup__wrap {
@@ -105,7 +120,11 @@
     margin-bottom: 414px;
   }
 
-  .popup__navBar-item {
+  .popup__item {
     margin-bottom: 25px;
+  }
+
+  .popup__btn-close {
+    right: 0px;
   }
 }

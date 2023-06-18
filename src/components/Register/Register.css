@@ -1,4 +1,4 @@
-.register__label {
+.register {
   display: flex;
   flex-direction: column;
   font-weight: 400;
@@ -8,7 +8,7 @@
   margin-bottom: 0px;
 }
 
-.register__label:last-of-type {
+.register:last-of-type {
   margin-bottom: 64px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 @media screen and (max-width: 560px) {
-  .register__label:last-of-type {
+  .register:last-of-type {
     margin-bottom: 149px;
   }
 }

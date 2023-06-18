@@ -1,21 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
-/* * {
-  border: rgb(211, 60, 60) 1px solid;
-} */
 
-/* body {
-  margin: 0;
-  font-family: "Inter", "Arial", sans-serif;
+body {
   background-color: #202020;
-  color: white;
-} */
-
-/* .hover:hover {
-  transform: scale(1.03);
-  opacity: 0.7;
-  
-} */
-
- 
+} 

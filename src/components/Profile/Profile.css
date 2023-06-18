@@ -53,6 +53,14 @@
   border-bottom: 1px dotted gray;
 }
 
+.profile__input:invalid {
+  color: #ee3465;
+}
+
+.profile__btn{
+  
+}
+
 .profile__btn-edit {
   font-weight: 400;
   font-size: 13px;
@@ -61,7 +69,7 @@
   border: none;
   cursor: pointer;
   width: 130px;
-  margin: 207px auto 14px;
+  margin: 0px auto 14px;
   color: inherit;
 }
 
@@ -98,6 +106,53 @@
   opacity: 0.7;
 }
 
+.profile__btn-save {
+  background-color: #4285f4;
+  width: 410px;
+  height: 45px;
+  color: white;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  margin: 0px auto 14px;
+}
+
+.profile__btn-save:focus {
+  outline: none;
+  border: 1px solid white;
+}
+
+.profile__btn-save:hover {
+  opacity: 0.8;
+}
+
+.profile__btn-save_disabled {
+  background-color: #f8f8f8;
+  color: #c2c2c2;
+  cursor: default;
+}
+
+.profile__btn-save_disabled:hover {
+  opacity: 1;
+}
+
+.profile__error{
+  margin-bottom: 20px;
+  margin-top: 173px;
+}
+
+.profile__error_active {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  color: #ff004c;
+}
+
 @media screen and (max-width: 960px) {
   .profile {
     margin: 236px auto 269px;
@@ -107,8 +162,8 @@
     margin-bottom: 82px;
   }
 
-  .profile__btn-edit {
-    margin-top: 195px;
+  .profile__error {
+    margin-top: 162px;
   }
 }
 
@@ -122,7 +177,12 @@
     margin-bottom: 65px;
   }
 
-  .profile__btn-edit {
-    margin-top: 363px;
+  .profile__error{
+    margin-top: 328px;
+  }
+
+  .profile__btn-save {
+    max-width: 260px;
+    font-size: 12px;
   }
 }

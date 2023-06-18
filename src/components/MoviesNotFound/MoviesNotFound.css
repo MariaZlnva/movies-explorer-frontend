@@ -1,0 +1,25 @@
+.movies-not-found {
+  padding-right: 70px;
+  padding-left: 70px;
+  margin: 100px auto;
+}
+
+.movies-not-found__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.22;
+}
+
+@media screen and (max-width: 960px) {
+  .movies-not-found {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .movies-not-found {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}

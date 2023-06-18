@@ -2,7 +2,7 @@
   padding: 58px 70px 0;
 }
 
-.moviesList__movies{
+.moviesList__items {
   margin: 0;
   padding: 0;
   display: grid;
@@ -47,8 +47,8 @@
     padding: 29px 10px 0;
   }
 
-  .moviesList__movies{
-  row-gap: 20px;
+  .moviesList__items {
+    row-gap: 20px;
   }
 
   .moviesList__button {

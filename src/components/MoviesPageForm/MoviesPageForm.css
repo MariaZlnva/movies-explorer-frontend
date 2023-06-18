@@ -1,7 +1,6 @@
-.movies__container {
-  min-height: 100vh;
+.movies {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
 }

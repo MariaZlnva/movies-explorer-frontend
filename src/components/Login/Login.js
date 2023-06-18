@@ -27,7 +27,7 @@ function Login({ onSubmit }) {
       textLink='Регистрация'
       onSubmit={handleLoginSubmit}
     >
-      <label htmlFor='email' className='login__label'>
+      <label htmlFor='email' className='login'>
         E-mail
         <input
           id='email'
@@ -39,9 +39,9 @@ function Login({ onSubmit }) {
           required
           onChange={onChange}
         />
-        <span className='login__error_active'></span>
+        <span className='login__error login__error_active'></span>
       </label>
-      <label htmlFor='password' className='login__label'>
+      <label htmlFor='password' className='login'>
         Пароль
         <input
           id='password'
@@ -55,7 +55,7 @@ function Login({ onSubmit }) {
           required
           onChange={onChange}
         />
-        <span className='login__error_active'></span>
+        <span className='login__error login__error_active'></span>
       </label>
     </AuthForm>
   );

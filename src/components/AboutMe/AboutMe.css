@@ -70,7 +70,7 @@
 }
 
 @media screen and (max-width: 1050px) {
-  .about-me__wrap{
+  .about-me__wrap {
     padding-right: 50px;
   }
 }
@@ -145,17 +145,17 @@
     font-size: 11px;
     line-height: 1.45;
   }
-  
+
   .about-me__desctiption {
     margin-bottom: 8px;
     font-weight: 400;
     font-size: 11px;
     line-height: 1.45;
   }
-  
+
   .about-me__foto {
     max-width: 292px;
     height: 352px;
     margin-bottom: 40px;
-  } 
+  }
 }

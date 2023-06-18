@@ -16,7 +16,7 @@ function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
   }
 
   return (
-    <div className='movie'>
+    <li className='movie'>
       <div className='movie__info'>
         <div className='movie__data'>
           <h2 className='movie__title'>{movie.nameRU}</h2>
@@ -27,7 +27,7 @@ function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
       <a className='movie__trailer' href={movie.trailerLink} target='_blank' rel='noreferrer'>
         <img className='movie__image' src={imageUrl} alt={movie.nameRU} />
       </a>
-    </div>
+    </li>
   )
 }
 

@@ -1,11 +1,11 @@
-.checkbox__container {
+.checkbox {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 }
 
-.checkbox__input_hidden {
+.checkbox__input-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -16,7 +16,7 @@
   Если все координаты нулевые, элемент не будет показан. Такой код скроет чекбокс, и это будет кроссбраузерно */
 }
 
-.checkbox__input_hidden + .checkbox__visible {
+.checkbox__input-hidden + .checkbox__visible {
   display: block;
   width: 36px;
   height: 20px;
@@ -28,11 +28,11 @@
   cursor: pointer;
 }
 
-.checkbox__input_hidden:checked + .checkbox__visible {
+.checkbox__input-hidden:checked + .checkbox__visible {
   background-image: url('../../images/checkbox-active.svg');
 }
 
-.checkbox__input_hidden + .checkbox__visible:hover {
+.checkbox__input-hidden + .checkbox__visible:hover {
   opacity: 0.8;
 }
 
@@ -47,7 +47,7 @@
 /* свойство есть только у чекбоксов и радиокнопок. Оно содержит true, если чекбокс отмечен, и false — если нет. */
 
 @media screen and (max-width: 960px) {
-  .checkbox__container {
+  .checkbox {
     flex-direction: row-reverse;
   }
 
@@ -58,7 +58,7 @@
 }
 
 @media screen and (max-width: 560px) {
-  .checkbox__container {
+  .checkbox {
     justify-content: center;
   }
 

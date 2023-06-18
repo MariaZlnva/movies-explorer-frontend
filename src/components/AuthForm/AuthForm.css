@@ -1,4 +1,4 @@
-.authForm__container {
+.authForm {
   margin: 70px auto;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,7 @@
 
 .authForm__submit:hover,
 .authForm__link:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .authForm__wrap {
@@ -76,7 +76,7 @@
 }
 
 @media screen and (max-width: 560px) {
-  .authForm__container {
+  .authForm {
     margin: 54px auto 30px;
     align-items: center;
     max-width: 260px;

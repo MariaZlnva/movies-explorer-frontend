@@ -6,16 +6,15 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
   const location = useLocation();
   return (
     <div className='moviesList'>
-      <ul className='moviesList__movies'>
+      <ul className='moviesList__items'>
         {listFilms.map((movie, i) => (
-          <li key={movie._id}>
             <MoviesCard
               movie={movie}
+              key={i}
               onClickLike={onClickLike}
               isLiked={isLiked}
               buttonClass={buttonClass}
             />
-          </li>
         ))}
       </ul>
       {location.pathname === '/movies' && <button className='moviesList__button' type='button'>Ещё</button>}

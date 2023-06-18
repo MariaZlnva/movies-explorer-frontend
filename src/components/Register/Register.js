@@ -19,25 +19,23 @@ function Register({ onSubmit }) {
       textLink='Войти'
       onSubmit={handleRegisterSubmit}
     >
-      <label htmlFor='name' className='register__label'>
+      <label htmlFor='name' className='register'>
         Имя
         <input
           id='name'
           name='name'
           type='text'
-          form='register'
           className='register__input'
           minLength='2'
           maxLength='30'
           placeholder='Имя'
           required
         />
-        <span className='register__error_active'></span>
+        <span className='register__error register__error_active'></span>
       </label>
-      <label htmlFor='email' className='register__label'>
+      <label htmlFor='email' className='register'>
         E-mail
         <input
-          form='register'
           id='email'
           name='email'
           type='email'
@@ -45,12 +43,11 @@ function Register({ onSubmit }) {
           placeholder='E-mail'
           required
         />
-        <span className='register__error_active'></span>
+        <span className='register__error register__error_active'></span>
       </label>
-      <label htmlFor='password' className='register__label'>
+      <label htmlFor='password' className='register'>
         Пароль
         <input
-          form='register'
           id='password'
           name='password'
           type='password'
@@ -60,7 +57,7 @@ function Register({ onSubmit }) {
           placeholder='Пароль'
           required
         />
-        <span className='register__error_active register__error_active_last'>Что-то пошло не так...</span>
+        <span className='register__error register__error_active register__error_active_last'>Что-то пошло не так...</span>
       </label>
     </AuthForm>
   );

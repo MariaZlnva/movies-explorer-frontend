@@ -1,4 +1,4 @@
-.login__label {
+.login {
   display: flex;
   flex-direction: column;
   margin-bottom: 0px;
@@ -8,7 +8,7 @@
   color: #8b8b8b;
 }
 
-.login__label:last-of-type {
+.login:last-of-type {
   margin-bottom: 158px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 @media screen and (max-width: 560px) {
-  .login__label:last-of-type {
+  .login:last-of-type {
     margin-bottom: 247px;
   }
 }

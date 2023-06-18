@@ -15,7 +15,7 @@ function AuthForm({
 }) {
   return (
     <main className='content'>
-      <section className='authForm__container'>
+      <section className='authForm'>
       <LogoApp />
       <h1 className='authForm__title'>{title}</h1>
       <form name={nameForm} className='authForm__form' onSubmit={onSubmit}>
@@ -26,7 +26,7 @@ function AuthForm({
       </form>
       <div className='authForm__wrap'>
         <p className='authForm__text'>{text}</p>
-        <Link to={path} className='authForm__link' type='button'>
+        <Link to={path} className='authForm__link'>
           {textLink}
         </Link>
       </div>

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import './NavBarPopup.css';
 
-function NavBarPopup({ isOpen, onClickBurger }) {
+function NavBarPopup({ isOpen, onClickBurger, onCloseBurger }) {
   const location = useLocation();
 
   useEffect(() => {
@@ -30,42 +30,43 @@ function NavBarPopup({ isOpen, onClickBurger }) {
   }
 
   return (
-    <div className={`popup__navBar ${isOpen ? 'popup_opened' : ''}`}>
-      <nav className='popup__navBar-content'>
+    <div className={`popup ${isOpen ? 'popup_opened' : ''}`}>
+      <nav className='popup__content'>
+        <button type='button' className='popup__btn-close'onClick={onCloseBurger}/>
         <ul className='popup__wrap'>
-          <li className='popup__navBar-item'>
+          <li className='popup__item'>
             <NavLink
               to={'/'}
               className={
                 location.pathname === '/'
-                  ? 'popup__navBar-link popup__navBar-link_active'
-                  : 'popup__navBar-link'
+                  ? 'popup__link popup__link_active'
+                  : 'popup__link'
               }
               onClick={onClickBurger}
             >
               Главная
             </NavLink>
           </li>
-          <li className='popup__navBar-item'>
+          <li className='popup__item'>
             <NavLink
               to={'/movies'}
               className={
                 location.pathname === '/movies'
-                  ? 'popup__navBar-link popup__navBar-link_active'
-                  : 'popup__navBar-link'
+                  ? 'popup__link popup__link_active'
+                  : 'popup__link'
               }
               onClick={onClickBurger}
             >
               Фильмы
             </NavLink>
           </li>
-          <li className='popup__navBar-item'>
+          <li className='popup__item'>
             <NavLink
               to={'/saved-movies'}
               className={
                 location.pathname === '/saved-movies'
-                  ? 'popup__navBar-link popup__navBar-link_active'
-                  : 'popup__navBar-link'
+                  ? 'popup__link popup__link_active'
+                  : 'popup__link'
               }
               onClick={onClickBurger}
             >
@@ -75,11 +76,11 @@ function NavBarPopup({ isOpen, onClickBurger }) {
         </ul>
         <Link
           to={'/profile'}
-          className='popup__navBar-profile'
+          className='popup__profile'
           onClick={onClickBurger}
         >
           Аккаунт
-          <span className='popup__navBar-profileLogo'></span>
+          <span className='popup__profile-Logo'></span>
         </Link>
       </nav>
     </div>
