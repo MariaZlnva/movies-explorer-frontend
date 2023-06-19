@@ -1,0 +1,107 @@
+.movie {
+  display: flex;
+  justify-content: space-between;
+  background-color: #2f2f2f;
+}
+
+.movie__info {
+  padding-left: 22px;
+}
+
+.movie__data {
+  margin-bottom: 27px;
+}
+
+.movie__title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.22;
+  margin: 22px 0 13px;
+}
+
+.movie__duration {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.18;
+  color: #8b8b8b;
+  margin: 0;
+}
+
+.movie__like {
+  height: 12px;
+  width: 14px;
+  background-image: url('../../images/heart-disable.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.movie__like:hover {
+  opacity: 0.5;
+}
+
+.movie__like_active {
+  background-image: url('../../images/heart-active.svg');
+}
+
+.movie__like_delete {
+  background-image: url('../../images/heart-delete.svg');
+}
+
+.movie__trailer {
+  display: flex;
+  padding: 6px;
+}
+
+.movie__image {
+  object-fit: contain;
+  object-position: center;
+  width: 220px;
+  height: 122px;
+  background-color: #242121;
+}
+
+@media screen and (max-width: 460px) {
+  .movie {
+    flex-direction: column-reverse;
+  }
+
+  .movie__info {
+    padding-left: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .movie__data {
+    margin-bottom: 14px;
+    margin-right: 10px;
+  }
+
+  .movie__title {
+    margin: 14px 0 8px;
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  
+  .movie__trailer {
+    margin: auto;
+  }
+  .movie__image {
+    max-width: 100%;
+    width: 300px;
+    height: 168px;
+  }
+
+  .movie__like {
+    margin-right: 16px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movie__trailer{
+    padding: 0;
+  }
+}

@@ -1,0 +1,171 @@
+.navigation {
+  width: 100%;
+}
+
+.navigation__unLogged {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.navigation__unLogged-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+.navigation__unLogged-item {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  text-decoration: none;
+  margin-right: 30px;
+}
+
+.navigation__link-unLogged {
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navigation__unLogged-item:last-child {
+  margin-right: 0;
+  color: black;
+  background-color: #3ddc84;
+  border-radius: 3px;
+  margin-right: 0px;
+  padding: 8px 20px;
+}
+
+.navigation__link-unLogged:hover {
+  opacity: 0.8;
+}
+
+.navigation__link-unLogged:focus {
+  outline: none;
+  transform: scale(1.04);
+  opacity: 0.7;
+}
+
+.navigation__link-unLogged_type_login {
+  color: black;
+}
+
+.navigation__logged {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-left: 44px;
+}
+
+.navigation__link-logged {
+  color: white;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.38;
+  text-decoration: none;
+}
+
+.navigation__link-logged_active {
+  font-weight: 500;
+}
+
+.navigation__link-logged:hover {
+  opacity: 0.7;
+}
+
+.navigation__link-logged:first-child {
+  margin-right: 16px;
+}
+
+.navigation__wrap {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation__profile {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.14;
+}
+
+.navigation__profile:hover {
+  transform: scale(1.04);
+  opacity: 0.7;
+}
+
+.navigation__profile-logo {
+  margin-left: 17px;
+  display: block;
+  background-color: #313131;
+  border-radius: 4px;
+  width: 26px;
+  height: 30px;
+  border: none;
+  background-image: url('../../images/icon_acount.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navigation__burger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation_type_burgerMenu {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .navigation__logged {
+    display: none;
+  }
+
+  .navigation__burger {
+    display: block;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    background-image: url('../../images/icon__burger.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+  }
+
+  .navigation__burger:hover {
+    opacity: 0.8;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .navigation__unLogged-item {
+    font-size: 10px;
+    line-height: 1.6;
+    margin-right: 14px;
+  }
+
+  .navigation__unLogged-item:last-child {
+    margin-right: 0;
+    padding: 5px 12px;
+  }
+
+  .navigation__unLogged-btn_type_login {
+    padding: 7px 12px;
+    margin-right: 0;
+  }
+
+  .navigation__burger {
+    background-image: url('../../images/icon__burger_320.svg');
+  }
+}

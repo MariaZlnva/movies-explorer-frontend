@@ -1,0 +1,19 @@
+.promo__link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: white;
+  text-decoration: none;
+  width: 129px;
+  height: 36px;
+  border: 1px solid #FFFFFF;
+  border-radius: 3px;
+  text-align: center;
+  line-height: 36px;
+  box-sizing: border-box;
+}
+
+.promo__link:hover{
+    transform: scale(1.03);
+    opacity: 0.8;
+}

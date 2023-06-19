@@ -1,1 +1,1 @@
-# movies-explorer-frontend
+Ссылка на макет дипломной работы: https://disk.yandex.ru/d/uQ4s-LNMpvKcbQ
