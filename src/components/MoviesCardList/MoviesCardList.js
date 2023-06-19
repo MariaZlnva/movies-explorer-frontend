@@ -5,7 +5,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
   const location = useLocation();
   return (
-    <div className='moviesList'>
+    <section className={location.pathname === '/saved-movies' ? 'moviesList moviesList_saved-movies' : 'moviesList'}>
       <ul className='moviesList__items'>
         {listFilms.map((movie, i) => (
             <MoviesCard
@@ -18,7 +18,7 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
         ))}
       </ul>
       {location.pathname === '/movies' && <button className='moviesList__button' type='button'>Ещё</button>}
-    </div>
+    </section>
   );
 }
 

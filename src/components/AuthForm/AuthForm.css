@@ -75,6 +75,12 @@
   border-bottom: 1px solid #4285f4;
 }
 
+@media screen and (max-width: 960px) {
+  .authForm {
+    margin: 232px auto;
+  }
+}
+
 @media screen and (max-width: 560px) {
   .authForm {
     margin: 54px auto 30px;

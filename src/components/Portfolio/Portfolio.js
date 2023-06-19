@@ -33,7 +33,7 @@ function Portfolio() {
         </li>
         <li className='portfolio__wrap'>
           <a
-            href='https://mesto.zlnva.nomoredomains.monster'
+            href='https://github.com/MariaZlnva/react-mesto-api-full-gha'
             className='portfolio__link'
             target='_blank'
             rel='noreferrer'

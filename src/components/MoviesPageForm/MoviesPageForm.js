@@ -5,7 +5,7 @@ import './MoviesPageForm.css';
 
 function MoviesPageForm({ listFilms, onClickLike, isLiked, buttonClass }) {
   return (
-    <section className='movies'>
+    <>
       <SearchForm />
       {listFilms.length === 0 ? (
         <MoviesNotFound />
@@ -17,7 +17,7 @@ function MoviesPageForm({ listFilms, onClickLike, isLiked, buttonClass }) {
           buttonClass={buttonClass}
         />
       )}
-    </section>
+      </>
   );
 }
 

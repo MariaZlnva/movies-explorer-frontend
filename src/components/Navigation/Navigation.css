@@ -157,6 +157,7 @@
 
   .navigation__unLogged-item:last-child {
     margin-right: 0;
+    padding: 5px 12px;
   }
 
   .navigation__unLogged-btn_type_login {

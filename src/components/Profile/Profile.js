@@ -46,7 +46,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
             <span className="profile__error profile__error_active">При обновлении профиля произошла ошибка.</span>
             {isInputDisabled ? (
               <>
-                <button className='profile__btn-edit' type='submit' onClick={handlerClick}>
+                <button className='profile__btn-edit' type='button' onClick={handlerClick}>
                   Редактировать
                 </button>
                 <button
