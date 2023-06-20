@@ -1,18 +1,22 @@
+import useValidation from '../../hooks/useValidation';
+
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
+function FilterCheckbox({onClickCheckbox, isCheckbox}) {
+  // const { isCheckbox, onChange, resetValidation, isValidForm } = useValidation();
+  console.log(isCheckbox)
   return (
-      <label className='checkbox'>
-        <input
-          className='checkbox__input-hidden'
-          type='checkbox'
-          name='shortFilms'
-          required
-        />
-        <span className='checkbox__visible'></span>
-        Короткометражки
-        
-      </label>
+    <label className='checkbox'>
+      <input
+        className='checkbox__input-hidden'
+        type='checkbox'
+        name='shortFilms'
+        value={isCheckbox}
+        onChange={(evt) => onClickCheckbox(evt.target.checked)}
+      />
+      <span className='checkbox__visible'></span>
+      Короткометражки
+    </label>
   );
 }
 

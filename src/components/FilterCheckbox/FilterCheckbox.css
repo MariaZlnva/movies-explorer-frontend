@@ -3,8 +3,6 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-
-  /* padding-left: 14px; */
   font-weight: 400;
   font-size: 13px;
   line-height: 1.38;
@@ -55,20 +53,13 @@
 @media screen and (max-width: 960px) {
   .checkbox {
     flex-direction: row-reverse;
-
     padding-left: 0;
-    /* padding-right: 16px; */
   }
 
   .checkbox__input-hidden + .checkbox__visible {
     margin-right: 0;
     margin-left: 16px;
   }
-
-  /* .checkbox__text {
-    padding-left: 0;
-    padding-right: 16px;
-  } */
 }
 
 @media screen and (max-width: 560px) {
@@ -78,9 +69,4 @@
     font-size: 11px;
     line-height: 1.64;
   }
-
-  /* .checkbox__text {
-    font-size: 11px;
-    line-height: 1.64; */
-  /* } */
 }

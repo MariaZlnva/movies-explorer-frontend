@@ -24,6 +24,7 @@ const useValidation = () => {
   return {
     values,
     errors,
+    // isCheckbox,
     onChange,
     isValidForm,
     resetValidation,

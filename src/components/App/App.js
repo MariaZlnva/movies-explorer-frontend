@@ -21,6 +21,8 @@ function App() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckbox, setCheckbox] = useState({});
+ 
 
   function burgerClickHandler() {
     setIsOpenPopup(!isOpenPopup);
@@ -63,14 +65,22 @@ function App() {
     navigate('/', { replace: true });
   };
 
-  const handlerSubmitSeachMovies = () => {
+function handlerClickCheckbox (evt){
+    console.log(evt)
+    setCheckbox(evt);
+  }
+
+  const handlerSubmitSeachMovies = (values, isCheckbox) => {
     console.log('пришли отправлять запрос на фильмы')
     movieApi.getMoviesAll()
     .then((data) => {
-      localStorage.setItem("moviesFromApi", JSON.stringify(data))
-      
+      localStorage.setItem('foundMovies', JSON.stringify(data))
+      localStorage.setItem('textRequiest', values)
+      localStorage.setItem('stateCheckbox', isCheckbox)      
     })
   }
+
+  
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
@@ -110,6 +120,8 @@ function App() {
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
               onSubmit={handlerSubmitSeachMovies}
+              onClickCheckbox={handlerClickCheckbox}
+              isCheckbox={isCheckbox}
             />
           }
         />
@@ -124,6 +136,8 @@ function App() {
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
+              onClickCheckbox={handlerClickCheckbox}
+              isCheckbox={isCheckbox}
             />
           }
         />

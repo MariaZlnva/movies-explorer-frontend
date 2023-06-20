@@ -10,7 +10,9 @@ function Movies({
   onClickLike,
   isBurgerOpen,
   isLiked,
-  onSubmit
+  onSubmit,
+  onClickCheckbox, 
+  isCheckbox
 }) {
   return (
     <>
@@ -22,6 +24,8 @@ function Movies({
           isLiked={isLiked}
           buttonClass='active'
           onSubmit={onSubmit}
+          onClickCheckbox={onClickCheckbox}
+          isCheckbox={isCheckbox}
         />
       </main>
       <Footer />
