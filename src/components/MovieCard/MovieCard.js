@@ -1,6 +1,6 @@
-import './MoviesCard.css';
+import './MovieCard.css';
 
-function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
+function MovieCard ({movie, onClickLike, isLiked, buttonClass}) {
   const imageUrl = `https://api.nomoreparties.co/${movie.image.url}`;
 
   const getDurationInHours = (min) => {
@@ -31,4 +31,4 @@ function MoviesCard ({movie, onClickLike, isLiked, buttonClass}) {
   )
 }
 
-export default MoviesCard;
+export default MovieCard;

@@ -2,8 +2,7 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox() {
   return (
-    <div className='checkbox'>
-      <label>
+      <label className='checkbox'>
         <input
           className='checkbox__input-hidden'
           type='checkbox'
@@ -11,9 +10,9 @@ function FilterCheckbox() {
           required
         />
         <span className='checkbox__visible'></span>
+        Короткометражки
+        
       </label>
-      <p className='checkbox__text'>Короткометражки</p>
-    </div>
   );
 }
 

@@ -11,6 +11,7 @@ import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import NavBarPopup from '../NavBarPopup/NavBarPopup';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import * as movieApi from '../../utils/MoviesApi';
 
 import listFilms from '../../utils/listFilms';
 
@@ -62,6 +63,15 @@ function App() {
     navigate('/', { replace: true });
   };
 
+  const handlerSubmitSeachMovies = () => {
+    console.log('пришли отправлять запрос на фильмы')
+    movieApi.getMoviesAll()
+    .then((data) => {
+      localStorage.setItem("moviesFromApi", JSON.stringify(data))
+      
+    })
+  }
+
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
     function handleResize() {
@@ -93,12 +103,13 @@ function App() {
           element={
             <ProtectedRoute
               element={Movies}
-              isLoggedIn={isLoggedIn}
+              isLoggedIn={true}
               listFilms={listFilms.slice(0, 7)}
               onClickBurger={burgerClickHandler}
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
+              onSubmit={handlerSubmitSeachMovies}
             />
           }
         />

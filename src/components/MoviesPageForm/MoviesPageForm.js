@@ -3,10 +3,10 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesNotFound from '../MoviesNotFound/MoviesNotFound';
 import './MoviesPageForm.css';
 
-function MoviesPageForm({ listFilms, onClickLike, isLiked, buttonClass }) {
+function MoviesPageForm({ listFilms, onClickLike, isLiked, buttonClass, onSubmit }) {
   return (
     <>
-      <SearchForm />
+      <SearchForm onSubmit={onSubmit}/>
       {listFilms.length === 0 ? (
         <MoviesNotFound />
       ) : (
