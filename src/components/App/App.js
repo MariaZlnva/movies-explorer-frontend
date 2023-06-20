@@ -11,6 +11,7 @@ import Movies from '../Movies/Movies';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import NavBarPopup from '../NavBarPopup/NavBarPopup';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Preloader from '../Preloader/Preloader';
 import * as movieApi from '../../utils/MoviesApi';
 
 import listFilms from '../../utils/listFilms';
@@ -22,7 +23,7 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckbox, setCheckbox] = useState({});
- 
+  const [isPreloader, setPreloader] = useState(false)
 
   function burgerClickHandler() {
     setIsOpenPopup(!isOpenPopup);
@@ -65,22 +66,25 @@ function App() {
     navigate('/', { replace: true });
   };
 
-function handlerClickCheckbox (evt){
-    console.log(evt)
+  function handlerClickCheckbox(evt) {
+    console.log(evt);
     setCheckbox(evt);
   }
 
   const handlerSubmitSeachMovies = (values, isCheckbox) => {
-    console.log('пришли отправлять запрос на фильмы')
-    movieApi.getMoviesAll()
-    .then((data) => {
-      localStorage.setItem('foundMovies', JSON.stringify(data))
-      localStorage.setItem('textRequiest', values)
-      localStorage.setItem('stateCheckbox', isCheckbox)      
+    setPreloader(true);
+    console.log('пришли отправлять запрос на фильмы');
+    movieApi.getMoviesAll().then((data) => {
+      localStorage.setItem('foundMovies', JSON.stringify(data));
+      localStorage.setItem('textRequiest', values);
+      localStorage.setItem('stateCheckbox', isCheckbox);
     })
-  }
+    .then(() => {
 
-  
+    })
+    .catch(() => {})
+    .finally(()=> setPreloader(false));
+  };
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
@@ -97,7 +101,10 @@ function handlerClickCheckbox (evt){
   }, []);
 
   return (
-    <div className='page'>
+    false ? (
+      <Preloader />
+    ) : (
+      <div className='page'>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route
@@ -113,6 +120,7 @@ function handlerClickCheckbox (evt){
           element={
             <ProtectedRoute
               element={Movies}
+              isPreloader={isPreloader}
               isLoggedIn={true}
               listFilms={listFilms.slice(0, 7)}
               onClickBurger={burgerClickHandler}
@@ -161,6 +169,8 @@ function handlerClickCheckbox (evt){
         onCloseBurger={handlerBurgerClose}
       />
     </div>
+    )
+    
   );
 }
 

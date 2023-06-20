@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
 
 function Movies({
+  isPreloader,
   isLoggedIn,
   listFilms,
   onClickBurger,
@@ -19,6 +20,7 @@ function Movies({
       <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen} />
       <main className='content'>
         <MoviesPageForm
+          isPreloader={isPreloader}
           listFilms={listFilms}
           onClickLike={onClickLike}
           isLiked={isLiked}
