@@ -7,10 +7,10 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
   return (
     <section className={location.pathname === '/saved-movies' ? 'moviesList moviesList_saved-movies' : 'moviesList'}>
       <ul className='moviesList__items'>
-        {listFilms.map((movie, i) => (
+        {listFilms.map((movie) => (
             <MoviesCard
               movie={movie}
-              key={i}
+              key={movie.id}
               onClickLike={onClickLike}
               isLiked={isLiked}
               buttonClass={buttonClass}
