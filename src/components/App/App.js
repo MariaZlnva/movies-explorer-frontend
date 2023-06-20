@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import './App.css';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -59,7 +60,7 @@ function App() {
 
   const handlerLogout = () => {
     navigate('/', { replace: true });
-  }
+  };
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
@@ -90,7 +91,8 @@ function App() {
         <Route
           path='/movies'
           element={
-            <Movies
+            <ProtectedRoute
+              element={Movies}
               isLoggedIn={isLoggedIn}
               listFilms={listFilms.slice(0, 7)}
               onClickBurger={burgerClickHandler}
@@ -103,7 +105,8 @@ function App() {
         <Route
           path='/saved-movies'
           element={
-            <SavedMovies
+            <ProtectedRoute
+              element={SavedMovies}
               isLoggedIn={isLoggedIn}
               listFilms={listFilms.slice(0, 3)}
               onClickBurger={burgerClickHandler}
@@ -116,7 +119,9 @@ function App() {
         <Route
           path='/profile'
           element={
-            <Profile
+            <ProtectedRoute
+              element={Profile}
+              isLoggedIn={isLoggedIn}
               onClickBurger={burgerClickHandler}
               isBurgerOpen={isOpenPopup}
               onLogout={handlerLogout}
@@ -125,7 +130,11 @@ function App() {
         />
         <Route path='*' element={<PageNotFound />} />
       </Routes>
-      <NavBarPopup isOpen={isOpenPopup} onClickBurger={burgerClickHandler} onCloseBurger={handlerBurgerClose}/>
+      <NavBarPopup
+        isOpen={isOpenPopup}
+        onClickBurger={burgerClickHandler}
+        onCloseBurger={handlerBurgerClose}
+      />
     </div>
   );
 }
