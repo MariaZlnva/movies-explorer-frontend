@@ -23,10 +23,11 @@ const useValidation = () => {
 
   return {
     values,
+    setValues,
     errors,
-    // isCheckbox,
     onChange,
     isValidForm,
+    setIsValidForm,
     resetValidation,
   };
 };

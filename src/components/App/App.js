@@ -14,6 +14,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Preloader from '../Preloader/Preloader';
 import * as movieApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import listFilms from '../../utils/listFilms';
 
@@ -25,7 +26,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckbox, setCheckbox] = useState({});
   const [isPreloader, setPreloader] = useState(false);
-  const [isServerError, setServerError] = useState('')
+  const [isServerError, setServerError] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
   function burgerClickHandler() {
     setIsOpenPopup(!isOpenPopup);
@@ -41,6 +43,16 @@ function App() {
   useEffect(() => {
     setServerError(false);
   }, [])
+
+  useEffect(() => {
+      const token = localStorage.getItem('token')
+      mainApi.getDataUser(token)
+      .then((user) => {
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+      })
+      .catch(() => {})
+    },[])
 
   function handleRegisterSubmit(data) {
     setPreloader(true);
@@ -69,9 +81,9 @@ function App() {
       if (user) {
         localStorage.setItem("token", user.token);
         setIsLoggedIn(true);
+        getUser();
         navigate('/movies', { replace: true });
-      }
-      
+      }  
     })
     .catch((err) => {
       console.log(err)
@@ -82,11 +94,34 @@ function App() {
     });
   }
 
+  function getUser() {
+    const token = localStorage.getItem('token');
+    mainApi.getDataUser(token)
+    .then((user) => {
+      setIsLoggedIn(true);
+      setCurrentUser(user);
+    })
+    .catch(err => console.log('eroooor'))
+  }
+
   const handlerLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate('/', { replace: true });
   };
+
+  function handlerUpdateUserDataSubmit (data) {
+    const token = localStorage.getItem('token');
+    setPreloader(true);
+    mainApi.updateDataUser(data, token)
+    .then((user) => {
+      setCurrentUser(user);
+    })
+    .catch((err) => console.log('не обновился'))
+    .finally(() => {
+      setPreloader(false);
+    })
+  }
 
   function handlerClickCheckbox(evt) {
     setCheckbox(evt);
@@ -103,7 +138,7 @@ function App() {
         localStorage.setItem('stateCheckbox', isCheckbox);
       })
       .then(() => {})
-      .catch(() => {})
+      .catch((err) => {console.log('errrrrrooor', err)})
       .finally(() => setPreloader(false));
   };
 
@@ -128,6 +163,7 @@ function App() {
   return isPreloader ? (
     <Preloader />
   ) : (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className='page'>
       <Routes>
         <Route path='/' element={<Main isLoggedIn={isLoggedIn} onClickBurger={burgerClickHandler} isBurgerOpen={isOpenPopup}/>} />
@@ -183,6 +219,8 @@ function App() {
               onClickBurger={burgerClickHandler}
               isBurgerOpen={isOpenPopup}
               onLogout={handlerLogout}
+              isServerError={isServerError}
+              onSubmit={handlerUpdateUserDataSubmit}
             />
           }
         />
@@ -194,6 +232,7 @@ function App() {
         onCloseBurger={handlerBurgerClose}
       />
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 

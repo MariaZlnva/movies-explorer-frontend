@@ -1,14 +1,33 @@
+import { useState, useEffect, useContext } from 'react';
+
 import './Profile.css';
 import Header from '../Header/Header';
-import { useState } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import useValidation from '../../hooks/useValidation';
 
-function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
+function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
-  const [isValid, setValid] = useState(false);
-  
-  function handlerClick() {
+  const { values, setValues, errors, onChange, resetValidation, isValidForm, setIsValidForm } = useValidation();
+
+  useEffect(() => {
+    setValues((values) => ({
+      ...values,
+      nameProfile: currentUser.name,
+      emailProfile: currentUser.email,
+    }));
+    // setIsValidForm(true);
+  }, [currentUser]);
+
+  function handlerClickEditBtn() {
     setInputDisabled(false)
   }
+
+  function handleSaveSubmit(evt) {
+    evt.preventDefault();
+    onSubmit(values);
+  }
+
   return (
     <>
       <Header
@@ -18,8 +37,8 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
       />
       <main className='content'>
         <section className='profile'>
-          <h1 className='profile__title'>Привет, Мария!</h1>
-          <form className='profile__form' name='profile'>
+          <h1 className='profile__title'>Привет, {currentUser.name}!</h1>
+          <form className='profile__form' name='profile' onSubmit={handleSaveSubmit}>
             <label className='profile__label'>
               Имя
               <input
@@ -30,6 +49,8 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
                 maxLength='30'
                 required
                 disabled={isInputDisabled}
+                value={values.nameProfile || ''}
+                onChange={onChange}
               ></input>
             </label>
             <label className='profile__label'>
@@ -40,13 +61,14 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
                 name='emailProfile'
                 required
                 disabled={isInputDisabled}
-                
+                value={values.emailProfile || ''}
+                onChange={onChange}
               ></input>
             </label>
-            <span className="profile__error profile__error_active">При обновлении профиля произошла ошибка.</span>
+            <span className={isServerError ? 'profile__error profile__error_active' : 'profile__error'}>{isServerError}</span>
             {isInputDisabled ? (
               <>
-                <button className='profile__btn-edit' type='button' onClick={handlerClick}>
+                <button className='profile__btn-edit' type='button' onClick={handlerClickEditBtn}>
                   Редактировать
                 </button>
                 <button
@@ -58,7 +80,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
                 </button>
               </>
             ) : (
-              <button className={isValid ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValid}>
+              <button className={isValidForm ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValidForm} >
                 Сохранить
               </button>
             )}
