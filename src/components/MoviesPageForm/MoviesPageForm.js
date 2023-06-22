@@ -24,10 +24,10 @@ function MoviesPageForm({
       {isPreloader ? (
         <Preloader />
       ) : (
-        // listFilms.length === 0 ? (
-        //   <MoviesNotFound />
-        // )
-
+       listFilms.length === 0 ? (
+          <MoviesNotFound />
+        )
+:
         <MoviesCardList
           listFilms={listFilms}
           onClickLike={onClickLike}

@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: start;
     margin-bottom: 32px;
+    position: relative;
 }
 
 .seach__input {
@@ -25,6 +26,21 @@
 
 .seach__input:focus {
   outline: none;
+}
+
+.seach__error {
+display: none;
+}
+
+.seach__error_active {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #ee3465;
+  display: block;
+  padding: 10px 0;
+  position: absolute;
+  top: 195px;
 }
 
 .seach__submit {
@@ -78,6 +94,10 @@
 
   .seach__submit {
     margin-bottom: 9px;
+  }
+
+  .seach__error_active {
+    top: 200px;
   }
 }
 

@@ -2,7 +2,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import { useState } from 'react';
 
-function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
+function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn }) {
   const [isInputDisabled, setInputDisabled] = useState(true);
   const [isValid, setValid] = useState(false);
   
@@ -12,7 +12,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout }) {
   return (
     <>
       <Header
-        isLoggedIn={true}
+        isLoggedIn={isLoggedIn}
         onClickBurger={onClickBurger}
         isBurgerOpen={isBurgerOpen}
       />

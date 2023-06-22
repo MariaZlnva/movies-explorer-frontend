@@ -17,7 +17,7 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass }) {
             />
         ))}
       </ul>
-      {location.pathname === '/movies' && <button className='moviesList__button' type='button'>Ещё</button>}
+      {location.pathname === '/movies' && (listFilms.length > 3) && <button className='moviesList__button' type='button'>Ещё</button>}
     </section>
   );
 }

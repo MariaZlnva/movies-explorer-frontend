@@ -13,6 +13,7 @@ import NavBarPopup from '../NavBarPopup/NavBarPopup';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Preloader from '../Preloader/Preloader';
 import * as movieApi from '../../utils/MoviesApi';
+import * as mainApi from '../../utils/MainApi';
 
 import listFilms from '../../utils/listFilms';
 
@@ -23,7 +24,8 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckbox, setCheckbox] = useState({});
-  const [isPreloader, setPreloader] = useState(false)
+  const [isPreloader, setPreloader] = useState(false);
+  const [isServerError, setServerError] = useState('')
 
   function burgerClickHandler() {
     setIsOpenPopup(!isOpenPopup);
@@ -36,55 +38,78 @@ function App() {
   function likeClickHandler(movie) {
     setIsLiked(!isLiked);
   }
-
-  function handleLoginSubmit({ email, password }) {
-    const validEmail = 'pochta@yandex.ru';
-    const validPassword = '12345678';
-    if (email === validEmail && password === validPassword) {
-      setIsLoggedIn(true);
-      navigate('/movies', { replace: true });
-    }
-  }
+  useEffect(() => {
+    setServerError(false);
+  }, [])
 
   function handleRegisterSubmit(data) {
-    const validEmail = 'pochta@yandex.ru';
-    const validPassword = '12345678';
-    const validName = 'Мария';
-    console.log(data.name, data.email, data.password);
-    if (
-      data.name === validName &&
-      data.email === validEmail &&
-      data.password === validPassword
-    ) {
-      navigate('/signin', { replace: true });
-    } else {
-      console.log('ошибка сабмита регистрации');
+    setPreloader(true);
+    mainApi
+      .register(data)
+      .then((user) => {
+        if (user) {
+          handleLoginSubmit(data);
+        }
+      })
+      .catch((err) => {
+        setServerError(err);
+      })
+      .finally(() => {
+        setPreloader(false);
+      });
+  }
+
+  function handleLoginSubmit(data) {
+    setPreloader(true);
+    if (!data.email || !data.password) {
+      return;
     }
+    mainApi.login(data)
+    .then((user) => {
+      if (user) {
+        localStorage.setItem("token", user.token);
+        setIsLoggedIn(true);
+        navigate('/movies', { replace: true });
+      }
+      
+    })
+    .catch((err) => {
+      console.log(err)
+      setServerError(err);
+    })
+    .finally(() => {
+      setPreloader(false);
+    });
   }
 
   const handlerLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
     navigate('/', { replace: true });
   };
 
   function handlerClickCheckbox(evt) {
-    console.log(evt);
     setCheckbox(evt);
   }
 
   const handlerSubmitSeachMovies = (values, isCheckbox) => {
     setPreloader(true);
     console.log('пришли отправлять запрос на фильмы');
-    movieApi.getMoviesAll().then((data) => {
-      localStorage.setItem('foundMovies', JSON.stringify(data));
-      localStorage.setItem('textRequiest', values);
-      localStorage.setItem('stateCheckbox', isCheckbox);
-    })
-    .then(() => {
-
-    })
-    .catch(() => {})
-    .finally(()=> setPreloader(false));
+    movieApi
+      .getMoviesAll()
+      .then((data) => {
+        localStorage.setItem('foundMovies', JSON.stringify(data));
+        localStorage.setItem('textRequiest', values);
+        localStorage.setItem('stateCheckbox', isCheckbox);
+      })
+      .then(() => {})
+      .catch(() => {})
+      .finally(() => setPreloader(false));
   };
+
+  function handlerClickLink(){
+    setServerError(false);
+  }
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
@@ -100,20 +125,19 @@ function App() {
     };
   }, []);
 
-  return (
-    false ? (
-      <Preloader />
-    ) : (
-      <div className='page'>
+  return isPreloader ? (
+    <Preloader />
+  ) : (
+    <div className='page'>
       <Routes>
-        <Route path='/' element={<Main />} />
+        <Route path='/' element={<Main isLoggedIn={isLoggedIn} onClickBurger={burgerClickHandler} isBurgerOpen={isOpenPopup}/>} />
         <Route
           path='/signup'
-          element={<Register onSubmit={handleRegisterSubmit} />}
+          element={<Register onSubmit={handleRegisterSubmit} isServerError={isServerError} onClickLink={handlerClickLink}/>}
         />
         <Route
           path='/signin'
-          element={<Login onSubmit={handleLoginSubmit} />}
+          element={<Login onSubmit={handleLoginSubmit} isServerError={isServerError} onClickLink={handlerClickLink}/>}
         />
         <Route
           path='/movies'
@@ -121,7 +145,7 @@ function App() {
             <ProtectedRoute
               element={Movies}
               isPreloader={isPreloader}
-              isLoggedIn={true}
+              isLoggedIn={isLoggedIn}
               listFilms={listFilms.slice(0, 7)}
               onClickBurger={burgerClickHandler}
               onClickLike={likeClickHandler}
@@ -144,6 +168,7 @@ function App() {
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
+              onSubmit={handlerSubmitSeachMovies}
               onClickCheckbox={handlerClickCheckbox}
               isCheckbox={isCheckbox}
             />
@@ -169,8 +194,6 @@ function App() {
         onCloseBurger={handlerBurgerClose}
       />
     </div>
-    )
-    
   );
 }
 

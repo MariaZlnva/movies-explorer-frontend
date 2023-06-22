@@ -1,19 +1,15 @@
-import { useState } from 'react';
+import useValidation from '../../hooks/useValidation';
+
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
+import { REGEX_EMAIL } from '../../utils/constants';
 
-function Login({ onSubmit }) {
-
-  const [values, setValues] = useState({});
+function Login({ onSubmit, isServerError, onClickLink }) {
+  const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
 
   function handleLoginSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
-  }
-
-  function onChange (evt) {
-    const { name, value } = evt.target;
-    setValues((values) => ({ ...values, [name]: value }));
   }
 
   return (
@@ -26,6 +22,9 @@ function Login({ onSubmit }) {
       text='Ещё не зарегистрированы?'
       textLink='Регистрация'
       onSubmit={handleLoginSubmit}
+      isValidForm={isValidForm}
+      isServerError={isServerError}
+      onClickLink={onClickLink}
     >
       <label htmlFor='email' className='login'>
         E-mail
@@ -33,13 +32,14 @@ function Login({ onSubmit }) {
           id='email'
           name='email'
           type='email'
+          pattern={REGEX_EMAIL}
           className='login__input'
           value={values.email || ''}
           placeholder='E-mail'
           required
           onChange={onChange}
         />
-        <span className='login__error login__error_active'></span>
+        <span className={errors.email ? 'login__error login__error_active' : 'login__error'}>{errors.email}</span>
       </label>
       <label htmlFor='password' className='login'>
         Пароль
@@ -55,7 +55,7 @@ function Login({ onSubmit }) {
           required
           onChange={onChange}
         />
-        <span className='login__error login__error_active'></span>
+        <span className={errors.password ? 'login__error login__error_active' : 'login__error'}>{errors.password}</span>
       </label>
     </AuthForm>
   );

@@ -17,7 +17,7 @@ function Movies({
 }) {
   return (
     <>
-      <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen} />
+      <Header isLoggedIn={isLoggedIn} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen} />
       <main className='content'>
         <MoviesPageForm
           isPreloader={isPreloader}

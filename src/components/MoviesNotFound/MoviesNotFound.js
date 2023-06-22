@@ -3,7 +3,7 @@
 function MoviesNotFound () {
   return (
     <div className='movies-not-found'>
-      <h3 className='movies-not-found__text'>По запросу ничего не найдено.</h3>
+      <p className='movies-not-found__text'>Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз</p>
     </div>
   )
 };

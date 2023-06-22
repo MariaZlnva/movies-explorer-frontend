@@ -9,7 +9,7 @@
 }
 
 .login:last-of-type {
-  margin-bottom: 158px;
+  margin-bottom: 135px;
 }
 
 .login__input {
@@ -32,21 +32,23 @@
   border: 1px solid lightslategray;
 }
 
-.login__error_hide {
-  display: none;
-}
-
-.login__error_active {
+.login__error {
+  opacity: 0;
   font-weight: 400;
   font-size: 10px;
   line-height: 1.2;
   color: #ee3465;
   display: block;
-  height: 20px;
+  height: 14px;
+  padding-top: 7px;
+}
+
+.login__error_active {
+  opacity: 1;
 }
 
 @media screen and (max-width: 560px) {
   .login:last-of-type {
-    margin-bottom: 247px;
+    margin-bottom: 216px;
   }
 }

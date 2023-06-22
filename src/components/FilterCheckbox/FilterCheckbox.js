@@ -4,7 +4,6 @@ import './FilterCheckbox.css';
 
 function FilterCheckbox({onClickCheckbox, isCheckbox}) {
   // const { isCheckbox, onChange, resetValidation, isValidForm } = useValidation();
-  console.log(isCheckbox)
   return (
     <label className='checkbox'>
       <input
