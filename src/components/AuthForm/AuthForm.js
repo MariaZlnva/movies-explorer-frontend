@@ -13,8 +13,7 @@ function AuthForm({
   textLink,
   onSubmit,
   isValidForm,
-  isServerError,
-  onClickLink
+  isServerError
 }) {
 
   return (
@@ -22,7 +21,7 @@ function AuthForm({
       <section className='authForm'>
       <LogoApp />
       <h1 className='authForm__title'>{title}</h1>
-      <form name={nameForm} className='authForm__form' onSubmit={onSubmit}>
+      <form name={nameForm} className='authForm__form' onSubmit={onSubmit} noValidate>
         {children}
         <span className={isServerError ? 'authForm__error authForm__error_active' : 'authForm__error'}>{isServerError}</span>
         <button type='submit' className='authForm__submit' disabled={!isValidForm}>
@@ -31,7 +30,7 @@ function AuthForm({
       </form>
       <div className='authForm__wrap'>
         <p className='authForm__text'>{text}</p>
-        <Link to={path} className='authForm__link' onClick={onClickLink}>
+        <Link to={path} className='authForm__link'>
           {textLink}
         </Link>
       </div>

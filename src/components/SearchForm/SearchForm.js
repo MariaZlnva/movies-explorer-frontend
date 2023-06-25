@@ -7,7 +7,6 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 function SearchForm({ onSubmit, onClickCheckbox, isCheckbox }) {
   const { values, onChange, resetValidation } = useValidation();
   const [errors, setErrors] = useState(false);
-  console.log(values);
 
   function handlerSubmit(evt) {
     console.log(values, isCheckbox);

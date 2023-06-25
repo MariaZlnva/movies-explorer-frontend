@@ -1,10 +1,11 @@
+import { useEffect } from 'react';
 import useValidation from '../../hooks/useValidation';
 
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
 import { REGEX_EMAIL } from '../../utils/constants';
 
-function Login({ onSubmit, isServerError, onClickLink }) {
+function Login({ onSubmit, isServerError }) {
   const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
 
   function handleLoginSubmit(evt) {
@@ -24,7 +25,6 @@ function Login({ onSubmit, isServerError, onClickLink }) {
       onSubmit={handleLoginSubmit}
       isValidForm={isValidForm}
       isServerError={isServerError}
-      onClickLink={onClickLink}
     >
       <label htmlFor='email' className='login'>
         E-mail

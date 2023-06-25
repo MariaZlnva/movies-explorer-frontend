@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import './App.css';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -40,20 +40,33 @@ function App() {
   function likeClickHandler(movie) {
     setIsLiked(!isLiked);
   }
-  useEffect(() => {
-    setServerError(false);
-  }, [])
+
+  const {pathname} = useLocation();
+
+  useEffect(()=>{
+    setServerError('')
+  }, [pathname])
 
   useEffect(() => {
-      const token = localStorage.getItem('token')
-      mainApi.getDataUser(token)
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-      })
-      .catch(() => {})
-    },[])
+    checkToken();
+    }, [isLoggedIn])
 
+  function checkToken() {
+    const token = localStorage.getItem('token');
+      if (token) {
+        setPreloader(true);
+        mainApi.getDataUser(token)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+          // setServerError('');
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          setPreloader(false);
+        })
+      }
+  }
   function handleRegisterSubmit(data) {
     setPreloader(true);
     mainApi
@@ -81,7 +94,6 @@ function App() {
       if (user) {
         localStorage.setItem("token", user.token);
         setIsLoggedIn(true);
-        getUser();
         navigate('/movies', { replace: true });
       }  
     })
@@ -94,19 +106,10 @@ function App() {
     });
   }
 
-  function getUser() {
-    const token = localStorage.getItem('token');
-    mainApi.getDataUser(token)
-    .then((user) => {
-      setIsLoggedIn(true);
-      setCurrentUser(user);
-    })
-    .catch(err => console.log('eroooor'))
-  }
-
   const handlerLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setCurrentUser({});
     navigate('/', { replace: true });
   };
 
@@ -116,8 +119,12 @@ function App() {
     mainApi.updateDataUser(data, token)
     .then((user) => {
       setCurrentUser(user);
+      setServerError('Данные успешно обновлены.');
     })
-    .catch((err) => console.log('не обновился'))
+    .catch((err) => {
+      console.log('не обновился =>', err)
+      setServerError('При обновлении профиля произошла ошибка.')
+    })
     .finally(() => {
       setPreloader(false);
     })
@@ -142,10 +149,6 @@ function App() {
       .finally(() => setPreloader(false));
   };
 
-  function handlerClickLink(){
-    setServerError(false);
-  }
-
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
     function handleResize() {
@@ -169,11 +172,11 @@ function App() {
         <Route path='/' element={<Main isLoggedIn={isLoggedIn} onClickBurger={burgerClickHandler} isBurgerOpen={isOpenPopup}/>} />
         <Route
           path='/signup'
-          element={<Register onSubmit={handleRegisterSubmit} isServerError={isServerError} onClickLink={handlerClickLink}/>}
+          element={<Register onSubmit={handleRegisterSubmit} isServerError={isServerError}/>}
         />
         <Route
           path='/signin'
-          element={<Login onSubmit={handleLoginSubmit} isServerError={isServerError} onClickLink={handlerClickLink}/>}
+          element={<Login onSubmit={handleLoginSubmit} isServerError={isServerError} setServerError={setServerError}/>}
         />
         <Route
           path='/movies'
@@ -220,6 +223,7 @@ function App() {
               isBurgerOpen={isOpenPopup}
               onLogout={handlerLogout}
               isServerError={isServerError}
+              setServerError={setServerError}
               onSubmit={handlerUpdateUserDataSubmit}
             />
           }

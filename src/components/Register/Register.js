@@ -2,9 +2,10 @@ import useValidation from '../../hooks/useValidation';
 
 import './Register.css';
 import AuthForm from '../AuthForm/AuthForm';
-import {REGEX_USER_NAME} from '../../utils/constants';
+import { REGEX_USER_NAME, REGEX_EMAIL } from '../../utils/constants';
 
-function Register({ onSubmit, isServerError, onClickLink }) {
+
+function Register({ onSubmit, isServerError }) {
   const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
 
   function handleRegisterSubmit(evt) {
@@ -24,7 +25,6 @@ function Register({ onSubmit, isServerError, onClickLink }) {
       onSubmit={handleRegisterSubmit}
       isValidForm={isValidForm}
       isServerError={isServerError}
-      onClickLink={onClickLink}
     >
       <label htmlFor='name' className='register'>
         Имя
@@ -37,6 +37,7 @@ function Register({ onSubmit, isServerError, onClickLink }) {
           maxLength='30'
           placeholder='Имя'
           pattern={REGEX_USER_NAME}
+          title='Имя должно содержать только латиницу, кириллицу, пробел или дефис'
           required
           value={values.name || ''}
           onChange={onChange}
@@ -51,6 +52,8 @@ function Register({ onSubmit, isServerError, onClickLink }) {
           type='email'
           className='register__input'
           placeholder='E-mail'
+          pattern={REGEX_EMAIL}
+          title='Email несоответствует шаблону электронной почты: email@email.com'
           required
           value={values.email || ''}
           onChange={onChange}
