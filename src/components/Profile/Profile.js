@@ -4,7 +4,7 @@ import './Profile.css';
 import Header from '../Header/Header';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import useValidation from '../../hooks/useValidation';
-import { REGEX_USER_NAME, REGEX_EMAIL } from '../../utils/constants';
+import { REGEX_USER_NAME } from '../../utils/constants';
 
 function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
@@ -14,8 +14,8 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
   useEffect(() => {
     setValues((values) => ({
       ...values,
-      nameProfile: currentUser.name,
-      emailProfile: currentUser.email,
+      name: currentUser.name,
+      email: currentUser.email,
     }));
     // setIsValidForm(true);
   }, [currentUser]);
@@ -26,7 +26,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
 
   function handleSaveSubmit(evt) {
     evt.preventDefault();
-    if (currentUser.name === values.nameProfile && currentUser.email === values.emailProfile){
+    if (currentUser.name === values.name && currentUser.email === values.email){
       setInputDisabled(true);
       return;
     }
@@ -51,33 +51,32 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
               <input
                 className='profile__input'
                 type='text'
-                name='nameProfile'
+                name='name'
                 minLength='2'
                 maxLength='30'
                 pattern={REGEX_USER_NAME}
                 required
                 disabled={isInputDisabled}
-                value={values.nameProfile || ''}
+                value={values.name || ''}
                 onChange={onChange}
               ></input>
               
             </label>
-            <span className={errors.nameProfile ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.nameProfile}</span>
+            <span className={errors.name ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.name}</span>
             <label className='profile__label'>
               E-mail
               <input
                 className='profile__input'
                 type='email'
-                name='emailProfile'
-                pattern={REGEX_EMAIL}
+                name='email'
                 required
                 disabled={isInputDisabled}
-                value={values.emailProfile || ''}
+                value={values.email || ''}
                 onChange={onChange}
               ></input>
               
             </label>
-            <span className={errors.emailProfile ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.emailProfile}</span>
+            <span className={errors.email ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.email}</span>
             <span className={isServerError ? 'profile__error profile__error_active' : 'profile__error'}>{isServerError}</span>
             {isInputDisabled ? (
               <>

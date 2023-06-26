@@ -1,23 +1,34 @@
 import useValidation from '../../hooks/useValidation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onSubmit, onClickCheckbox, isCheckbox }) {
+function SearchForm({ onSubmit }) {
+  const [isCheckbox, setCheckbox] = useState({});
   const { values, onChange, resetValidation } = useValidation();
   const [errors, setErrors] = useState(false);
 
+  function handlerClickCheckbox(evt) {
+    setCheckbox(evt);
+  }
+
+  useEffect(() => {
+    setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')))
+  }, [])
+  
   function handlerSubmit(evt) {
-    console.log(values, isCheckbox);
     evt.preventDefault();
-    if (values === {}) {
+    if (values.seachFilm === undefined) {
       setErrors(!errors);
       return;
     }
+    console.log(isCheckbox);
     onSubmit(values.seachFilm, isCheckbox);
-    resetValidation();
+    // resetValidation();
   }
+
+  
 
   return (
     <section className='seach'>
@@ -38,7 +49,7 @@ function SearchForm({ onSubmit, onClickCheckbox, isCheckbox }) {
           
         </div>
         <span className={errors ? 'seach__error_active' : 'seach__error'}>Нужно ввести ключевое слово</span>
-        <FilterCheckbox isCheckbox={isCheckbox} onClickCheckbox={onClickCheckbox}/>
+        <FilterCheckbox isCheckbox={isCheckbox} setCheckbox={setCheckbox} onClickCheckbox={handlerClickCheckbox}/>
       </form>
     </section>
   );

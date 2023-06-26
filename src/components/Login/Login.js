@@ -3,7 +3,7 @@ import useValidation from '../../hooks/useValidation';
 
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
-import { REGEX_EMAIL } from '../../utils/constants';
+// import { REGEX_EMAIL } from '../../utils/constants';
 
 function Login({ onSubmit, isServerError }) {
   const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
@@ -31,8 +31,8 @@ function Login({ onSubmit, isServerError }) {
         <input
           id='email'
           name='email'
-          type='email'
-          pattern={REGEX_EMAIL}
+          type='text'
+          // pattern={REGEX_EMAIL}
           className='login__input'
           value={values.email || ''}
           placeholder='E-mail'

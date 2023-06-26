@@ -48,8 +48,8 @@ export const updateDataUser = (data, token) => {
       'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify({
-      email: data.emailProfile,
-      name: data.nameProfile,
+      email: data.email,
+      name: data.name,
     }),
   }).then((res) => checkResponse(res));
 };

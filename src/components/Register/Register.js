@@ -52,8 +52,8 @@ function Register({ onSubmit, isServerError }) {
           type='email'
           className='register__input'
           placeholder='E-mail'
-          pattern={REGEX_EMAIL}
-          title='Email несоответствует шаблону электронной почты: email@email.com'
+          // pattern={REGEX_EMAIL}
+          // title='Email несоответствует шаблону электронной почты: email@email.com'
           required
           value={values.email || ''}
           onChange={onChange}

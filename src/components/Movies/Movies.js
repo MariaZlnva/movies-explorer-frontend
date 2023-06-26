@@ -2,6 +2,7 @@ import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
+import { useEffect } from 'react';
 
 function Movies({
   isPreloader,
@@ -12,9 +13,16 @@ function Movies({
   isBurgerOpen,
   isLiked,
   onSubmit,
-  onClickCheckbox, 
-  isCheckbox
+  // onClickCheckbox, 
+  // isCheckbox,
+  isServerError
 }) {
+
+  // useEffect(() => {
+  //   const listFilms = localStorage.getItem('foundMovies');
+    
+  // }, [])
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen} />
@@ -26,8 +34,9 @@ function Movies({
           isLiked={isLiked}
           buttonClass='active'
           onSubmit={onSubmit}
-          onClickCheckbox={onClickCheckbox}
-          isCheckbox={isCheckbox}
+          // onClickCheckbox={onClickCheckbox}
+          // isCheckbox={isCheckbox}
+          isServerError={isServerError}
         />
       </main>
       <Footer />

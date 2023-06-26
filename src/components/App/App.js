@@ -24,7 +24,6 @@ function App() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isCheckbox, setCheckbox] = useState({});
   const [isPreloader, setPreloader] = useState(false);
   const [isServerError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
@@ -53,20 +52,18 @@ function App() {
 
   function checkToken() {
     const token = localStorage.getItem('token');
-      if (token) {
         setPreloader(true);
         mainApi.getDataUser(token)
         .then((user) => {
           setCurrentUser(user);
           setIsLoggedIn(true);
-          // setServerError('');
         })
         .catch((err) => console.log(err))
         .finally(() => {
           setPreloader(false);
         })
-      }
   }
+
   function handleRegisterSubmit(data) {
     setPreloader(true);
     mainApi
@@ -113,7 +110,7 @@ function App() {
     navigate('/', { replace: true });
   };
 
-  function handlerUpdateUserDataSubmit (data) {
+  function handlerUpdateUserSubmit (data) {
     const token = localStorage.getItem('token');
     setPreloader(true);
     mainApi.updateDataUser(data, token)
@@ -130,18 +127,14 @@ function App() {
     })
   }
 
-  function handlerClickCheckbox(evt) {
-    setCheckbox(evt);
-  }
-
-  const handlerSubmitSeachMovies = (values, isCheckbox) => {
+  const handlerGetMovies = (values, isCheckbox) => {
     setPreloader(true);
     console.log('пришли отправлять запрос на фильмы');
     movieApi
       .getMoviesAll()
       .then((data) => {
         localStorage.setItem('foundMovies', JSON.stringify(data));
-        localStorage.setItem('textRequiest', values);
+        localStorage.setItem('textRequest', values);
         localStorage.setItem('stateCheckbox', isCheckbox);
       })
       .then(() => {})
@@ -190,9 +183,8 @@ function App() {
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
-              onSubmit={handlerSubmitSeachMovies}
-              onClickCheckbox={handlerClickCheckbox}
-              isCheckbox={isCheckbox}
+              onSubmit={handlerGetMovies}
+              isServerError={isServerError}
             />
           }
         />
@@ -207,9 +199,7 @@ function App() {
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
-              onSubmit={handlerSubmitSeachMovies}
-              onClickCheckbox={handlerClickCheckbox}
-              isCheckbox={isCheckbox}
+              // onSubmit={handlerSubmitSeachMovies}
             />
           }
         />
@@ -224,7 +214,7 @@ function App() {
               onLogout={handlerLogout}
               isServerError={isServerError}
               setServerError={setServerError}
-              onSubmit={handlerUpdateUserDataSubmit}
+              onSubmit={handlerUpdateUserSubmit}
             />
           }
         />

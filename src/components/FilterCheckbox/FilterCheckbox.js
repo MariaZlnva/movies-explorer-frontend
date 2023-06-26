@@ -1,16 +1,16 @@
-import useValidation from '../../hooks/useValidation';
+import { useEffect } from 'react';
 
 import './FilterCheckbox.css';
 
-function FilterCheckbox({onClickCheckbox, isCheckbox}) {
-  // const { isCheckbox, onChange, resetValidation, isValidForm } = useValidation();
+function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
+  
   return (
     <label className='checkbox'>
       <input
         className='checkbox__input-hidden'
         type='checkbox'
         name='shortFilms'
-        value={isCheckbox}
+        checked={isCheckbox}
         onChange={(evt) => onClickCheckbox(evt.target.checked)}
       />
       <span className='checkbox__visible'></span>

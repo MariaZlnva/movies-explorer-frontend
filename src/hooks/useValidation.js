@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+const emailValidator = require('email-validator');
 
 const useValidation = () => {
   const [values, setValues] = useState({});
@@ -11,13 +12,11 @@ const useValidation = () => {
     // if (name === 'name' && validity.patternMismatch) {
     //   evt.target.setCustomValidity('Имя должно содержать только латиницу, кириллицу, пробел или дефис')
     // }
-    // else if (name === 'email' && validity.patternMismatch) {
-    //   evt.target.setCustomValidity('Email несоответствует шаблону электронной почты: email@email.com')
-    // } 
-    // else {
-    //   evt.target.setCustomValidity('')
-    // }
-       
+    if (name === 'email' && !(emailValidator.validate(value))) {
+      evt.target.setCustomValidity('Email несоответствует шаблону электронной почты: email@email.com')
+    } else {
+      evt.target.setCustomValidity('')
+    }       
   
     setValues((values) => ({ ...values, [name]: value })); // доб.в объект данные
     setErrors((errors) => ({ ...errors, [name]: validationMessage }));
