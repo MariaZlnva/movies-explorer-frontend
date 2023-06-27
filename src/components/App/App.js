@@ -107,6 +107,7 @@ function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setCurrentUser({});
+    localStorage.clear();
     navigate('/', { replace: true });
   };
 
@@ -127,15 +128,13 @@ function App() {
     })
   }
 
-  const handlerGetMovies = (values, isCheckbox) => {
+  const handlerGetMovies = () => {
     setPreloader(true);
     console.log('пришли отправлять запрос на фильмы');
     movieApi
       .getMoviesAll()
       .then((data) => {
-        localStorage.setItem('foundMovies', JSON.stringify(data));
-        localStorage.setItem('textRequest', values);
-        localStorage.setItem('stateCheckbox', isCheckbox);
+        localStorage.setItem('allMovies', JSON.stringify(data));
       })
       .then(() => {})
       .catch((err) => {console.log('errrrrrooor', err)})
@@ -169,7 +168,7 @@ function App() {
         />
         <Route
           path='/signin'
-          element={<Login onSubmit={handleLoginSubmit} isServerError={isServerError} setServerError={setServerError}/>}
+          element={<Login onSubmit={handleLoginSubmit} isServerError={isServerError}/>}
         />
         <Route
           path='/movies'
@@ -178,7 +177,6 @@ function App() {
               element={Movies}
               isPreloader={isPreloader}
               isLoggedIn={isLoggedIn}
-              listFilms={listFilms.slice(0, 7)}
               onClickBurger={burgerClickHandler}
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
@@ -199,7 +197,6 @@ function App() {
               onClickLike={likeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
-              // onSubmit={handlerSubmitSeachMovies}
             />
           }
         />

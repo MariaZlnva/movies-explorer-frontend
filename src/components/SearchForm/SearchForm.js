@@ -1,38 +1,48 @@
-import useValidation from '../../hooks/useValidation';
 import { useEffect, useState } from 'react';
 
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ onSubmit }) {
-  const [isCheckbox, setCheckbox] = useState({});
-  const { values, onChange, resetValidation } = useValidation();
+function SearchForm({
+  onFilterMovies,
+  // isCheckbox,
+  // setCheckbox,
+  onClickCheckbox,
+}) {
+  const [value, setValue] = useState({});
   const [errors, setErrors] = useState(false);
+  const [isCheckbox, setCheckbox] = useState(false);
+
+  function onChange(evt) {
+    setValue(evt.target.value);
+  }
 
   function handlerClickCheckbox(evt) {
     setCheckbox(evt);
   }
 
   useEffect(() => {
-    setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')))
-  }, [])
-  
+    setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')));
+    setValue(localStorage.getItem('searchQuery'));
+  }, []);
+
   function handlerSubmit(evt) {
     evt.preventDefault();
-    if (values.seachFilm === undefined) {
+    if (!value) {
       setErrors(!errors);
       return;
     }
-    console.log(isCheckbox);
-    onSubmit(values.seachFilm, isCheckbox);
-    // resetValidation();
+    onFilterMovies(value, isCheckbox);
   }
-
-  
 
   return (
     <section className='seach'>
-      <form className='seach__form' name='search' noValidate onSubmit={handlerSubmit}>
+      <form
+        className='seach__form'
+        name='search'
+        noValidate
+        onSubmit={handlerSubmit}
+      >
         <div className='seach__wrap'>
           <input
             className='seach__input'
@@ -41,15 +51,20 @@ function SearchForm({ onSubmit }) {
             required
             // minLength='2'
             placeholder='Фильм'
-            value={values.seachFilm || ''}
+            value={value || ''}
             onChange={onChange}
           />
-          
-          <button className='seach__submit' type='submit' ></button>
-          
+
+          <button className='seach__submit' type='submit'></button>
         </div>
-        <span className={errors ? 'seach__error_active' : 'seach__error'}>Нужно ввести ключевое слово</span>
-        <FilterCheckbox isCheckbox={isCheckbox} setCheckbox={setCheckbox} onClickCheckbox={handlerClickCheckbox}/>
+        <span className={errors ? 'seach__error_active' : 'seach__error'}>
+          Нужно ввести ключевое слово
+        </span>
+        <FilterCheckbox
+          isCheckbox={isCheckbox}
+          setCheckbox={setCheckbox}
+          onClickCheckbox={handlerClickCheckbox}
+        />
       </form>
     </section>
   );

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import './FilterCheckbox.css';
 
 function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
@@ -11,7 +9,7 @@ function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
         type='checkbox'
         name='shortFilms'
         checked={isCheckbox}
-        onChange={(evt) => onClickCheckbox(evt.target.checked)}
+        onChange={evt => onClickCheckbox(evt.target.checked)}
       />
       <span className='checkbox__visible'></span>
       Короткометражки
