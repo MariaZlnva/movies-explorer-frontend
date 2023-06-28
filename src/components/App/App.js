@@ -135,7 +135,9 @@ function App() {
       .then((data) => {
         localStorage.setItem('allMovies', JSON.stringify(data));
       })
-      .catch((err) => {console.log(err)})
+      .catch((err) => {
+        setServerError(err)
+      })
       .finally(() => setPreloader(false));
   };
 

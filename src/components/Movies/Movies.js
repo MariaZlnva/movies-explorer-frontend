@@ -16,6 +16,7 @@ function Movies({
 }) {
   const [moviesForRender, setMoviesForRender] = useState([]);
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+  const [renderMoreMovies, setRenderMoreMovies] = useState(0);
 
   function handlerFilterAndSeach(value, isCheckbox) {
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
@@ -38,23 +39,26 @@ function Movies({
       );
       console.log('фильмы до сортировки по чекбоксу', moviesFilterSeach);
       const moviesLastSeach = isCheckbox
-          ? moviesFilterSeach.filter((item) => item.duration <= 40)
-          : moviesFilterSeach;
+        ? moviesFilterSeach.filter((item) => item.duration <= 40)
+        : moviesFilterSeach;
 
       console.log('фильмы после чекбокса', moviesLastSeach);
       localStorage.setItem('moviesLastSeach', JSON.stringify(moviesLastSeach));
-      
+
       handleResize();
     }
   }
 
   function handleResize() {
-    const moviesLastSeach = JSON.parse(localStorage.getItem('moviesLastSeach'))
-    setMoviesForRender(moviesLastSeach)  
-    if (windowInnerWidth > 560 && windowInnerWidth <= 1280) {
+    const moviesLastSeach = JSON.parse(localStorage.getItem('moviesLastSeach'));
+    setMoviesForRender(moviesLastSeach);
+
+    if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
       setMoviesForRender(moviesLastSeach.slice(0, 7));
-    } else if (windowInnerWidth <= 560) {
-      setMoviesForRender(moviesLastSeach.slice(0, 2));
+      setRenderMoreMovies(7);
+    } else if (windowInnerWidth <= 760) {
+      setMoviesForRender(moviesLastSeach.slice(0, 5));
+      setRenderMoreMovies(5);
     }
   }
 
@@ -70,6 +74,11 @@ function Movies({
       window.addEventListener('resize', handleResize);
     };
   }, [windowInnerWidth]);
+
+  function handlerClickBtnMore() {
+    const moviesLastSeach = JSON.parse(localStorage.getItem('moviesLastSeach'))
+    setMoviesForRender(moviesLastSeach.slice(0, moviesForRender.length + renderMoreMovies));
+  }
 
   return (
     <>
@@ -87,6 +96,7 @@ function Movies({
           buttonClass='active'
           onFilterMovies={handlerFilterAndSeach}
           isServerError={isServerError}
+          onClickBtnMore={handlerClickBtnMore}
         />
       </main>
       <Footer />

@@ -11,7 +11,8 @@ function MoviesPageForm({
   isLiked,
   buttonClass,
   onFilterMovies,
-  isServerError
+  isServerError,
+  onClickBtnMore
 }) {
   return (
     <>
@@ -30,6 +31,7 @@ function MoviesPageForm({
           onClickLike={onClickLike}
           isLiked={isLiked}
           buttonClass={buttonClass}
+          onClickBtnMore={onClickBtnMore}
         />
       )}
     </>
