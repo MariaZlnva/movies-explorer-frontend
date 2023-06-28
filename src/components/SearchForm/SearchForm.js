@@ -5,9 +5,6 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm({
   onFilterMovies,
-  // isCheckbox,
-  // setCheckbox,
-  onClickCheckbox,
 }) {
   const [value, setValue] = useState({});
   const [errors, setErrors] = useState(false);
@@ -58,11 +55,10 @@ function SearchForm({
           <button className='seach__submit' type='submit'></button>
         </div>
         <span className={errors ? 'seach__error_active' : 'seach__error'}>
-          Нужно ввести ключевое слово
+          Нужно ввести ключевое слово.
         </span>
         <FilterCheckbox
           isCheckbox={isCheckbox}
-          setCheckbox={setCheckbox}
           onClickCheckbox={handlerClickCheckbox}
         />
       </form>

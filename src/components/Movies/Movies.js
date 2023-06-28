@@ -17,10 +17,6 @@ function Movies({
   const [moviesForRender, setMoviesForRender] = useState([]);
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    filterMoviesForRender();
-  }, []);
-
   function handlerFilterAndSeach(value, isCheckbox) {
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
     if (!allMovies) {
@@ -36,29 +32,29 @@ function Movies({
     const value = localStorage.getItem('searchQuery');
     const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
-    if (value && isCheckbox && allMovies) {
+    if (value && allMovies) {
       const moviesFilterSeach = allMovies.filter((movie) =>
         movie.nameRU.toLowerCase().includes(value.toLowerCase())
       );
-      setMoviesForRender(
-        isCheckbox
+      console.log('фильмы до сортировки по чекбоксу', moviesFilterSeach);
+      const moviesLastSeach = isCheckbox
           ? moviesFilterSeach.filter((item) => item.duration <= 40)
-          : moviesFilterSeach
-      );
-      localStorage.setItem('filterMovies', JSON.stringify(moviesForRender));
+          : moviesFilterSeach;
+
+      console.log('фильмы после чекбокса', moviesLastSeach);
+      localStorage.setItem('moviesLastSeach', JSON.stringify(moviesLastSeach));
+      
+      handleResize();
     }
-
-
-    // setCheckbox(isCheckbox);
-    // localStorage.setItem('filterMovies', JSON.stringify(moviesForRender));
-    // console.log(moviesForRender)
   }
 
   function handleResize() {
-    if (windowInnerWidth >= 960) {
-      setMoviesForRender(moviesForRender.slice(0, 7));
-    } else if (windowInnerWidth < 960 && windowInnerWidth >= 560) {
-      setMoviesForRender(moviesForRender.slice(0, 2));
+    const moviesLastSeach = JSON.parse(localStorage.getItem('moviesLastSeach'))
+    setMoviesForRender(moviesLastSeach)  
+    if (windowInnerWidth > 560 && windowInnerWidth <= 1280) {
+      setMoviesForRender(moviesLastSeach.slice(0, 7));
+    } else if (windowInnerWidth <= 560) {
+      setMoviesForRender(moviesLastSeach.slice(0, 2));
     }
   }
 
@@ -70,7 +66,6 @@ function Movies({
     //  меняет стейт перемен. при увелич. ширины экрана
     window.addEventListener('resize', changeWidthWindow);
     handleResize();
-    // console.log(windowInnerWidth);
     return () => {
       window.addEventListener('resize', handleResize);
     };

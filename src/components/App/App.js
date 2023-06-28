@@ -25,6 +25,7 @@ function App() {
   const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPreloader, setPreloader] = useState(false);
+  const [isLoading, setLoading] = useState(true)
   const [isServerError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
 
@@ -52,15 +53,14 @@ function App() {
 
   function checkToken() {
     const token = localStorage.getItem('token');
-        setPreloader(true);
         mainApi.getDataUser(token)
         .then((user) => {
           setCurrentUser(user);
           setIsLoggedIn(true);
+          setLoading(false);
         })
         .catch((err) => console.log(err))
         .finally(() => {
-          setPreloader(false);
         })
   }
 
@@ -130,14 +130,12 @@ function App() {
 
   const handlerGetMovies = () => {
     setPreloader(true);
-    console.log('пришли отправлять запрос на фильмы');
     movieApi
       .getMoviesAll()
       .then((data) => {
         localStorage.setItem('allMovies', JSON.stringify(data));
       })
-      .then(() => {})
-      .catch((err) => {console.log('errrrrrooor', err)})
+      .catch((err) => {console.log(err)})
       .finally(() => setPreloader(false));
   };
 
@@ -155,7 +153,7 @@ function App() {
     };
   }, []);
 
-  return isPreloader ? (
+  return isLoading ? (
     <Preloader />
   ) : (
     <CurrentUserContext.Provider value={currentUser}>

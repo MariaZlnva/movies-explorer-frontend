@@ -11,19 +11,12 @@ function MoviesPageForm({
   isLiked,
   buttonClass,
   onFilterMovies,
-  onClickCheckbox,
-  isCheckbox,
-  setCheckbox,
   isServerError
 }) {
-  console.log(listFilms);
   return (
     <>
       <SearchForm
         onFilterMovies={onFilterMovies}
-        onClickCheckbox={onClickCheckbox}
-        isCheckbox={isCheckbox}
-        setCheckbox={setCheckbox}
       />
       {isPreloader ? (
         <Preloader />
