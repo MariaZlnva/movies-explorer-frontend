@@ -1,7 +1,9 @@
+import { useLocation } from "react-router-dom";
 import './MovieCard.css';
 
 function MovieCard ({movie, onClickLike, isLiked, buttonClass}) {
-  const imageUrl = `https://api.nomoreparties.co/${movie.image.url}`;
+  const location = useLocation();
+  const imageUrl = location.pathname === '/saved-movies' ? movie.image : `https://api.nomoreparties.co/${movie.image.url}`;
 
   const getDurationInHours = (min) => {
     const minutes = min % 60;
@@ -11,7 +13,7 @@ function MovieCard ({movie, onClickLike, isLiked, buttonClass}) {
     return duration;
   }
 
-  function handleLikeClick(movie) {
+  function handleLikeClick() {
     onClickLike(movie)
   }
 

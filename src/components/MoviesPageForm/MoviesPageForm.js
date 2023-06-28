@@ -21,7 +21,7 @@ function MoviesPageForm({
       />
       {isPreloader ? (
         <Preloader />
-      ) : listFilms.length === 0 ? (
+      ) : listFilms.length === 0 || undefined ? (
         <MoviesNotFound text='Ничего не найдено.' />
       ) : isServerError === true ? (
         <MoviesNotFound text='Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.' />

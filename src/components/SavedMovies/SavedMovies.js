@@ -2,6 +2,7 @@ import './SavedMovies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
+import { useEffect } from 'react';
 
 function SavedMovies({
   isLoggedIn,
@@ -13,8 +14,14 @@ function SavedMovies({
   isLiked,
   onSubmit,
   onClickCheckbox, 
-  isCheckbox
+  isCheckbox,
+  onGetSaveMovies
 }) {
+
+  useEffect(() => {
+    onGetSaveMovies();
+  }, [])
+
   return (
     <>
       <Header

@@ -16,8 +16,6 @@ import * as movieApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-import listFilms from '../../utils/listFilms';
-
 function App() {
   const navigate = useNavigate();
 
@@ -28,19 +26,7 @@ function App() {
   const [isLoading, setLoading] = useState(true)
   const [isServerError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
-
-  function burgerClickHandler() {
-    setIsOpenPopup(!isOpenPopup);
-  }
-
-  function handlerBurgerClose() {
-    setIsOpenPopup(false);
-  }
-
-  function likeClickHandler(movie) {
-    setIsLiked(!isLiked);
-  }
-
+  const [isSavedMovies, setSavedMovies] = useState([]);
   const {pathname} = useLocation();
 
   useEffect(()=>{
@@ -53,7 +39,8 @@ function App() {
 
   function checkToken() {
     const token = localStorage.getItem('token');
-        mainApi.getDataUser(token)
+    if (token) {
+      mainApi.getDataUser(token)
         .then((user) => {
           setCurrentUser(user);
           setIsLoggedIn(true);
@@ -61,7 +48,11 @@ function App() {
         })
         .catch((err) => console.log(err))
         .finally(() => {
+          
         })
+    }
+    // setLoading(false);
+    // navigate('/signup', { replace: true }); 
   }
 
   function handleRegisterSubmit(data) {
@@ -107,7 +98,7 @@ function App() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     setCurrentUser({});
-    localStorage.clear();
+    // localStorage.clear();
     navigate('/', { replace: true });
   };
 
@@ -140,6 +131,51 @@ function App() {
       })
       .finally(() => setPreloader(false));
   };
+
+  function getSaveMovies () {
+    const token = localStorage.getItem('token');
+    mainApi.getUserMovies(token)
+    .then((moviesSave) => {
+      localStorage.setItem('savedMovies', JSON.stringify(moviesSave));   
+    })
+    .then(() => {
+      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'))
+      setSavedMovies(savedMovies);
+    })
+    .catch((err) => {
+      setServerError(err);
+    })
+  }
+
+  function likeClickHandler(movie) {
+    const token = localStorage.getItem('token');
+    mainApi.addMovieToSave(movie, token)
+    .then((movie) => {
+      console.log(movie)
+      // setIsLiked(!isLiked);
+    })
+    .catch(() => {
+    })
+  }
+
+  function disLikeClickHandler (movie) {
+    const token = localStorage.getItem('token');
+    mainApi.deleteMovie(movie._id, token)
+    .then((movie) => {
+      console.log(movie)
+      
+    })
+    .catch(() => {
+    })
+  }
+
+  function burgerClickHandler() {
+    setIsOpenPopup(!isOpenPopup);
+  }
+
+  function handlerBurgerClose() {
+    setIsOpenPopup(false);
+  }
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
@@ -191,10 +227,11 @@ function App() {
           element={
             <ProtectedRoute
               element={SavedMovies}
+              onGetSaveMovies={getSaveMovies}
               isLoggedIn={isLoggedIn}
-              listFilms={listFilms.slice(0, 3)}
+              listFilms={isSavedMovies}
               onClickBurger={burgerClickHandler}
-              onClickLike={likeClickHandler}
+              onClickLike={disLikeClickHandler}
               isBurgerOpen={isOpenPopup}
               isLiked={isLiked}
             />

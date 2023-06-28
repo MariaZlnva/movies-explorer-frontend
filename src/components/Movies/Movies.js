@@ -14,6 +14,7 @@ function Movies({
   onSubmit,
   isServerError,
 }) {
+
   const [moviesForRender, setMoviesForRender] = useState([]);
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [renderMoreMovies, setRenderMoreMovies] = useState(0);
@@ -52,7 +53,9 @@ function Movies({
   function handleResize() {
     const moviesLastSeach = JSON.parse(localStorage.getItem('moviesLastSeach'));
     setMoviesForRender(moviesLastSeach);
-
+    if (moviesLastSeach === null) {
+      return;
+    }
     if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
       setMoviesForRender(moviesLastSeach.slice(0, 7));
       setRenderMoreMovies(7);
@@ -90,7 +93,7 @@ function Movies({
       <main className='content'>
         <MoviesPageForm
           isPreloader={isPreloader}
-          listFilms={moviesForRender}
+          listFilms={moviesForRender || ''}
           onClickLike={onClickLike}
           isLiked={isLiked}
           buttonClass='active'

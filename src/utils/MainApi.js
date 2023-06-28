@@ -6,6 +6,8 @@ const checkResponse = (res) =>
     ? res.json()
     : res.json().then((err) => Promise.reject(`${err.message}`));
 
+// const token = localStorage.getItem('token');
+
 export const register = ({ name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
@@ -17,7 +19,7 @@ export const register = ({ name, email, password }) => {
   }).then((res) => checkResponse(res));
 };
 
-export const login = ({email, password}) => {
+export const login = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers: {
@@ -34,18 +36,18 @@ export const getDataUser = (token) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   }).then((res) => checkResponse(res));
 };
 
 export const updateDataUser = (data, token) => {
   return fetch(`${BASE_URL}/users/me`, {
-    method: "PATCH",
+    method: 'PATCH',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       email: data.email,
@@ -53,3 +55,51 @@ export const updateDataUser = (data, token) => {
     }),
   }).then((res) => checkResponse(res));
 };
+
+export const getUserMovies = (token) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => checkResponse(res));
+}
+
+export const addMovieToSave = (movie, token) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      country: movie.country,
+      director: movie.director,
+      duration: String(movie.duration),
+      year: movie.year,
+      description: movie.description,
+      image: (`https://api.nomoreparties.co/${movie.image.url}`),
+      trailerLink: movie.trailerLink,
+      nameRU: movie.nameRU,
+      nameEN: movie.nameEN,
+      thumbnail: (`https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`),
+      movieId: movie.id
+    }),
+  }).then((res) => checkResponse(res));
+};
+
+
+export const deleteMovie = (movieId, token) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => checkResponse(res));
+};
+
