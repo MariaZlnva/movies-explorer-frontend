@@ -20,7 +20,7 @@ function SavedMovies({
 
   useEffect(() => {
     onGetSaveMovies();
-  }, [])
+  }, [isLiked])
 
   return (
     <>

@@ -16,7 +16,6 @@ function MovieCard ({movie, onClickLike, isLiked, buttonClass}) {
   function handleLikeClick() {
     onClickLike(movie)
   }
-
   return (
     <li className='movie'>
       <div className='movie__info'>
