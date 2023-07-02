@@ -10,7 +10,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
   const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
   const { values, setValues, errors, onChange, resetValidation, isValidForm, setIsValidForm } = useValidation();
-
+console.log(isServerError);
   useEffect(() => {
     setValues((values) => ({
       ...values,
@@ -62,7 +62,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
               ></input>
               
             </label>
-            <span className={errors.name ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.name}</span>
+            <span className={errors.name ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.name || ''}</span>
             <label className='profile__label'>
               E-mail
               <input
@@ -76,7 +76,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
               ></input>
               
             </label>
-            <span className={errors.email ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.email}</span>
+            <span className={errors.email ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.email || ''}</span>
             <span className={isServerError ? 'profile__error profile__error_active' : 'profile__error'}>{isServerError}</span>
             {isInputDisabled ? (
               <>

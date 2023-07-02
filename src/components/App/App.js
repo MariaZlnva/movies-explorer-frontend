@@ -26,16 +26,26 @@ function App() {
   const [isLoading, setLoading] = useState(true);
   const [isServerError, setServerError] = useState('');
   const [currentUser, setCurrentUser] = useState({});
-  // const [moviesForRender, setMoviesForRender] = useState([]);
   const [isSavedMovies, setSavedMovies] = useState([]);
   const { pathname } = useLocation();
+  const [renderMoreMovies, setRenderMoreMovies] = useState(0);
+  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+  const [moviesForRender, setMoviesForRender] = useState([]);
 
   useEffect(() => {
     setServerError('');
   }, [pathname]);
 
   useEffect(() => {
+    console.log('useEf => checkToken()')
     checkToken();
+  }, []);
+
+  useEffect(() => {
+    console.log('useEf => getSaveMovies() => доб.в ЛС и стейт')
+    if (isLoggedIn) {
+      getSaveMovies();
+    }
   }, [isLoggedIn]);
 
   function checkToken() {
@@ -43,8 +53,8 @@ function App() {
     mainApi
       .getDataUser(token)
       .then((user) => {
-        setCurrentUser(user);
         setIsLoggedIn(true);
+        setCurrentUser(user);
       })
       .catch((err) => {
         console.log(err);
@@ -60,7 +70,10 @@ function App() {
       .register(data)
       .then((user) => {
         if (user) {
+          setServerError('Вы успешно зарегестрировались.');
+          setTimeout(() => {
           handleLoginSubmit(data);
+          }, 2000)
         }
       })
       .catch((err) => {
@@ -120,7 +133,8 @@ function App() {
       });
   }
 
-  const handlerGetMovies = () => {
+  function getMoviesFromBD() {
+    console.log('getMoviesFromBD =>');
     setPreloader(true);
     movieApi
       .getMoviesAll()
@@ -131,59 +145,138 @@ function App() {
         setServerError(err);
       })
       .finally(() => setPreloader(false));
-  };
-
-  function handlerFilterAndSeach(query, checked, filterMovies) {
-    console.log(query, checked)
-    const allMovies = JSON.parse(localStorage.getItem('allMovies'));
-    if (!allMovies) {
-      handlerGetMovies();
-    }
-    localStorage.setItem('searchQuery', query);
-    localStorage.setItem('stateCheckbox', checked);
-    filterMovies();
   }
-
-// function filterMovies() {
-//   const searchQuery = localStorage.getItem('searchQuery');
-//   const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
-//   const allMovies = JSON.parse(localStorage.getItem('allMovies'));
-//   if (searchQuery && allMovies) {
-//     let movies = allMovies.filter((movie) =>
-//       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
-//     );
-//     //еще одна сортировка будет тут
-//     movies = isCheckbox ? movies.filter((item) => item.duration <= 40) : movies;
-    
-//     localStorage.setItem('movies', JSON.stringify(movies));
-//   }
-// }
 
   function getSaveMovies() {
     const token = localStorage.getItem('token');
     mainApi
       .getUserMovies(token)
       .then((moviesSave) => {
-        localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
-      })
-      .then(() => {
-        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-        setSavedMovies(savedMovies);
+        console.log('getSaveMovies', moviesSave);
+        const isSavedMovies = moviesSave.filter(
+          (movieSave) => movieSave.owner._id === currentUser._id
+        );
+        setSavedMovies(isSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(isSavedMovies));
+        console.log('сохранили в стейт и в ЛС сох.фильмы => ', isSavedMovies);
       })
       .catch((err) => {
         setServerError(err);
       });
   }
 
-  function handlerLikeClick(movie) {
+  function handlerSubmitSeachMovies(query, checked) {
+    console.log('movies=> handlerSubmitSeachMovies');
+    const allMovies = JSON.parse(localStorage.getItem('allMovies'));
+    if (!allMovies) {
+      getMoviesFromBD();
+    }
+    localStorage.setItem('searchQuery', query);
+    localStorage.setItem('stateCheckbox', checked);
+    filterMoviesForRender();
+    handleResizeRenderMovies();
+  }
+
+  function filterMoviesForRender() {
+    console.log('filterMoviesForRender =>');
+    const searchQuery = localStorage.getItem('searchQuery');
+    const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
+    const allMovies = JSON.parse(localStorage.getItem('allMovies'));
+    console.log('searchQuery =>', searchQuery);
+    if (searchQuery && allMovies) {
+      let moviesFiltered = allMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      moviesFiltered = isCheckbox
+        ? moviesFiltered.filter((item) => item.duration <= 40)
+        : moviesFiltered;
+      console.log('movies после чекбокса =>', moviesFiltered);
+      console.log('savedMovies =>', isSavedMovies);
+      // moviesFiltered.forEach((movie) => {
+      //   isSavedMovies.forEach((movieSave) => {
+      //     if (
+      //       movie.id === movieSave.movieId &&
+      //       movieSave.owner._id === currentUser._id
+      //     ) {
+      //       movie.isSave = true;
+      //     }
+      //   });
+      // });
+      console.log('movies для рендера =>', moviesFiltered);
+      localStorage.setItem('moviesFiltered', JSON.stringify(moviesFiltered));
+      setMoviesForRender(moviesFiltered);
+    }
+  }
+
+  function handleResizeRenderMovies() {
+      const moviesFilteredLS = JSON.parse(localStorage.getItem('moviesFiltered'));
+      console.log('moviesFiltered LS handleResizeRenderMovies=> ', moviesFilteredLS);
+      if (moviesFilteredLS === null) {
+        return;
+      }
+      if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
+        setMoviesForRender(moviesFilteredLS.slice(0, 7));
+        setRenderMoreMovies(7);
+      } else if (windowInnerWidth <= 760) {
+        setMoviesForRender(moviesFilteredLS.slice(0, 5));
+        setRenderMoreMovies(5);
+      }
+  }
+
+  function changeWidthWindow() {
+    setWindowInnerWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    //  меняет стейт перемен. при увелич. ширины экрана
+      window.addEventListener('resize', changeWidthWindow);
+    handleResizeRenderMovies();
+    return () => {
+      window.addEventListener('resize', handleResizeRenderMovies);
+    };
+
+  }, [windowInnerWidth]);
+
+  const handlerClickBtnMore = () => {
+    const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
+    setMoviesForRender(
+      moviesFiltered.slice(0, moviesForRender.length + renderMoreMovies)
+    );
+  };
+
+  function handlerLikeClick(movie, setSaved) {
     const token = localStorage.getItem('token');
-    (movie.owner && movie.owner._id === currentUser._id
-      ? mainApi.deleteMovie(movie._id, token)
-      : mainApi.addMovieToSave(movie, token)
-    )
-      .then((movie) => {
-        console.log(movie);
-        setIsLiked(!isLiked);
+    console.log('кликнули по сердечку =>', movie);
+    mainApi
+      .addMovieToSave(movie, token)
+      .then((movieSave) => {
+        movieSave.isSave = true;
+        const addToSavedMovies = [...isSavedMovies, movieSave];
+        setSavedMovies(addToSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(addToSavedMovies));
+        setSaved(true);
+        console.log('обработали клик Like=>', movieSave);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handlerDislikeClick(movie, setSaved) {
+    console.log('удаляем из сохраненных', movie)
+    const movieToDelete = isSavedMovies.filter(movieSave => movieSave.movieId === movie.id ? movieSave : '');
+    const _id = movie._id || movieToDelete[0]._id;
+    const token = localStorage.getItem('token');
+    mainApi
+      .deleteMovie(_id, token)
+      .then((movieDel) => {
+        console.log(movieDel.movie)
+        const savedMovies = isSavedMovies.filter((savedMovie) => savedMovie._id !== movieDel.movie._id);
+        // setSaved && setSaved(false);
+       
+        setSavedMovies(savedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        setSaved(false);
       })
       .catch((err) => {
         console.log(err);
@@ -255,12 +348,13 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 onClickBurger={burgerClickHandler}
                 onClickLike={handlerLikeClick}
+                onClickDislike={handlerDislikeClick}
                 isBurgerOpen={isOpenPopup}
-                isLiked={isLiked}
+                listFilms={moviesForRender}
                 isServerError={isServerError}
                 isSavedMovies={isSavedMovies}
-                setIsLiked={setIsLiked}
-                onFilterMovies={handlerFilterAndSeach}
+                onSubmit={handlerSubmitSeachMovies}
+                onClickBtnMore={handlerClickBtnMore}
               />
             }
           />
@@ -271,11 +365,10 @@ function App() {
                 element={SavedMovies}
                 onGetSaveMovies={getSaveMovies}
                 isLoggedIn={isLoggedIn}
-                listFilms={isSavedMovies}
+                isSavedMovies={isSavedMovies}
                 onClickBurger={burgerClickHandler}
-                onClickLike={handlerLikeClick}
+                onClickDislike={handlerDislikeClick}
                 isBurgerOpen={isOpenPopup}
-                isLiked={isLiked}
               />
             }
           />

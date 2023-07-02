@@ -1,11 +1,10 @@
 import { useLocation } from "react-router-dom";
 import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
-import { useEffect } from 'react';
 
-function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass, onClickBtnMore }) {
+function MoviesCardList({ listFilms, onClickLike, onClickDislike, isLiked, buttonClass, onClickBtnMore, isSavedMovies }) {
   const location = useLocation();
-  const movies = JSON.parse(localStorage.getItem('movies'));
+  const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
 
   return (
     <section className={location.pathname === '/saved-movies' ? 'moviesList moviesList_saved-movies' : 'moviesList'}>
@@ -14,13 +13,15 @@ function MoviesCardList({ listFilms, onClickLike, isLiked, buttonClass, onClickB
             <MovieCard
               movie={movie}
               key={movie._id || movie.id}
+              onClickDislike={onClickDislike}
               onClickLike={onClickLike}
               isLiked={isLiked}
               buttonClass={buttonClass}
+              isSavedMovies={isSavedMovies}
             />
         ))}
       </ul>
-      {location.pathname === '/movies' && (listFilms.length >= 3 && listFilms.length < movies.length) ?( <button className='moviesList__button' type='button' onClick={onClickBtnMore}>Ещё</button>) : ''}
+      {location.pathname === '/movies' && (listFilms.length >= 3 && listFilms.length < moviesFiltered.length) ?( <button className='moviesList__button' type='button' onClick={onClickBtnMore}>Ещё</button>) : ''}
     </section>
   );
 }

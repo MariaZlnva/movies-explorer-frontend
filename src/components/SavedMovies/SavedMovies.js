@@ -7,20 +7,19 @@ import { useEffect } from 'react';
 function SavedMovies({
   isLoggedIn,
   isPreloader,
-  listFilms,
+  isSavedMovies,
   onClickBurger,
-  onClickLike,
+  onClickDislike,
   isBurgerOpen,
   isLiked,
   onSubmit,
   onClickCheckbox, 
   isCheckbox,
-  onGetSaveMovies
 }) {
-
-  useEffect(() => {
-    onGetSaveMovies();
-  }, [isLiked])
+  console.log('savedmovies=>', isSavedMovies);
+  // useEffect(() => {
+  //   onGetSaveMovies();
+  // }, [isLiked])
 
   return (
     <>
@@ -32,8 +31,9 @@ function SavedMovies({
       <main className='content'>
         <MoviesPageForm
           isPreloader={isPreloader}
-          listFilms={listFilms}
-          onClickLike={onClickLike}
+          listFilms={isSavedMovies}
+          isSavedMovies={isSavedMovies}
+          onClickDislike={onClickDislike}
           isLiked={true}
           buttonClass='delete'
           onSubmit={onSubmit}

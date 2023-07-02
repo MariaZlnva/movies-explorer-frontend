@@ -4,7 +4,7 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm({
-  onFilterMovies,
+  onSubmit,
 }) {
   const [value, setValue] = useState({});
   const [errors, setErrors] = useState(false);
@@ -25,11 +25,13 @@ function SearchForm({
 
   function handlerSubmit(evt) {
     evt.preventDefault();
+    // setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')));
+    // setValue(localStorage.getItem('searchQuery'));
     if (!value) {
       setErrors(!errors);
       return;
     }
-    onFilterMovies(value, isCheckbox);
+    onSubmit(value, isCheckbox);
   }
 
   return (

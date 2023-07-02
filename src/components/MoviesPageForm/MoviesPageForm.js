@@ -8,16 +8,18 @@ function MoviesPageForm({
   isPreloader,
   listFilms,
   onClickLike,
+  onClickDislike,
   isLiked,
   buttonClass,
-  onFilterMovies,
+  onSubmit,
   isServerError,
-  onClickBtnMore
+  onClickBtnMore,
+  isSavedMovies
 }) {
   return (
     <>
       <SearchForm
-        onFilterMovies={onFilterMovies}
+        onSubmit={onSubmit}
       />
       {isPreloader ? (
         <Preloader />
@@ -28,7 +30,9 @@ function MoviesPageForm({
       ) : (
         <MoviesCardList
           listFilms={listFilms}
+          isSavedMovies={isSavedMovies}
           onClickLike={onClickLike}
+          onClickDislike={onClickDislike}
           isLiked={isLiked}
           buttonClass={buttonClass}
           onClickBtnMore={onClickBtnMore}
