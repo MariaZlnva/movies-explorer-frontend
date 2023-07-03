@@ -36,21 +36,20 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    console.log('1. юз эв при монтировании')
+    console.log('1. юз эв при монтировании');
     const token = localStorage.getItem('token');
     if (token) {
-      console.log('2. токен ок - проверим его')
+      console.log('2. токен ок - проверим его');
       checkToken(token);
-    }
-     else {
+    } else {
       setLoading(false);
       navigate('/', { replace: true });
     }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log('useEf => следим за ЛогИН - при тру - получаем сохр.фильмы')
-    console.log('useEf =>', isLoggedIn)
+    console.log('useEf => следим за ЛогИН - при тру - получаем сохр.фильмы');
+    console.log('useEf =>', isLoggedIn);
     if (isLoggedIn) {
       getSaveMovies();
     }
@@ -79,8 +78,8 @@ function App() {
         if (user) {
           setServerError('Вы успешно зарегестрировались.');
           setTimeout(() => {
-          handleLoginSubmit(data);
-          }, 2000)
+            handleLoginSubmit(data);
+          }, 2000);
         }
       })
       .catch((err) => {
@@ -115,10 +114,10 @@ function App() {
   }
 
   const handlerLogout = () => {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     setIsLoggedIn(false);
     setCurrentUser({});
-    // localStorage.clear();
+    localStorage.clear();
     navigate('/', { replace: true });
   };
 
@@ -140,10 +139,10 @@ function App() {
       });
   }
 
-  function getMoviesFromBD() {
+  async function getMoviesFromBD() {
     console.log('getMoviesFromBD =>');
     setPreloader(true);
-    movieApi
+    await movieApi
       .getMoviesAll()
       .then((data) => {
         localStorage.setItem('allMovies', JSON.stringify(data));
@@ -165,19 +164,22 @@ function App() {
         );
         setSavedMovies(isSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(isSavedMovies));
-        console.log('отфильтрованные по пользователю сохр.фильмы => ', isSavedMovies);
+        console.log(
+          'отфильтрованные по пользователю сохр.фильмы => ',
+          isSavedMovies
+        );
       })
-      .then(res => handleResizeRenderMovies())
+      .then((res) => handleResizeRenderMovies())
       .catch((err) => {
         setServerError(err);
       });
   }
 
-  function handlerSubmitSeachMovies(query, checked) {
-    console.log('movies=> handlerSubmitSeachMovies');
+  async function handlerSubmitSeachMovies(query, checked) {
+    console.log('сабмит поиска фильмов => ');
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
     if (!allMovies) {
-      getMoviesFromBD();
+      await getMoviesFromBD();
     }
     localStorage.setItem('searchQuery', query);
     localStorage.setItem('stateCheckbox', checked);
@@ -186,20 +188,21 @@ function App() {
   }
 
   function filterMoviesForRender() {
-    console.log('filterMoviesForRender =>');
+    console.log('фильтр по фильмам и запись в ЛС и стейт =>');
     const searchQuery = localStorage.getItem('searchQuery');
     const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
-    console.log('searchQuery =>', searchQuery);
-    if (searchQuery && allMovies) {
+    console.log('searchQuery =>', searchQuery, Boolean(allMovies));
+    if (searchQuery) {
+      console.log('делаем сорировку');
       let moviesFiltered = allMovies.filter((movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
       );
       moviesFiltered = isCheckbox
         ? moviesFiltered.filter((item) => item.duration <= 40)
         : moviesFiltered;
-      console.log('movies после чекбокса =>', moviesFiltered);
-      console.log('savedMovies =>', isSavedMovies);
+      // console.log('movies после чекбокса =>', moviesFiltered);
+      // console.log('savedMovies =>', isSavedMovies);
       // moviesFiltered.forEach((movie) => {
       //   isSavedMovies.forEach((movieSave) => {
       //     if (
@@ -217,39 +220,44 @@ function App() {
   }
 
   function handleResizeRenderMovies() {
-      const moviesFilteredLS = JSON.parse(localStorage.getItem('moviesFiltered'));
+    console.log('для рендера получаем фильмы из ЛС и говорим как отрисовать');
+    const moviesFilteredLS = JSON.parse(localStorage.getItem('moviesFiltered'));
 
-      console.log('moviesFiltered LS handleResizeRenderMovies=> ', moviesFilteredLS);
-      if (moviesFilteredLS === null) {
-        return;
-      }
-      if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
-        setMoviesForRender(moviesFilteredLS.slice(0, 7));
-        setRenderMoreMovies(7);
-      } else if (windowInnerWidth <= 760) {
-        setMoviesForRender(moviesFilteredLS.slice(0, 5));
-        setRenderMoreMovies(5);
-      }
+    console.log(
+      'moviesFiltered LS handleResizeRenderMovies=> ',
+      moviesFilteredLS
+    );
+    if (moviesFilteredLS === null) {
+      return;
+    }
+    if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
+      setMoviesForRender(moviesFilteredLS.slice(0, 7));
+      setRenderMoreMovies(7);
+    } else if (windowInnerWidth <= 760) {
+      setMoviesForRender(moviesFilteredLS.slice(0, 5));
+      setRenderMoreMovies(5);
+    }
   }
 
   function changeWidthWindow() {
-    setWindowInnerWidth(window.innerWidth);
+      setWindowInnerWidth(window.innerWidth);
   }
 
   useEffect(() => {
-    //  меняет стейт перемен. при увелич. ширины экрана
-    console.log('юзЭф- при Логин - слушателей виндовс и получаю из ЛС фильтр.фильмы')
-      if (isLoggedIn) {
-        window.addEventListener('resize', changeWidthWindow);
-    handleResizeRenderMovies();
-    return () => {
-      window.addEventListener('resize', handleResizeRenderMovies);
-    };
-}
+    console.log(
+      'юзЭф- слушателей виндовс и получаю из ЛС фильтр.фильмы'
+    );
+    if (isLoggedIn) {
+      window.addEventListener('resize', changeWidthWindow);
+      handleResizeRenderMovies();
+      return () => {
+        window.addEventListener('resize', handleResizeRenderMovies);
+      };
+    }
   }, [windowInnerWidth]);
 
   const handlerClickBtnMore = () => {
-    console.log('handlerClickBtnMore')
+    console.log('handlerClickBtnMore');
     const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
     setMoviesForRender(
       moviesFiltered.slice(0, moviesForRender.length + renderMoreMovies)
@@ -275,17 +283,21 @@ function App() {
   }
 
   function handlerDislikeClick(movie, setSaved) {
-    console.log('удаляем из сохраненных', movie)
-    const movieToDelete = isSavedMovies.filter(movieSave => movieSave.movieId === movie.id ? movieSave : '');
+    console.log('удаляем из сохраненных', movie);
+    const movieToDelete = isSavedMovies.filter((movieSave) =>
+      movieSave.movieId === movie.id ? movieSave : ''
+    );
     const _id = movie._id || movieToDelete[0]._id;
     const token = localStorage.getItem('token');
     mainApi
       .deleteMovie(_id, token)
       .then((movieDel) => {
-        console.log(movieDel.movie)
-        const savedMovies = isSavedMovies.filter((savedMovie) => savedMovie._id !== movieDel.movie._id);
+        console.log(movieDel.movie);
+        const savedMovies = isSavedMovies.filter(
+          (savedMovie) => savedMovie._id !== movieDel.movie._id
+        );
         // setSaved && setSaved(false);
-       
+
         setSavedMovies(savedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         setSaved(false);

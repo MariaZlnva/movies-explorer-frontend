@@ -31,7 +31,7 @@ function SearchForm({
       setErrors(!errors);
       return;
     }
-    console.log(isCheckbox)
+    // console.log(isCheckbox)
     onSubmit(value, isCheckbox);
   }
 
