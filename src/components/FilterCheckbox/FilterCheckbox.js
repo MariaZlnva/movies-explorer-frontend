@@ -8,7 +8,7 @@ function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
         className='checkbox__input-hidden'
         type='checkbox'
         name='shortFilms'
-        checked={isCheckbox || ''}
+        checked={isCheckbox || false}
         onChange={evt => onClickCheckbox(evt.target.checked)}
       />
       <span className='checkbox__visible'></span>

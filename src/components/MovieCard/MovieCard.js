@@ -3,7 +3,7 @@ import './MovieCard.css';
 import { useEffect, useState } from 'react';
 
 function MovieCard ({movie, onClickLike, onClickDislike, isSavedMovies }) {
-console.log('moviecard isSavedMovies=>', isSavedMovies)
+// console.log('moviecard isSavedMovies=>', isSavedMovies)
 
   const location = useLocation();
   const imageUrl = location.pathname === '/saved-movies' ? movie.image : `https://api.nomoreparties.co/${movie.image.url}`;
@@ -35,11 +35,11 @@ console.log('moviecard isSavedMovies=>', isSavedMovies)
   }
  
   useEffect(() => {
-    console.log('useEf => меняет стейт перем isSave')
-    const likedMovie = isSavedMovies.length
-      ? isSavedMovies.find((savedFilm) => savedFilm?.movieId === id)
+    console.log('useEf следит за isSaveMov => меняет стейт перем isSave')
+    const movieSaved = isSavedMovies.length
+      ? isSavedMovies.find((movieSave) => movieSave?.movieId === id)
       : false;
-      setSaved(!!likedMovie);
+      setSaved(!!movieSaved);
       // setIsId(likedFilm?._id);
   }, [isSavedMovies]);
 

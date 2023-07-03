@@ -9,19 +9,20 @@ import { REGEX_USER_NAME } from '../../utils/constants';
 function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
-  const { values, setValues, errors, onChange, resetValidation, isValidForm, setIsValidForm } = useValidation();
-console.log(isServerError);
-  useEffect(() => {
+  const { values, setValues, errors, onChange, isValidForm, setIsValidForm } = useValidation();
+ 
+useEffect(() => {
+  console.log('юзЭф данные пользователя')
     setValues((values) => ({
       ...values,
       name: currentUser.name,
       email: currentUser.email,
     }));
-    // setIsValidForm(true);
   }, [currentUser]);
 
   function handlerClickEditBtn() {
-    setInputDisabled(false)
+    setInputDisabled(false);
+    setIsValidForm(true)
   }
 
   function handleSaveSubmit(evt) {
@@ -32,6 +33,7 @@ console.log(isServerError);
     }
     else {
       onSubmit(values);
+      setInputDisabled(true);
     }
   }
 
@@ -92,7 +94,7 @@ console.log(isServerError);
                 </button>
               </>
             ) : (
-              <button className={isValidForm ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValidForm} >
+              <button className={isValidForm  ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValidForm} >
                 Сохранить
               </button>
             )}

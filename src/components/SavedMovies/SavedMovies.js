@@ -16,10 +16,7 @@ function SavedMovies({
   onClickCheckbox, 
   isCheckbox,
 }) {
-  console.log('savedmovies=>', isSavedMovies);
-  // useEffect(() => {
-  //   onGetSaveMovies();
-  // }, [isLiked])
+  // console.log('savedmovies=>', isSavedMovies);
 
   return (
     <>

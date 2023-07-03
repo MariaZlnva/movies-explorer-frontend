@@ -19,7 +19,7 @@ function SearchForm({
   }
 
   useEffect(() => {
-    setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')));
+    setCheckbox((JSON.parse(localStorage.getItem('stateCheckbox'))) || false);
     setValue(localStorage.getItem('searchQuery'));
   }, []);
 
@@ -31,6 +31,7 @@ function SearchForm({
       setErrors(!errors);
       return;
     }
+    console.log(isCheckbox)
     onSubmit(value, isCheckbox);
   }
 

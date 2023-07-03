@@ -20,7 +20,6 @@ function App() {
   const navigate = useNavigate();
 
   const [isOpenPopup, setIsOpenPopup] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPreloader, setPreloader] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -37,19 +36,27 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    console.log('useEf => checkToken()')
-    checkToken();
-  }, []);
+    console.log('1. юз эв при монтировании')
+    const token = localStorage.getItem('token');
+    if (token) {
+      console.log('2. токен ок - проверим его')
+      checkToken(token);
+    }
+     else {
+      setLoading(false);
+      navigate('/', { replace: true });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log('useEf => getSaveMovies() => доб.в ЛС и стейт')
+    console.log('useEf => следим за ЛогИН - при тру - получаем сохр.фильмы')
+    console.log('useEf =>', isLoggedIn)
     if (isLoggedIn) {
       getSaveMovies();
     }
   }, [isLoggedIn]);
 
-  function checkToken() {
-    const token = localStorage.getItem('token');
+  function checkToken(token) {
     mainApi
       .getDataUser(token)
       .then((user) => {
@@ -152,14 +159,15 @@ function App() {
     mainApi
       .getUserMovies(token)
       .then((moviesSave) => {
-        console.log('getSaveMovies', moviesSave);
+        console.log('получили с сервера сохр.ф.=>', moviesSave);
         const isSavedMovies = moviesSave.filter(
           (movieSave) => movieSave.owner._id === currentUser._id
         );
         setSavedMovies(isSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(isSavedMovies));
-        console.log('сохранили в стейт и в ЛС сох.фильмы => ', isSavedMovies);
+        console.log('отфильтрованные по пользователю сохр.фильмы => ', isSavedMovies);
       })
+      .then(res => handleResizeRenderMovies())
       .catch((err) => {
         setServerError(err);
       });
@@ -210,6 +218,7 @@ function App() {
 
   function handleResizeRenderMovies() {
       const moviesFilteredLS = JSON.parse(localStorage.getItem('moviesFiltered'));
+
       console.log('moviesFiltered LS handleResizeRenderMovies=> ', moviesFilteredLS);
       if (moviesFilteredLS === null) {
         return;
@@ -229,15 +238,18 @@ function App() {
 
   useEffect(() => {
     //  меняет стейт перемен. при увелич. ширины экрана
-      window.addEventListener('resize', changeWidthWindow);
+    console.log('юзЭф- при Логин - слушателей виндовс и получаю из ЛС фильтр.фильмы')
+      if (isLoggedIn) {
+        window.addEventListener('resize', changeWidthWindow);
     handleResizeRenderMovies();
     return () => {
       window.addEventListener('resize', handleResizeRenderMovies);
     };
-
+}
   }, [windowInnerWidth]);
 
   const handlerClickBtnMore = () => {
+    console.log('handlerClickBtnMore')
     const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
     setMoviesForRender(
       moviesFiltered.slice(0, moviesForRender.length + renderMoreMovies)
