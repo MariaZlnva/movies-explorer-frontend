@@ -12,7 +12,7 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
   const { values, setValues, errors, onChange, isValidForm, setIsValidForm } = useValidation();
  
 useEffect(() => {
-  console.log('юзЭф данные пользователя')
+  console.log('юзЭф данные пользователя', currentUser)
     setValues((values) => ({
       ...values,
       name: currentUser.name,

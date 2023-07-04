@@ -16,7 +16,7 @@ function SavedMovies({
   onClickCheckbox, 
   isCheckbox,
 }) {
-  // console.log('savedmovies=>', isSavedMovies);
+  console.log('isSavedmovies=>', isSavedMovies);
 
   return (
     <>

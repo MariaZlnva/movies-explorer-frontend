@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
@@ -10,6 +11,8 @@ function SearchForm({
   const [errors, setErrors] = useState(false);
   const [isCheckbox, setCheckbox] = useState(false);
 
+  const location = useLocation();
+
   function onChange(evt) {
     setValue(evt.target.value);
   }
@@ -19,20 +22,26 @@ function SearchForm({
   }
 
   useEffect(() => {
-    setCheckbox((JSON.parse(localStorage.getItem('stateCheckbox'))) || false);
-    setValue(localStorage.getItem('searchQuery'));
+    if (location.pathname === '/movies'){
+      setCheckbox((JSON.parse(localStorage.getItem('stateCheckbox'))) || false);
+      setValue(localStorage.getItem('searchQuery'));
+      return;
+    } 
+    else if (location.pathname === '/saved-movies') {
+      setCheckbox((JSON.parse(localStorage.getItem('stateCheckboxSavedMovies'))) || false);
+      setValue(localStorage.getItem('searchQuerySavedMovies'));
+    }
+    
   }, []);
 
   function handlerSubmit(evt) {
     evt.preventDefault();
-    // setCheckbox(JSON.parse(localStorage.getItem('stateCheckbox')));
-    // setValue(localStorage.getItem('searchQuery'));
-    if (!value) {
+    if (location.pathname === '/movies' && !value) {
       setErrors(!errors);
       return;
     }
-    // console.log(isCheckbox)
     onSubmit(value, isCheckbox);
+    setErrors(false);
   }
 
   return (
