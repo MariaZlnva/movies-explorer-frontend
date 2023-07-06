@@ -29,10 +29,39 @@ function SearchForm({
     } 
     else if (location.pathname === '/saved-movies') {
       setCheckbox((JSON.parse(localStorage.getItem('stateCheckboxSavedMovies'))) || false);
-      setValue(localStorage.getItem('searchQuerySavedMovies'));
+      setValue(localStorage.getItem('searchQuerySavedMovies') || '');
+      // setValue(value);
+      // setCheckbox(isCheckbox)
+      console.log(value, isCheckbox)
     }
+    // return () => {
+    //   if (location.pathname === '/saved-movies') {
+    //     setCheckbox(false);
+    //     setValue('');
+    //   }
+    // }
     
   }, []);
+
+
+  function reset() {
+    setValue('');
+    setCheckbox(false);
+    localStorage.setItem('searchQuerySavedMovies', value);
+    localStorage.setItem('stateCheckboxSavedMovies', isCheckbox);
+  }
+  // useEffect (() => {
+  //   if (location.pathname === '/saved-movies') {
+  //       // setCheckbox((JSON.parse(localStorage.getItem('stateCheckboxSavedMovies'))) || false);
+  //       // setValue(localStorage.getItem('searchQuerySavedMovies') || '');
+        
+  //     }
+  //   return () => {
+  //       if (location.pathname === '/saved-movies') {
+  //         reset();
+  //       }
+  //     }
+  // }, [])
 
   function handlerSubmit(evt) {
     evt.preventDefault();
@@ -40,7 +69,7 @@ function SearchForm({
       setErrors(!errors);
       return;
     }
-    onSubmit(value, isCheckbox);
+    onSubmit(value, isCheckbox, setValue, setCheckbox);
     setErrors(false);
   }
 

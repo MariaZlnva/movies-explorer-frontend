@@ -20,9 +20,10 @@ useEffect(() => {
     }));
   }, [currentUser]);
 
+const changeData = (values.name === currentUser.name && values.email === currentUser.email) ? false : true;
+
   function handlerClickEditBtn() {
     setInputDisabled(false);
-    setIsValidForm(true)
   }
 
   function handleSaveSubmit(evt) {
@@ -69,7 +70,7 @@ useEffect(() => {
               E-mail
               <input
                 className='profile__input'
-                type='email'
+                type='text'
                 name='email'
                 required
                 disabled={isInputDisabled}
@@ -94,7 +95,7 @@ useEffect(() => {
                 </button>
               </>
             ) : (
-              <button className={isValidForm  ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValidForm} >
+              <button className={isValidForm && changeData  ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disabled'} type='submit' disabled={!isValidForm} >
                 Сохранить
               </button>
             )}

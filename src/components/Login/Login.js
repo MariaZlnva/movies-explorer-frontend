@@ -1,19 +1,23 @@
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
 // import { REGEX_EMAIL } from '../../utils/constants';
 
-function Login({ onSubmit, isServerError }) {
-  const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
-
+function Login({ onSubmit, isServerError, isLoggedIn }) {
+  console.log('isLoggedIn =>', isLoggedIn)
+  const { values, errors, onChange, resetValidation, isValidForm } =
+    useValidation();
+  const navigate = useNavigate();
   function handleLoginSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
-  return (
+  return isLoggedIn ? (
+    navigate('/', { replace: true })
+  ) : (
     <AuthForm
       title='Рады видеть!'
       nameForm='login'
@@ -39,7 +43,13 @@ function Login({ onSubmit, isServerError }) {
           required
           onChange={onChange}
         />
-        <span className={errors.email ? 'login__error login__error_active' : 'login__error'}>{errors.email}</span>
+        <span
+          className={
+            errors.email ? 'login__error login__error_active' : 'login__error'
+          }
+        >
+          {errors.email}
+        </span>
       </label>
       <label htmlFor='password' className='login'>
         Пароль
@@ -55,7 +65,15 @@ function Login({ onSubmit, isServerError }) {
           required
           onChange={onChange}
         />
-        <span className={errors.password ? 'login__error login__error_active' : 'login__error'}>{errors.password}</span>
+        <span
+          className={
+            errors.password
+              ? 'login__error login__error_active'
+              : 'login__error'
+          }
+        >
+          {errors.password}
+        </span>
       </label>
     </AuthForm>
   );

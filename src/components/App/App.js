@@ -32,21 +32,23 @@ function App() {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [moviesForRender, setMoviesForRender] = useState([]);
 
+  console.log('isLoggedIn =>', isLoggedIn)
   useEffect(() => {
     setServerError('');
   }, [pathname]);
 
   useEffect(() => {
     console.log(
-      'UseEff следит за ЛогИН, если токен есть проверяем его, если нет наглавную'
+      'если токен есть проверяем его'
     );
     const token = localStorage.getItem('token');
     if (token) {
       console.log(' useEf - токен есть в ЛС - проверим его');
       checkToken(token);
+      console.log('isLoggenIn', isLoggedIn);
     } else {
       setLoading(false);
-      navigate('/', { replace: true });
+      // navigate('/', { replace: true });
     }
   }, [isLoggedIn]);
 
@@ -100,6 +102,7 @@ function App() {
     if (!data.email || !data.password) {
       return;
     }
+    // setPreloader(true);
     mainApi
       .login(data)
       .then((user) => {
@@ -145,6 +148,7 @@ function App() {
 
   function getSaveMovies() {
     const token = localStorage.getItem('token');
+    setPreloader(true);
     mainApi
       .getUserMovies(token)
       .then((moviesSave) => {
@@ -152,12 +156,24 @@ function App() {
         // const isSavedMovies = moviesSave.filter(
         //   (movieSave) => movieSave.owner._id === currentUser._id
         // );
-        setSavedMovies(moviesSave);
-        localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
+        const savedMoviesFiltered = JSON.parse(localStorage.getItem('savedMoviesFiltered'));
+        if (savedMoviesFiltered) {
+          setSavedMovies(savedMoviesFiltered);
+          return
+        } else {
+          localStorage.setItem('savedMovies', JSON.stringify(moviesSave))
+          setSavedMovies(moviesSave);
+        }
+        // setSavedMovies(moviesSave);
+        
+        // localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
         // handleResizeRenderMovies();
       })
       .catch((err) => {
         setServerError(err);
+      })
+      .finally(() => {
+        setPreloader(false);
       });
   }
 
@@ -196,13 +212,15 @@ function App() {
 
   function handlerSubmitSeachSavedMovies (query, isCheckbox) {
     console.log('сабмит сохраненных фильмов => ', query, isCheckbox);
+    console.log(query, isCheckbox)
     localStorage.setItem('searchQuerySavedMovies', query);
     localStorage.setItem('stateCheckboxSavedMovies', isCheckbox);
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const savedMoviesFiltered = filterForRender(savedMovies, query, isCheckbox);
     setSavedMovies(savedMoviesFiltered);
-    localStorage.setItem('savedMovies', JSON.stringify(savedMoviesFiltered))
-   
+  
+    localStorage.setItem('savedMoviesFiltered', JSON.stringify(savedMoviesFiltered))
+    
   }
 
   function handleResizeRenderMovies() {
@@ -333,6 +351,7 @@ function App() {
             path='/signup'
             element={
               <Register
+              isLoggedIn={isLoggedIn}
                 onSubmit={handleRegisterSubmit}
                 isServerError={isServerError}
               />
@@ -342,6 +361,7 @@ function App() {
             path='/signin'
             element={
               <Login
+              isLoggedIn={isLoggedIn}
                 onSubmit={handleLoginSubmit}
                 isServerError={isServerError}
               />

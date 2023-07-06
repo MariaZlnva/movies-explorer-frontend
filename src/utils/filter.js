@@ -19,6 +19,9 @@ export default function filterMovies(movies, textQuery, checkbox) {
   }
   if (!textQuery) { //только для сохраненных должно работать
     console.log('текст запроса пустой - вернем входящий массив фильмов')
+    movies = checkbox
+      ? movies.filter((item) => item.duration <= 40)
+      : movies;
     return movies;
   }
 }

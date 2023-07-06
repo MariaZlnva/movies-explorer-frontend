@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 import './Register.css';
@@ -5,15 +6,18 @@ import AuthForm from '../AuthForm/AuthForm';
 import { REGEX_USER_NAME, REGEX_EMAIL } from '../../utils/constants';
 
 
-function Register({ onSubmit, isServerError }) {
+function Register({ onSubmit, isServerError, isLoggedIn }) {
+  console.log('isLoggedIn =>', isLoggedIn)
   const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
-
+  const navigate = useNavigate();
   function handleRegisterSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
-  return (
+  return isLoggedIn ? (
+    navigate('/', { replace: true })
+  ) : (
     <AuthForm
       title='Добро пожаловать!'
       nameForm='register'
@@ -42,7 +46,7 @@ function Register({ onSubmit, isServerError }) {
           value={values.name || ''}
           onChange={onChange}
         />
-        <span className={errors.name ? 'register__error register__error_active' : 'register__error'}>{errors.name}</span>
+        <span className={errors.name ? 'register__error register__error_active' : 'register__error'}>{errors.name} Имя должно содержать только латиницу, кириллицу, пробел или дефис</span>
       </label>
       <label htmlFor='email' className='register'>
         E-mail
