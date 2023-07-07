@@ -1,12 +1,10 @@
-// export const BASE_URL = 'https://api.movies.zlnva.nomoredomains.rocks';
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = 'https://api.movies.zlnva.nomoredomains.rocks';
+// export const BASE_URL = 'http://localhost:3000';
 
 const checkResponse = (res) =>
   res.ok
     ? res.json()
     : res.json().then((err) => Promise.reject(`${err.message}`));
-
-// const token = localStorage.getItem('token');
 
 export const register = ({ name, email, password }) => {
   return fetch(`${BASE_URL}/signup`, {

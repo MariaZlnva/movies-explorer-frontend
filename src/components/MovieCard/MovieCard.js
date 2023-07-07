@@ -3,14 +3,11 @@ import './MovieCard.css';
 import { useEffect, useState } from 'react';
 
 function MovieCard ({movie, onClickLike, onClickDislike, isSavedMovies }) {
-// console.log('moviecard isSavedMovies=>', isSavedMovies)
 
   const location = useLocation();
   const imageUrl = location.pathname === '/saved-movies' ? movie.image : `https://api.nomoreparties.co/${movie.image.url}`;
-  const { isSave, _id, id } = movie;
+  const { isSave, id } = movie;
   const [isSaved, setSaved] = useState(isSave);
-  // const [isId, setIsId] = useState(null);
-// console.log('moviecard isSave=>', isSave)
 
   const getDurationInHours = (min) => {
     const minutes = min % 60;
@@ -19,29 +16,20 @@ function MovieCard ({movie, onClickLike, onClickDislike, isSavedMovies }) {
     const duration = hours.toString() + "ч " + (minutes < 10 ? "0" : "") + minutes.toString() + "м";
     return duration;
   }
-
-  // function handleClickLikeButton () {
-  //   console.log(isSaved, movie);
-  //   isSaved ? onClickDislike( movie, setSaved) : onClickLike(movie, setSaved);
-  // }
- 
-  function handleClickLikeButton () {
-    console.log(isSaved, movie);
-    isSaved ? onClickDislike( movie, setSaved) : onClickLike(movie, setSaved);
-  }
-  function handleClickDeleteLike () {
-    console.log(isSaved, movie);
-    onClickDislike(movie, setSaved);
-  }
- 
+   
   useEffect(() => {
-    console.log('useEf следит за isSaveMov => меняет стейт перем isSave')
     const movieSaved = isSavedMovies.length
       ? isSavedMovies.find((movieSave) => movieSave?.movieId === id)
       : false;
       setSaved(!!movieSaved);
-      // setIsId(likedFilm?._id);
   }, [isSavedMovies]);
+
+  function handleClickLikeButton () {
+    isSaved ? onClickDislike( movie, setSaved) : onClickLike(movie, setSaved);
+  }
+  function handleClickDeleteLike () {
+    onClickDislike(movie, setSaved);
+  }
 
   return (
     <li className='movie'>

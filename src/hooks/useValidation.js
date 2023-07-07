@@ -9,17 +9,15 @@ const useValidation = () => {
   const [isValidForm, setIsValidForm] = useState(false);
 
   const onChange = (evt) => {
-    // console.log(evt)
-    const target = evt.target;
-    const { name, value, validationMessage } = target;
+    const { name, value, validationMessage } = evt.target;
 
     if (name === 'email' && !validator.isEmail(value)) {
-      target.setCustomValidity('Email несоответствует шаблону электронной почты: email@email.com')
-    } else target.setCustomValidity('')
+      evt.target.setCustomValidity('Email несоответствует шаблону электронной почты: email@email.com')
+    } else {evt.target.setCustomValidity('')}
           
     setValues((values) => ({ ...values, [name]: value })); // доб.в объект данные
     setErrors((errors) => ({ ...errors, [name]: validationMessage }));
-    setIsValidForm(target.closest('form').checkValidity());
+    setIsValidForm(evt.target.closest('form').checkValidity());
   };
 
   const resetValidation = useCallback(

@@ -9,10 +9,9 @@ import { REGEX_USER_NAME } from '../../utils/constants';
 function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
-  const { values, setValues, errors, onChange, isValidForm, setIsValidForm } = useValidation();
+  const { values, setValues, errors, onChange, isValidForm } = useValidation();
  
 useEffect(() => {
-  console.log('юзЭф данные пользователя', currentUser)
     setValues((values) => ({
       ...values,
       name: currentUser.name,
@@ -37,7 +36,7 @@ const changeData = (values.name === currentUser.name && values.email === current
       setInputDisabled(true);
     }
   }
-
+console.log(errors.email)
   return (
     <>
       <Header
@@ -60,22 +59,23 @@ const changeData = (values.name === currentUser.name && values.email === current
                 pattern={REGEX_USER_NAME}
                 required
                 disabled={isInputDisabled}
-                value={values.name || ''}
                 onChange={onChange}
+                value={values.name || ''}
               ></input>
               
             </label>
-            <span className={errors.name ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.name || ''}</span>
+            <span className={errors.name ? 'profile-input__error profile-input__error_active' : 'profile-input__error'}>{errors.name}</span>
             <label className='profile__label'>
               E-mail
               <input
                 className='profile__input'
-                type='text'
+                type='email'
                 name='email'
                 required
                 disabled={isInputDisabled}
-                value={values.email || ''}
                 onChange={onChange}
+                value={values.email || ''}
+                // pattern={REGEX_EMAIL}
               ></input>
               
             </label>

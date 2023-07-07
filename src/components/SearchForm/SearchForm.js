@@ -5,20 +5,14 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm({
-  onSubmit,
+  onSubmit, onClickCheckbox, isCheckbox, setCheckbox
 }) {
   const [value, setValue] = useState({});
   const [errors, setErrors] = useState(false);
-  const [isCheckbox, setCheckbox] = useState(false);
-
   const location = useLocation();
 
   function onChange(evt) {
     setValue(evt.target.value);
-  }
-
-  function handlerClickCheckbox(evt) {
-    setCheckbox(evt);
   }
 
   useEffect(() => {
@@ -28,40 +22,11 @@ function SearchForm({
       return;
     } 
     else if (location.pathname === '/saved-movies') {
-      setCheckbox((JSON.parse(localStorage.getItem('stateCheckboxSavedMovies'))) || false);
-      setValue(localStorage.getItem('searchQuerySavedMovies') || '');
-      // setValue(value);
-      // setCheckbox(isCheckbox)
-      console.log(value, isCheckbox)
+      setCheckbox(false);
+      setValue('');
+
     }
-    // return () => {
-    //   if (location.pathname === '/saved-movies') {
-    //     setCheckbox(false);
-    //     setValue('');
-    //   }
-    // }
-    
   }, []);
-
-
-  function reset() {
-    setValue('');
-    setCheckbox(false);
-    localStorage.setItem('searchQuerySavedMovies', value);
-    localStorage.setItem('stateCheckboxSavedMovies', isCheckbox);
-  }
-  // useEffect (() => {
-  //   if (location.pathname === '/saved-movies') {
-  //       // setCheckbox((JSON.parse(localStorage.getItem('stateCheckboxSavedMovies'))) || false);
-  //       // setValue(localStorage.getItem('searchQuerySavedMovies') || '');
-        
-  //     }
-  //   return () => {
-  //       if (location.pathname === '/saved-movies') {
-  //         reset();
-  //       }
-  //     }
-  // }, [])
 
   function handlerSubmit(evt) {
     evt.preventDefault();
@@ -87,12 +52,10 @@ function SearchForm({
             name='seachFilm'
             type='text'
             required
-            // minLength='2'
             placeholder='Фильм'
             value={value || ''}
             onChange={onChange}
           />
-
           <button className='seach__submit' type='submit'></button>
         </div>
         <span className={errors ? 'seach__error_active' : 'seach__error'}>
@@ -100,7 +63,7 @@ function SearchForm({
         </span>
         <FilterCheckbox
           isCheckbox={isCheckbox}
-          onClickCheckbox={handlerClickCheckbox}
+          onClickCheckbox={onClickCheckbox}
         />
       </form>
     </section>

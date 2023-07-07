@@ -18,7 +18,10 @@ function Movies({
   onSubmit,
   isSavedMovies,
   setSavedMovies,
-  onClickBtnMore
+  onClickBtnMore,
+  onClickCheckbox,
+  isCheckbox, 
+  setCheckbox,
 }) {
 
   return (
@@ -40,6 +43,9 @@ function Movies({
           onSubmit={onSubmit}
           isServerError={isServerError}
           onClickBtnMore={onClickBtnMore}
+          onClickCheckbox={onClickCheckbox}
+          isCheckbox={isCheckbox}
+          setCheckbox={setCheckbox}
         />
       </main>
       <Footer />

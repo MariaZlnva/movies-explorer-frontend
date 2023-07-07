@@ -1,22 +1,20 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 import './Register.css';
 import AuthForm from '../AuthForm/AuthForm';
-import { REGEX_USER_NAME, REGEX_EMAIL } from '../../utils/constants';
+import { REGEX_USER_NAME } from '../../utils/constants';
 
 
 function Register({ onSubmit, isServerError, isLoggedIn }) {
-  console.log('isLoggedIn =>', isLoggedIn)
-  const { values, errors, onChange, resetValidation, isValidForm } = useValidation();
-  const navigate = useNavigate();
+  const { values, errors, onChange, isValidForm } = useValidation();
   function handleRegisterSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
   return isLoggedIn ? (
-    navigate('/', { replace: true })
+    <Navigate to="/" replace />
   ) : (
     <AuthForm
       title='Добро пожаловать!'
@@ -56,8 +54,6 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
           type='email'
           className='register__input'
           placeholder='E-mail'
-          // pattern={REGEX_EMAIL}
-          // title='Email несоответствует шаблону электронной почты: email@email.com'
           required
           value={values.email || ''}
           onChange={onChange}

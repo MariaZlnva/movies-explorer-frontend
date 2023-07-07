@@ -19,7 +19,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   const navigate = useNavigate();
-
   const [isOpenPopup, setIsOpenPopup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isPreloader, setPreloader] = useState(false);
@@ -31,32 +30,23 @@ function App() {
   const [renderMoreMovies, setRenderMoreMovies] = useState(0);
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [moviesForRender, setMoviesForRender] = useState([]);
+  const [isCheckbox, setCheckbox] = useState(false);
 
-  console.log('isLoggedIn =>', isLoggedIn)
   useEffect(() => {
     setServerError('');
   }, [pathname]);
 
   useEffect(() => {
-    console.log(
-      'если токен есть проверяем его'
-    );
     const token = localStorage.getItem('token');
     if (token) {
-      console.log(' useEf - токен есть в ЛС - проверим его');
       checkToken(token);
-      console.log('isLoggenIn', isLoggedIn);
     } else {
       setLoading(false);
-      // navigate('/', { replace: true });
     }
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log('useEf => следим за ЛогИН - при тру - получаем сохр.фильмы');
-    console.log('useEf =>', isLoggedIn);
     if (isLoggedIn) {
-      console.log('логИн тру, идем получать сохр.фильмы');
       getSaveMovies();
     }
   }, [isLoggedIn]);
@@ -67,7 +57,6 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setIsLoggedIn(true);
-        console.log('получили данные юзера от сервера')
       })
       .catch((err) => {
         console.log(err);
@@ -102,7 +91,6 @@ function App() {
     if (!data.email || !data.password) {
       return;
     }
-    // setPreloader(true);
     mainApi
       .login(data)
       .then((user) => {
@@ -138,7 +126,6 @@ function App() {
         setServerError('Данные успешно обновлены.');
       })
       .catch((err) => {
-        console.log('не обновился =>', err);
         setServerError('При обновлении профиля произошла ошибка.');
       })
       .finally(() => {
@@ -152,22 +139,8 @@ function App() {
     mainApi
       .getUserMovies(token)
       .then((moviesSave) => {
-        console.log('получили с сервера сохр.ф.=>', moviesSave);
-        // const isSavedMovies = moviesSave.filter(
-        //   (movieSave) => movieSave.owner._id === currentUser._id
-        // );
-        const savedMoviesFiltered = JSON.parse(localStorage.getItem('savedMoviesFiltered'));
-        if (savedMoviesFiltered) {
-          setSavedMovies(savedMoviesFiltered);
-          return
-        } else {
-          localStorage.setItem('savedMovies', JSON.stringify(moviesSave))
-          setSavedMovies(moviesSave);
-        }
-        // setSavedMovies(moviesSave);
-        
-        // localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
-        // handleResizeRenderMovies();
+        localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
+        setSavedMovies(moviesSave);
       })
       .catch((err) => {
         setServerError(err);
@@ -178,64 +151,128 @@ function App() {
   }
 
   async function handlerSubmitSeachMovies(query, isCheckbox) {
-    console.log('сабмит поиска фильмов => ');
-    
     localStorage.setItem('searchQuery', query);
     localStorage.setItem('stateCheckbox', isCheckbox);
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
     if (!allMovies) {
       setPreloader(true);
-      movieApi.getMoviesAll()
-      .then((allMovies) => {
-        localStorage.setItem('allMovies', JSON.stringify(allMovies));
-        // const searchQuery = localStorage.getItem('searchQuery');
-        // const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
-        const moviesFiltered = filterForRender(allMovies, query, isCheckbox);
-        localStorage.setItem('moviesFiltered', JSON.stringify(moviesFiltered));
-        setMoviesForRender(moviesFiltered);
-      })
-      .catch((err) => {
-        setServerError(err);
-      })
-      .finally(() => setPreloader(false));
+      movieApi
+        .getMoviesAll()
+        .then((allMovies) => {
+          localStorage.setItem('allMovies', JSON.stringify(allMovies));
+          const moviesFoundSeach = filterForRender(
+            allMovies,
+            query,
+            isCheckbox
+          );
+          localStorage.setItem(
+            'moviesFoundSeach',
+            JSON.stringify(moviesFoundSeach)
+          );
+          setMoviesForRender(moviesFoundSeach);
+        })
+        .catch((err) => {
+          setServerError(err);
+        })
+        .finally(() => setPreloader(false));
+    } else {
+      const moviesFoundSeach = filterForRender(allMovies, query, isCheckbox);
+      localStorage.setItem(
+        'moviesFoundSeach',
+        JSON.stringify(moviesFoundSeach)
+      );
+      setMoviesForRender(moviesFoundSeach);
     }
-    else {
-        const searchQuery = localStorage.getItem('searchQuery');
-        const isCheckbox = JSON.parse(localStorage.getItem('stateCheckbox'));
-        const moviesFiltered = filterForRender(allMovies, searchQuery, isCheckbox);
-        localStorage.setItem('moviesFiltered', JSON.stringify(moviesFiltered));
-        setMoviesForRender(moviesFiltered);
-    }
-    
-    // handleResizeRenderMovies();
+    handleResizeRenderMovies();
   }
 
-  function handlerSubmitSeachSavedMovies (query, isCheckbox) {
-    console.log('сабмит сохраненных фильмов => ', query, isCheckbox);
-    console.log(query, isCheckbox)
-    localStorage.setItem('searchQuerySavedMovies', query);
+  function handlerSubmitSeachSavedMovies(query, isCheckbox) {
     localStorage.setItem('stateCheckboxSavedMovies', isCheckbox);
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    const savedMoviesFiltered = filterForRender(savedMovies, query, isCheckbox);
-    setSavedMovies(savedMoviesFiltered);
-  
-    localStorage.setItem('savedMoviesFiltered', JSON.stringify(savedMoviesFiltered))
-    
+    const savedMoviesFoundSeach = filterForRender(
+      savedMovies,
+      query,
+      isCheckbox
+    );
+    setSavedMovies(savedMoviesFoundSeach);
+    localStorage.setItem(
+      'savedMoviesFoundSeach',
+      JSON.stringify(savedMoviesFoundSeach)
+    );
+  }
+
+  function handlerCheckboxClick() {
+    setCheckbox(!isCheckbox);
+    if (pathname === '/movies') {
+      const moviesFoundSeach = JSON.parse(
+        localStorage.getItem('moviesFoundSeach')
+      );
+      localStorage.setItem('stateCheckbox', !isCheckbox);
+      if (moviesFoundSeach) {
+        const moviesFilterCheckbox = !isCheckbox
+          ? moviesFoundSeach.filter((item) => item.duration <= 40)
+          : moviesFoundSeach;
+
+        setMoviesForRender(moviesFilterCheckbox);
+        localStorage.setItem(
+          'moviesFilterCheckbox',
+          JSON.stringify(moviesFilterCheckbox)
+        );
+      }
+    }
+    if (pathname === '/saved-movies') {
+      localStorage.setItem('stateCheckboxSavedMovies', !isCheckbox);
+      const savedMoviesFoundSeach = JSON.parse(
+        localStorage.getItem('savedMoviesFoundSeach')
+      );
+      if (
+        JSON.parse(localStorage.getItem('stateCheckboxSavedMovies')) &&
+        savedMoviesFoundSeach
+      ) {
+        const savedMoviesFilteredCheckbox = !isCheckbox
+          ? savedMoviesFoundSeach.filter((item) => item.duration <= 40)
+          : savedMoviesFoundSeach;
+        setSavedMovies(savedMoviesFilteredCheckbox);
+      } else {
+        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+        const savedMoviesFilteredCheckbox = !isCheckbox
+          ? savedMovies.filter((item) => item.duration <= 40)
+          : savedMovies;
+        setSavedMovies(savedMoviesFilteredCheckbox);
+      }
+    }
   }
 
   function handleResizeRenderMovies() {
-    console.log('для рендера получаем фильмы из ЛС и говорим как отрисовать');
-    const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
-
-    console.log('список фильмов для отрисовки', moviesFiltered);
-    if (moviesFiltered === null) {
+    const moviesFoundSeach = JSON.parse(
+      localStorage.getItem('moviesFoundSeach')
+    );
+    const moviesFilterCheckbox = JSON.parse(
+      localStorage.getItem('moviesFilterCheckbox')
+    );
+    if (
+      JSON.parse(localStorage.getItem('stateCheckbox')) &&
+      moviesFilterCheckbox
+    ) {
+      if (moviesFilterCheckbox === null) {
+        return;
+      }
+      if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
+        setMoviesForRender(moviesFilterCheckbox.slice(0, 7));
+        setRenderMoreMovies(7);
+      } else if (windowInnerWidth <= 760) {
+        setMoviesForRender(moviesFilterCheckbox.slice(0, 5));
+        setRenderMoreMovies(5);
+      }
+      return;
+    } else if (moviesFoundSeach === null) {
       return;
     }
     if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
-      setMoviesForRender(moviesFiltered.slice(0, 7));
+      setMoviesForRender(moviesFoundSeach.slice(0, 7));
       setRenderMoreMovies(7);
     } else if (windowInnerWidth <= 760) {
-      setMoviesForRender(moviesFiltered.slice(0, 5));
+      setMoviesForRender(moviesFoundSeach.slice(0, 5));
       setRenderMoreMovies(5);
     }
   }
@@ -245,32 +282,40 @@ function App() {
   }
 
   useEffect(() => {
-    console.log(
-      'юзЭф- слушателей виндовс - сколько отрисовывать на странице фильмов'
-    );
     if (isLoggedIn) {
-      console.log(
-        'Логин тру - вешаю слушателей и вызываю функцию, говорящую сколько отображать фильмов'
-      );
       window.addEventListener('resize', changeWidthWindow);
       handleResizeRenderMovies();
       return () => {
         window.addEventListener('resize', changeWidthWindow);
       };
     }
-  }, [windowInnerWidth, pathname, isLoggedIn]);
+  }, [windowInnerWidth, pathname, isLoggedIn, isCheckbox]);
 
-  const handlerClickBtnMore = () => {
-    console.log('handlerClickBtnMore');
-    const moviesFiltered = JSON.parse(localStorage.getItem('moviesFiltered'));
-    setMoviesForRender(
-      moviesFiltered.slice(0, moviesForRender.length + renderMoreMovies)
+  useEffect(() => {
+    if (isLoggedIn) {
+      handleResizeRenderMovies();
+    }
+  }, []);
+
+  function handlerClickBtnMore() {
+    const moviesFoundSeach = JSON.parse(
+      localStorage.getItem('moviesFoundSeach')
     );
-  };
+    const moviesFilterCheckbox = JSON.parse(
+      localStorage.getItem('moviesFilterCheckbox')
+    );
+    if (JSON.parse(localStorage.getItem('stateCheckbox'))) {
+      setMoviesForRender(
+        moviesFilterCheckbox.slice(0, moviesForRender.length + renderMoreMovies)
+      );
+    } else
+      setMoviesForRender(
+        moviesFoundSeach.slice(0, moviesForRender.length + renderMoreMovies)
+      );
+  }
 
   function handlerLikeClick(movie, setSaved) {
     const token = localStorage.getItem('token');
-    console.log('кликнули по сердечку =>', movie);
     mainApi
       .addMovieToSave(movie, token)
       .then((movieSave) => {
@@ -279,7 +324,6 @@ function App() {
         setSavedMovies(addToSavedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(addToSavedMovies));
         setSaved(true);
-        console.log('обработали клик Like=>', movieSave);
       })
       .catch((err) => {
         console.log(err);
@@ -287,7 +331,6 @@ function App() {
   }
 
   function handlerDislikeClick(movie, setSaved) {
-    console.log('удаляем из сохраненных', movie);
     const movieToDelete = isSavedMovies.filter((movieSave) =>
       movieSave.movieId === movie.id ? movieSave : ''
     );
@@ -296,7 +339,6 @@ function App() {
     mainApi
       .deleteMovie(_id, token)
       .then((movieDel) => {
-        console.log(movieDel.movie);
         const savedMovies = isSavedMovies.filter(
           (savedMovie) => savedMovie._id !== movieDel.movie._id
         );
@@ -351,7 +393,7 @@ function App() {
             path='/signup'
             element={
               <Register
-              isLoggedIn={isLoggedIn}
+                isLoggedIn={isLoggedIn}
                 onSubmit={handleRegisterSubmit}
                 isServerError={isServerError}
               />
@@ -361,7 +403,7 @@ function App() {
             path='/signin'
             element={
               <Login
-              isLoggedIn={isLoggedIn}
+                isLoggedIn={isLoggedIn}
                 onSubmit={handleLoginSubmit}
                 isServerError={isServerError}
               />
@@ -383,6 +425,9 @@ function App() {
                 isSavedMovies={isSavedMovies}
                 onSubmit={handlerSubmitSeachMovies}
                 onClickBtnMore={handlerClickBtnMore}
+                onClickCheckbox={handlerCheckboxClick}
+                isCheckbox={isCheckbox}
+                setCheckbox={setCheckbox}
               />
             }
           />
@@ -398,6 +443,9 @@ function App() {
                 onClickDislike={handlerDislikeClick}
                 isBurgerOpen={isOpenPopup}
                 onSubmit={handlerSubmitSeachSavedMovies}
+                onClickCheckbox={handlerCheckboxClick}
+                isCheckbox={isCheckbox}
+                setCheckbox={setCheckbox}
               />
             }
           />

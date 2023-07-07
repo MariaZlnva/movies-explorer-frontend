@@ -14,9 +14,9 @@ function SavedMovies({
   isLiked,
   onSubmit,
   onClickCheckbox, 
-  isCheckbox,
+  isCheckbox, 
+  setCheckbox,
 }) {
-  console.log('isSavedmovies=>', isSavedMovies);
 
   return (
     <>
@@ -36,6 +36,7 @@ function SavedMovies({
           onSubmit={onSubmit}
           onClickCheckbox={onClickCheckbox}
           isCheckbox={isCheckbox}
+          setCheckbox={setCheckbox}
         />
       </main>
       <Footer />

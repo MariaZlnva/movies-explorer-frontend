@@ -1,7 +1,6 @@
 import './FilterCheckbox.css';
 
 function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
-  
   return (
     <label className='checkbox'>
       <input
@@ -9,7 +8,7 @@ function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
         type='checkbox'
         name='shortFilms'
         checked={isCheckbox || false}
-        onChange={evt => onClickCheckbox(evt.target.checked)}
+        onChange={onClickCheckbox}
       />
       <span className='checkbox__visible'></span>
       Короткометражки

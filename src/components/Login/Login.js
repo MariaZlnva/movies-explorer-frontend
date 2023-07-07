@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import useValidation from '../../hooks/useValidation';
 
 import './Login.css';
@@ -6,17 +6,15 @@ import AuthForm from '../AuthForm/AuthForm';
 // import { REGEX_EMAIL } from '../../utils/constants';
 
 function Login({ onSubmit, isServerError, isLoggedIn }) {
-  console.log('isLoggedIn =>', isLoggedIn)
-  const { values, errors, onChange, resetValidation, isValidForm } =
+  const { values, errors, onChange, isValidForm } =
     useValidation();
-  const navigate = useNavigate();
   function handleLoginSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
   return isLoggedIn ? (
-    navigate('/', { replace: true })
+   <Navigate to="/" replace />
   ) : (
     <AuthForm
       title='Рады видеть!'

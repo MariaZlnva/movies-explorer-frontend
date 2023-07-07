@@ -14,16 +14,22 @@ function MoviesPageForm({
   onSubmit,
   isServerError,
   onClickBtnMore,
-  isSavedMovies
+  isSavedMovies,
+  onClickCheckbox,
+  isCheckbox, 
+  setCheckbox,
 }) {
   return (
     <>
       <SearchForm
         onSubmit={onSubmit}
+        onClickCheckbox={onClickCheckbox}
+        isCheckbox={isCheckbox}
+        setCheckbox={setCheckbox}
       />
       {isPreloader ? (
         <Preloader />
-      ) : listFilms.length === 0 || undefined ? (
+      ) : listFilms.length === 0 || undefined || null ? (
         <MoviesNotFound text='Ничего не найдено.' />
       ) : isServerError === true ? (
         <MoviesNotFound text='Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.' />
@@ -36,6 +42,7 @@ function MoviesPageForm({
           isLiked={isLiked}
           buttonClass={buttonClass}
           onClickBtnMore={onClickBtnMore}
+          
         />
       )}
     </>
