@@ -16,6 +16,12 @@ import * as movieApi from '../../utils/MoviesApi';
 import * as mainApi from '../../utils/MainApi';
 import filterForRender from '../../utils/filter';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {
+  SCREEN_WIDTH_TABLET,
+  SCREEN_WIDTH_DESKTOP,
+  SHOW_MORE_MOBILE_SIZE,
+  SHOW_MORE_DESKTOP_SIZE,
+} from '../../utils/constants';
 
 function App() {
   const navigate = useNavigate();
@@ -31,6 +37,8 @@ function App() {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
   const [moviesForRender, setMoviesForRender] = useState([]);
   const [isCheckbox, setCheckbox] = useState(false);
+  const [isMoviesNotFoundElse, setMoviesNotFoundElse] = useState(true);
+  const [isRender, setRender] = useState(false);
 
   useEffect(() => {
     setServerError('');
@@ -45,17 +53,30 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  useEffect(() => {
+  useEffect (() => {
+    const token = localStorage.getItem('token');
     if (isLoggedIn) {
-      getSaveMovies();
-    }
-  }, [isLoggedIn]);
+    setPreloader(true);
+    Promise.all([mainApi.getDataUser(token), mainApi.getUserMovies(token)])
+    .then(([user, moviesSave])=> {
+      setCurrentUser(user);
+      localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
+      setSavedMovies(moviesSave);
+    })
+    .catch((err) => {
+      console.log(err);
+      setServerError(err);
+    })
+    .finally(() => {
+      setPreloader(false);
+    });}
+  }, [isLoggedIn])
 
   function checkToken(token) {
     mainApi
       .getDataUser(token)
-      .then((user) => {
-        setCurrentUser(user);
+      .then(() => {
+        // setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .catch((err) => {
@@ -126,23 +147,6 @@ function App() {
         setServerError('Данные успешно обновлены.');
       })
       .catch((err) => {
-        setServerError('При обновлении профиля произошла ошибка.');
-      })
-      .finally(() => {
-        setPreloader(false);
-      });
-  }
-
-  function getSaveMovies() {
-    const token = localStorage.getItem('token');
-    setPreloader(true);
-    mainApi
-      .getUserMovies(token)
-      .then((moviesSave) => {
-        localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
-        setSavedMovies(moviesSave);
-      })
-      .catch((err) => {
         setServerError(err);
       })
       .finally(() => {
@@ -151,6 +155,7 @@ function App() {
   }
 
   async function handlerSubmitSeachMovies(query, isCheckbox) {
+    setRender(!isRender);
     localStorage.setItem('searchQuery', query);
     localStorage.setItem('stateCheckbox', isCheckbox);
     const allMovies = JSON.parse(localStorage.getItem('allMovies'));
@@ -169,6 +174,7 @@ function App() {
             'moviesFoundSeach',
             JSON.stringify(moviesFoundSeach)
           );
+          setMoviesNotFoundElse(false);
           setMoviesForRender(moviesFoundSeach);
         })
         .catch((err) => {
@@ -183,11 +189,10 @@ function App() {
       );
       setMoviesForRender(moviesFoundSeach);
     }
-    handleResizeRenderMovies();
+    // handleResizeRenderMovies();
   }
 
   function handlerSubmitSeachSavedMovies(query, isCheckbox) {
-    localStorage.setItem('stateCheckboxSavedMovies', isCheckbox);
     const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const savedMoviesFoundSeach = filterForRender(
       savedMovies,
@@ -195,10 +200,6 @@ function App() {
       isCheckbox
     );
     setSavedMovies(savedMoviesFoundSeach);
-    localStorage.setItem(
-      'savedMoviesFoundSeach',
-      JSON.stringify(savedMoviesFoundSeach)
-    );
   }
 
   function handlerCheckboxClick() {
@@ -221,25 +222,26 @@ function App() {
       }
     }
     if (pathname === '/saved-movies') {
-      localStorage.setItem('stateCheckboxSavedMovies', !isCheckbox);
-      const savedMoviesFoundSeach = JSON.parse(
-        localStorage.getItem('savedMoviesFoundSeach')
-      );
-      if (
-        JSON.parse(localStorage.getItem('stateCheckboxSavedMovies')) &&
-        savedMoviesFoundSeach
-      ) {
-        const savedMoviesFilteredCheckbox = !isCheckbox
-          ? savedMoviesFoundSeach.filter((item) => item.duration <= 40)
-          : savedMoviesFoundSeach;
-        setSavedMovies(savedMoviesFilteredCheckbox);
-      } else {
-        const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-        const savedMoviesFilteredCheckbox = !isCheckbox
-          ? savedMovies.filter((item) => item.duration <= 40)
-          : savedMovies;
-        setSavedMovies(savedMoviesFilteredCheckbox);
-      }
+      // localStorage.setItem('stateCheckboxSavedMovies', !isCheckbox);
+      // const savedMoviesFoundSeach = JSON.parse(
+      //   localStorage.getItem('savedMoviesFoundSeach')
+      // );
+      // if (
+      //   JSON.parse(localStorage.getItem('stateCheckboxSavedMovies')) &&
+      //   savedMoviesFoundSeach
+      // )
+      // {
+      //   const savedMoviesFilteredCheckbox = !isCheckbox
+      //     ? savedMoviesFoundSeach.filter((item) => item.duration <= 40)
+      //     : savedMoviesFoundSeach;
+      //   setSavedMovies(savedMoviesFilteredCheckbox);
+      // } else {
+      const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const savedMoviesFilteredCheckbox = !isCheckbox
+        ? savedMovies.filter((item) => item.duration <= 40)
+        : savedMovies;
+      setSavedMovies(savedMoviesFilteredCheckbox);
+      // }
     }
   }
 
@@ -250,33 +252,36 @@ function App() {
     const moviesFilterCheckbox = JSON.parse(
       localStorage.getItem('moviesFilterCheckbox')
     );
-    if (
-      JSON.parse(localStorage.getItem('stateCheckbox')) &&
-      moviesFilterCheckbox
-    ) {
-      if (moviesFilterCheckbox === null) {
+    if (moviesFoundSeach || moviesFilterCheckbox) {
+      setMoviesNotFoundElse(false);
+      if (
+        JSON.parse(localStorage.getItem('stateCheckbox')) &&
+        moviesFilterCheckbox
+      ) {
+        if (moviesFilterCheckbox === null) {
+          return;
+        }
+        if (windowInnerWidth > SCREEN_WIDTH_TABLET && windowInnerWidth <= SCREEN_WIDTH_DESKTOP) {
+          setMoviesForRender(moviesFilterCheckbox.slice(0, 7));
+          setRenderMoreMovies(7);
+        } else if (windowInnerWidth <= SCREEN_WIDTH_TABLET) {
+          setMoviesForRender(moviesFilterCheckbox.slice(0, 5));
+          setRenderMoreMovies(5);
+        }
+        return;
+      } else if (moviesFoundSeach === null) {
         return;
       }
-      if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
-        setMoviesForRender(moviesFilterCheckbox.slice(0, 7));
-        setRenderMoreMovies(7);
-      } else if (windowInnerWidth <= 760) {
-        setMoviesForRender(moviesFilterCheckbox.slice(0, 5));
-        setRenderMoreMovies(5);
+      if (windowInnerWidth > SCREEN_WIDTH_TABLET && windowInnerWidth <= SCREEN_WIDTH_DESKTOP) {
+        setMoviesForRender(moviesFoundSeach.slice(0, 7));
+        setRenderMoreMovies(SHOW_MORE_DESKTOP_SIZE);
+      } else if (windowInnerWidth <= SCREEN_WIDTH_TABLET) {
+        setMoviesForRender(moviesFoundSeach.slice(0, 5));
+        setRenderMoreMovies(SHOW_MORE_MOBILE_SIZE);
       }
-      return;
-    } else if (moviesFoundSeach === null) {
-      return;
-    }
-    if (windowInnerWidth > 760 && windowInnerWidth <= 1280) {
-      setMoviesForRender(moviesFoundSeach.slice(0, 7));
-      setRenderMoreMovies(7);
-    } else if (windowInnerWidth <= 760) {
-      setMoviesForRender(moviesFoundSeach.slice(0, 5));
-      setRenderMoreMovies(5);
     }
   }
-
+  
   function changeWidthWindow() {
     setWindowInnerWidth(window.innerWidth);
   }
@@ -289,13 +294,14 @@ function App() {
         window.addEventListener('resize', changeWidthWindow);
       };
     }
-  }, [windowInnerWidth, pathname, isLoggedIn, isCheckbox]);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      handleResizeRenderMovies();
-    }
-  }, []);
+  }, [
+    windowInnerWidth,
+    pathname,
+    isLoggedIn,
+    isCheckbox,
+    isMoviesNotFoundElse,
+    isRender,
+  ]);
 
   function handlerClickBtnMore() {
     const moviesFoundSeach = JSON.parse(
@@ -428,6 +434,7 @@ function App() {
                 onClickCheckbox={handlerCheckboxClick}
                 isCheckbox={isCheckbox}
                 setCheckbox={setCheckbox}
+                isMoviesNotFoundElse={isMoviesNotFoundElse}
               />
             }
           />
@@ -436,9 +443,9 @@ function App() {
             element={
               <ProtectedRoute
                 element={SavedMovies}
-                // onGetSaveMovies={getSaveMovies}
                 isLoggedIn={isLoggedIn}
                 isSavedMovies={isSavedMovies}
+                setSavedMovies={setSavedMovies}
                 onClickBurger={burgerClickHandler}
                 onClickDislike={handlerDislikeClick}
                 isBurgerOpen={isOpenPopup}

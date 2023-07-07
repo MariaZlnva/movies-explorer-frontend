@@ -6,7 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import useValidation from '../../hooks/useValidation';
 import { REGEX_USER_NAME } from '../../utils/constants';
 
-function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit }) {
+function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerError, onSubmit, setServerError }) {
   const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
   const { values, setValues, errors, onChange, isValidForm } = useValidation();
@@ -40,6 +40,7 @@ const changeData = (values.name === currentUser.name && values.email === current
 
   function handlerClickEditBtn() {
     setInputDisabled(false);
+    setServerError('')
   }
 
   function handleSaveSubmit(evt) {

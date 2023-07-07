@@ -1,9 +1,7 @@
-import { useState, useEffect, useContext } from 'react';
 import './Movies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Movies({
   isPreloader,
@@ -12,16 +10,15 @@ function Movies({
   onClickLike,
   onClickDislike,
   isBurgerOpen,
-  isLiked,
   listFilms,
   isServerError,
   onSubmit,
   isSavedMovies,
-  setSavedMovies,
   onClickBtnMore,
   onClickCheckbox,
   isCheckbox, 
   setCheckbox,
+  isMoviesNotFoundElse,
 }) {
 
   return (
@@ -38,14 +35,13 @@ function Movies({
           isSavedMovies={isSavedMovies}
           onClickLike={onClickLike}
           onClickDislike={onClickDislike}
-          isLiked={isLiked}
-          buttonClass='active'
           onSubmit={onSubmit}
           isServerError={isServerError}
           onClickBtnMore={onClickBtnMore}
           onClickCheckbox={onClickCheckbox}
           isCheckbox={isCheckbox}
           setCheckbox={setCheckbox}
+          isMoviesNotFoundElse={isMoviesNotFoundElse}
         />
       </main>
       <Footer />

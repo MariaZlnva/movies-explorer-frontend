@@ -2,21 +2,31 @@ import './SavedMovies.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function SavedMovies({
   isLoggedIn,
-  isPreloader,
   isSavedMovies,
   onClickBurger,
   onClickDislike,
   isBurgerOpen,
-  isLiked,
   onSubmit,
-  onClickCheckbox, 
-  isCheckbox, 
+  onClickCheckbox,
+  isCheckbox,
   setCheckbox,
+  setSavedMovies,
 }) {
+  
+  const [isMoviesNotFoundElse, setMoviesNotFoundElse] = useState(true);
+
+  useEffect(() => {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    setSavedMovies(savedMovies);
+
+    if (savedMovies.length !== 0) {
+      setMoviesNotFoundElse(false);
+    }
+  }, []);
 
   return (
     <>
@@ -27,16 +37,14 @@ function SavedMovies({
       />
       <main className='content'>
         <MoviesPageForm
-          isPreloader={isPreloader}
           listFilms={isSavedMovies}
           isSavedMovies={isSavedMovies}
           onClickDislike={onClickDislike}
-          isLiked={true}
-          buttonClass='delete'
           onSubmit={onSubmit}
           onClickCheckbox={onClickCheckbox}
           isCheckbox={isCheckbox}
           setCheckbox={setCheckbox}
+          isMoviesNotFoundElse={isMoviesNotFoundElse}
         />
       </main>
       <Footer />
