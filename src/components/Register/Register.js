@@ -13,6 +13,10 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
     onSubmit(values);
   }
 
+  function handleChange(evt) {
+    onChange(evt)
+  }
+
   return isLoggedIn ? (
     <Navigate to="/" replace />
   ) : (
@@ -34,7 +38,7 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
           id='name'
           name='name'
           type='text'
-          className='register__input'
+          className={errors.name ? 'register__input register__input_invalid' : 'register__input'}
           minLength='2'
           maxLength='30'
           placeholder='Имя'
@@ -42,7 +46,7 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
           title='Имя должно содержать только латиницу, кириллицу, пробел или дефис'
           required
           value={values.name || ''}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span className={errors.name ? 'register__error register__error_active' : 'register__error'}>{errors.name} Имя должно содержать только латиницу, кириллицу, пробел или дефис</span>
       </label>
@@ -52,11 +56,11 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
           id='email'
           name='email'
           type='email'
-          className='register__input'
+          className={errors.email ? 'register__input register__input_invalid' : 'register__input'}
           placeholder='E-mail'
           required
           value={values.email || ''}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span className={errors.email ? 'register__error register__error_active' : 'register__error '}>{errors.email}</span>
       </label>
@@ -66,13 +70,13 @@ function Register({ onSubmit, isServerError, isLoggedIn }) {
           id='password'
           name='password'
           type='password'
-          className='register__input'
+          className={errors.password ? 'register__input register__input_invalid' : 'register__input'}
           minLength='8'
           maxLength='20'
           placeholder='Пароль'
           required
           value={values.password || ''}
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span className={errors.password ? 'register__error register__error_active' : 'register__error '}>{errors.password}</span>
       </label>

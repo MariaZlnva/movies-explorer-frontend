@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-// const emailValidator = require('email-validator');
 const validator = require('validator');
 
 
@@ -11,12 +10,17 @@ const useValidation = () => {
   const onChange = (evt) => {
     const { name, value, validationMessage } = evt.target;
 
-    if (name === 'email' && !validator.isEmail(value)) {
-      evt.target.setCustomValidity('Email несоответствует шаблону электронной почты: email@email.com')
-    } else {evt.target.setCustomValidity('')}
-          
+    if (name === 'email') {
+      if(!validator.isEmail(value)) {
+        setErrors({ ...errors, [name]: 'Email несоответствует шаблону электронной почты: name@domain.zone'})
+      } else {
+        setErrors({ ...errors, [name]: validationMessage })
+      }
+    } else {
+      setErrors({...errors, [name]: validationMessage });
+    }
+    
     setValues((values) => ({ ...values, [name]: value })); // доб.в объект данные
-    setErrors((errors) => ({ ...errors, [name]: validationMessage }));
     setIsValidForm(evt.target.closest('form').checkValidity());
   };
 

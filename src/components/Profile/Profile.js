@@ -10,7 +10,20 @@ function Profile({ onClickBurger, isBurgerOpen, onLogout, isLoggedIn, isServerEr
   const currentUser = useContext(CurrentUserContext);
   const [isInputDisabled, setInputDisabled] = useState(true);
   const { values, setValues, errors, onChange, isValidForm } = useValidation();
- 
+
+  useEffect(() => {
+      document.addEventListener('keydown', handleEscClose);
+    return () => {
+      document.removeEventListener('keydown', handleEscClose);
+    };
+  }, []);
+
+  function handleEscClose(evt) {
+    if (evt.key === 'Escape') {
+      setInputDisabled(true)
+    }
+  }
+
 useEffect(() => {
     setValues((values) => ({
       ...values,
@@ -20,6 +33,10 @@ useEffect(() => {
   }, [currentUser]);
 
 const changeData = (values.name === currentUser.name && values.email === currentUser.email) ? false : true;
+
+  function handleChange(evt) {
+    onChange(evt)
+  }
 
   function handlerClickEditBtn() {
     setInputDisabled(false);
@@ -36,7 +53,6 @@ const changeData = (values.name === currentUser.name && values.email === current
       setInputDisabled(true);
     }
   }
-console.log(errors.email)
   return (
     <>
       <Header
@@ -51,7 +67,7 @@ console.log(errors.email)
             <label className='profile__label'>
               Имя
               <input
-                className='profile__input'
+                className={errors.name ? 'profile__input profile__input_invalid' : 'profile__input'}
                 type='text'
                 name='name'
                 minLength='2'
@@ -59,7 +75,7 @@ console.log(errors.email)
                 pattern={REGEX_USER_NAME}
                 required
                 disabled={isInputDisabled}
-                onChange={onChange}
+                onChange={handleChange}
                 value={values.name || ''}
               ></input>
               
@@ -68,14 +84,13 @@ console.log(errors.email)
             <label className='profile__label'>
               E-mail
               <input
-                className='profile__input'
+                className={errors.email ? 'profile__input profile__input_invalid' : 'profile__input'}
                 type='email'
                 name='email'
                 required
                 disabled={isInputDisabled}
-                onChange={onChange}
+                onChange={handleChange}
                 value={values.email || ''}
-                // pattern={REGEX_EMAIL}
               ></input>
               
             </label>

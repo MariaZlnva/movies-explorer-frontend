@@ -13,6 +13,10 @@ function Login({ onSubmit, isServerError, isLoggedIn }) {
     onSubmit(values);
   }
 
+  function handleChange(evt) {
+    onChange(evt)
+  }
+
   return isLoggedIn ? (
    <Navigate to="/" replace />
   ) : (
@@ -34,12 +38,11 @@ function Login({ onSubmit, isServerError, isLoggedIn }) {
           id='email'
           name='email'
           type='text'
-          // pattern={REGEX_EMAIL}
-          className='login__input'
+          className={errors.email ? 'login__input login__input_invalid' : 'login__input'}
           value={values.email || ''}
           placeholder='E-mail'
           required
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span
           className={
@@ -55,13 +58,13 @@ function Login({ onSubmit, isServerError, isLoggedIn }) {
           id='password'
           name='password'
           type='password'
-          className='login__input'
+          className={errors.password ? 'login__input login__input_invalid' : 'login__input'}
           value={values.password || ''}
           minLength='8'
           maxLength='20'
           placeholder='Пароль'
           required
-          onChange={onChange}
+          onChange={handleChange}
         />
         <span
           className={

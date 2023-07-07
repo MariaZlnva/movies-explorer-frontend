@@ -23,7 +23,10 @@
   border: none;
   margin-top: 10px;
 }
-.login__input:invalid {
+/* .login__input:invalid {
+  color: #ee3465;
+} */
+.login__input_invalid {
   color: #ee3465;
 }
 
