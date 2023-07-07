@@ -2,7 +2,9 @@
 
 Ссылка на пул реквест: https://github.com/MariaZlnva/movies-explorer-frontend/pull/2
 
-Адрес репозитория backend: 
+Ссылка на сайт: https://movies.zlnva.nomoredomains.rocks
+Адрес репозитория backend: https://github.com/MariaZlnva/movies-explorer-api
+Адрес репозитория frontend: https://github.com/MariaZlnva/movies-explorer-frontend
 
 ## Ссылки на проект
 
