@@ -1,5 +1,7 @@
 Ссылка на макет дипломной работы: https://disk.yandex.ru/d/uQ4s-LNMpvKcbQ
 
+Ссылка на пул реквест: https://github.com/MariaZlnva/movies-explorer-frontend/pull/2
+
 Адрес репозитория backend: 
 
 ## Ссылки на проект
