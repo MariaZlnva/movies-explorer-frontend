@@ -51,24 +51,26 @@ function App() {
     } else {
       setLoading(false);
     }
-  }, [isLoggedIn]);
+  }, []);
 
   useEffect (() => {
     const token = localStorage.getItem('token');
     if (isLoggedIn) {
-    setPreloader(true);
+      console.log('я залогинен - получу фильмы и юзера');
+      setLoading(true);
     Promise.all([mainApi.getDataUser(token), mainApi.getUserMovies(token)])
     .then(([user, moviesSave])=> {
       setCurrentUser(user);
       localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
       setSavedMovies(moviesSave);
+      navigate('/movies', { replace: true });
     })
     .catch((err) => {
       console.log(err);
       setServerError(err);
     })
     .finally(() => {
-      setPreloader(false);
+      setLoading(false);
     });}
   }, [isLoggedIn])
 
@@ -222,20 +224,6 @@ function App() {
       }
     }
     if (pathname === '/saved-movies') {
-      // localStorage.setItem('stateCheckboxSavedMovies', !isCheckbox);
-      // const savedMoviesFoundSeach = JSON.parse(
-      //   localStorage.getItem('savedMoviesFoundSeach')
-      // );
-      // if (
-      //   JSON.parse(localStorage.getItem('stateCheckboxSavedMovies')) &&
-      //   savedMoviesFoundSeach
-      // )
-      // {
-      //   const savedMoviesFilteredCheckbox = !isCheckbox
-      //     ? savedMoviesFoundSeach.filter((item) => item.duration <= 40)
-      //     : savedMoviesFoundSeach;
-      //   setSavedMovies(savedMoviesFilteredCheckbox);
-      // } else {
       const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
       const savedMoviesFilteredCheckbox = !isCheckbox
         ? savedMovies.filter((item) => item.duration <= 40)
@@ -246,6 +234,7 @@ function App() {
   }
 
   function handleResizeRenderMovies() {
+    console.log(isRender)
     const moviesFoundSeach = JSON.parse(
       localStorage.getItem('moviesFoundSeach')
     );
