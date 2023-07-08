@@ -68,7 +68,7 @@ function App() {
       setCurrentUser(user);
       localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
       setSavedMovies(moviesSave);
-      // navigate('/movies', { replace: true });
+      navigate('/movies', { replace: true });
       console.log('юзера и сохраненные получены - сохраняю их в переменные и ЛС')
     })
     .catch((err) => {
@@ -131,7 +131,7 @@ function App() {
         if (user) {
           localStorage.setItem('token', user.token);
           setIsLoggedIn(true);
-          navigate('/movies', { replace: true });
+          // navigate('/movies', { replace: true });
         }
       })
       .catch((err) => {
