@@ -58,6 +58,7 @@ function App() {
 
   useEffect (() => {
     const token = localStorage.getItem('token');
+    console.log('токен пришел после логина isLogged', isLoggedIn)
     if (isLoggedIn) {
       console.log('ЛогИн тру - включаю прелоадер и получу фильмы и юзера');
       setLoading(true);
@@ -75,7 +76,8 @@ function App() {
     })
     .finally(() => {
       setLoading(false);
-    });}
+    });
+  }
   }, [isLoggedIn])
 
   function checkToken(token) {
@@ -117,10 +119,11 @@ function App() {
 
   function handleLoginSubmit(data) {
     console.log('вход на сайт')
-    setPreloader(true);
+    
     if (!data.email || !data.password) {
       return;
     }
+    setPreloader(true);
     mainApi
       .login(data)
       .then((user) => {
