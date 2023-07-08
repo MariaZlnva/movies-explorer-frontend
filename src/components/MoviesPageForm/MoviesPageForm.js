@@ -19,6 +19,8 @@ function MoviesPageForm({
   setCheckbox,
   isMoviesNotFoundElse,
 }) {
+
+  console.log('что в listFilms сейчас', listFilms)
   return (
     <>
       <SearchForm

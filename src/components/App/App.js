@@ -48,6 +48,7 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       console.log('проверяет токен в базе')
+      setLoading(true);
       checkToken(token);
     } else {
       setLoading(false);
@@ -81,7 +82,7 @@ function App() {
   }, [isLoggedIn])
 
   function checkToken(token) {
-    setLoading(true);
+    // setLoading(true);
     mainApi
       .getDataUser(token)
       .then(() => {
@@ -120,9 +121,9 @@ function App() {
   function handleLoginSubmit(data) {
     console.log('вход на сайт')
     
-    if (!data.email || !data.password) {
-      return;
-    }
+    // if (!data.email || !data.password) {
+    //   return;
+    // }
     setPreloader(true);
     mainApi
       .login(data)
