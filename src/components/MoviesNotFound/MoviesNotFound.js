@@ -1,9 +1,9 @@
  import './MoviesNotFound.css';
 
-function MoviesNotFound () {
+function MoviesNotFound ({text}) {
   return (
     <div className='movies-not-found'>
-      <h3 className='movies-not-found__text'>По запросу ничего не найдено.</h3>
+      <p className='movies-not-found__text'>{text}</p>
     </div>
   )
 };

@@ -1,14 +1,25 @@
+import { Navigate } from 'react-router-dom';
+import useValidation from '../../hooks/useValidation';
+
 import './Register.css';
 import AuthForm from '../AuthForm/AuthForm';
+import { REGEX_USER_NAME } from '../../utils/constants';
 
-function Register({ onSubmit }) {
 
+function Register({ onSubmit, isServerError, isLoggedIn }) {
+  const { values, errors, onChange, isValidForm } = useValidation();
   function handleRegisterSubmit(evt) {
     evt.preventDefault();
-    onSubmit({email: 'pochta@yandex.ru', password: '12345678', name: 'Мария'});
+    onSubmit(values);
   }
 
-  return (
+  function handleChange(evt) {
+    onChange(evt)
+  }
+
+  return isLoggedIn ? (
+    <Navigate to="/" replace />
+  ) : (
     <AuthForm
       title='Добро пожаловать!'
       nameForm='register'
@@ -18,6 +29,8 @@ function Register({ onSubmit }) {
       text='Уже зарегистрированы?'
       textLink='Войти'
       onSubmit={handleRegisterSubmit}
+      isValidForm={isValidForm}
+      isServerError={isServerError}
     >
       <label htmlFor='name' className='register'>
         Имя
@@ -25,13 +38,17 @@ function Register({ onSubmit }) {
           id='name'
           name='name'
           type='text'
-          className='register__input'
+          className={errors.name ? 'register__input register__input_invalid' : 'register__input'}
           minLength='2'
           maxLength='30'
           placeholder='Имя'
+          pattern={REGEX_USER_NAME}
+          title='Имя должно содержать только латиницу, кириллицу, пробел или дефис'
           required
+          value={values.name || ''}
+          onChange={handleChange}
         />
-        <span className='register__error register__error_active'></span>
+        <span className={errors.name ? 'register__error register__error_active' : 'register__error'}>{errors.name} Имя должно содержать только латиницу, кириллицу, пробел или дефис</span>
       </label>
       <label htmlFor='email' className='register'>
         E-mail
@@ -39,11 +56,13 @@ function Register({ onSubmit }) {
           id='email'
           name='email'
           type='email'
-          className='register__input'
+          className={errors.email ? 'register__input register__input_invalid' : 'register__input'}
           placeholder='E-mail'
           required
+          value={values.email || ''}
+          onChange={handleChange}
         />
-        <span className='register__error register__error_active'></span>
+        <span className={errors.email ? 'register__error register__error_active' : 'register__error '}>{errors.email}</span>
       </label>
       <label htmlFor='password' className='register'>
         Пароль
@@ -51,13 +70,15 @@ function Register({ onSubmit }) {
           id='password'
           name='password'
           type='password'
-          className='register__input'
+          className={errors.password ? 'register__input register__input_invalid' : 'register__input'}
           minLength='8'
           maxLength='20'
           placeholder='Пароль'
           required
+          value={values.password || ''}
+          onChange={handleChange}
         />
-        <span className='register__error register__error_active register__error_active_last'>Что-то пошло не так...</span>
+        <span className={errors.password ? 'register__error register__error_active' : 'register__error '}>{errors.password}</span>
       </label>
     </AuthForm>
   );

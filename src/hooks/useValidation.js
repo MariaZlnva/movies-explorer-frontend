@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+const validator = require('validator');
+
 
 const useValidation = () => {
   const [values, setValues] = useState({});
@@ -7,8 +9,18 @@ const useValidation = () => {
 
   const onChange = (evt) => {
     const { name, value, validationMessage } = evt.target;
+
+    if (name === 'email') {
+      if(!validator.isEmail(value)) {
+        setErrors({ ...errors, [name]: 'Email несоответствует шаблону электронной почты: name@domain.zone'})
+      } else {
+        setErrors({ ...errors, [name]: validationMessage })
+      }
+    } else {
+      setErrors({...errors, [name]: validationMessage });
+    }
+    
     setValues((values) => ({ ...values, [name]: value })); // доб.в объект данные
-    setErrors((errors) => ({ ...errors, [name]: validationMessage }));
     setIsValidForm(evt.target.closest('form').checkValidity());
   };
 
@@ -23,9 +35,11 @@ const useValidation = () => {
 
   return {
     values,
+    setValues,
     errors,
     onChange,
     isValidForm,
+    setIsValidForm,
     resetValidation,
   };
 };

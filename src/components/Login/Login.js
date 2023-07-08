@@ -1,22 +1,25 @@
-import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import useValidation from '../../hooks/useValidation';
+
 import './Login.css';
 import AuthForm from '../AuthForm/AuthForm';
+// import { REGEX_EMAIL } from '../../utils/constants';
 
-function Login({ onSubmit }) {
-
-  const [values, setValues] = useState({});
-
+function Login({ onSubmit, isServerError, isLoggedIn }) {
+  const { values, errors, onChange, isValidForm } =
+    useValidation();
   function handleLoginSubmit(evt) {
     evt.preventDefault();
     onSubmit(values);
   }
 
-  function onChange (evt) {
-    const { name, value } = evt.target;
-    setValues((values) => ({ ...values, [name]: value }));
+  function handleChange(evt) {
+    onChange(evt)
   }
 
-  return (
+  return isLoggedIn ? (
+   <Navigate to="/" replace />
+  ) : (
     <AuthForm
       title='Рады видеть!'
       nameForm='login'
@@ -26,20 +29,28 @@ function Login({ onSubmit }) {
       text='Ещё не зарегистрированы?'
       textLink='Регистрация'
       onSubmit={handleLoginSubmit}
+      isValidForm={isValidForm}
+      isServerError={isServerError}
     >
       <label htmlFor='email' className='login'>
         E-mail
         <input
           id='email'
           name='email'
-          type='email'
-          className='login__input'
+          type='text'
+          className={errors.email ? 'login__input login__input_invalid' : 'login__input'}
           value={values.email || ''}
           placeholder='E-mail'
           required
-          onChange={onChange}
+          onChange={handleChange}
         />
-        <span className='login__error login__error_active'></span>
+        <span
+          className={
+            errors.email ? 'login__error login__error_active' : 'login__error'
+          }
+        >
+          {errors.email}
+        </span>
       </label>
       <label htmlFor='password' className='login'>
         Пароль
@@ -47,15 +58,23 @@ function Login({ onSubmit }) {
           id='password'
           name='password'
           type='password'
-          className='login__input'
+          className={errors.password ? 'login__input login__input_invalid' : 'login__input'}
           value={values.password || ''}
           minLength='8'
           maxLength='20'
           placeholder='Пароль'
           required
-          onChange={onChange}
+          onChange={handleChange}
         />
-        <span className='login__error login__error_active'></span>
+        <span
+          className={
+            errors.password
+              ? 'login__error login__error_active'
+              : 'login__error'
+          }
+        >
+          {errors.password}
+        </span>
       </label>
     </AuthForm>
   );

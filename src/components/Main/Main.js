@@ -9,10 +9,10 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-function Main () {
+function Main ({isLoggedIn, onClickBurger, isBurgerOpen}) {
   return (
     <>
-     <Header isLoggedIn={false} />
+     <Header isLoggedIn={isLoggedIn} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen}/>
      <main className='content'>
         <Promo />
         <AboutProject />

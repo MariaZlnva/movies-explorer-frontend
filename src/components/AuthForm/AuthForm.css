@@ -39,15 +39,37 @@
   border: 1px solid white;
 }
 
-.authForm__submit_disabled {
+.authForm__submit:disabled {
+  cursor: default;
   background-color: #f8f8f8;
   color: #c2c2c2;
   cursor: auto;
 }
 
+.authForm__submit:disabled:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
 .authForm__submit:hover,
 .authForm__link:hover {
   opacity: 0.8;
+}
+
+.authForm__error{
+  opacity: 0;
+  height: 14px;
+  padding-bottom: 7px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #ee3465;
+  display: block;
+  text-align: center;
+}
+
+.authForm__error_active{
+  opacity: 1;
 }
 
 .authForm__wrap {
@@ -103,5 +125,9 @@
 
   .authForm__form {
     margin-bottom: 14px;
+  }
+
+  .authForm__error {
+    height: 25px;
   }
 }
