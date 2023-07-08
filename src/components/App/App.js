@@ -47,23 +47,27 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      console.log('проверяет токен в базе')
       checkToken(token);
     } else {
       setLoading(false);
+      console.log('токена нет, выключили прелоадер и ждем авторизации/регистрации')
+      // navigate('/', { replace: true });
     }
   }, []);
 
   useEffect (() => {
     const token = localStorage.getItem('token');
     if (isLoggedIn) {
-      console.log('я залогинен - получу фильмы и юзера');
+      console.log('ЛогИн тру - включаю прелоадер и получу фильмы и юзера');
       setLoading(true);
     Promise.all([mainApi.getDataUser(token), mainApi.getUserMovies(token)])
     .then(([user, moviesSave])=> {
       setCurrentUser(user);
       localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
       setSavedMovies(moviesSave);
-      navigate('/movies', { replace: true });
+      // navigate('/movies', { replace: true });
+      console.log('юзера и сохраненные получены - сохраняю их в переменные и ЛС')
     })
     .catch((err) => {
       console.log(err);
@@ -75,11 +79,13 @@ function App() {
   }, [isLoggedIn])
 
   function checkToken(token) {
+    setLoading(true);
     mainApi
       .getDataUser(token)
       .then(() => {
         // setCurrentUser(user);
         setIsLoggedIn(true);
+        console.log('токен верный - логИн делаем тру и прелоадер фалсе')
       })
       .catch((err) => {
         console.log(err);
@@ -110,6 +116,7 @@ function App() {
   }
 
   function handleLoginSubmit(data) {
+    console.log('вход на сайт')
     setPreloader(true);
     if (!data.email || !data.password) {
       return;
