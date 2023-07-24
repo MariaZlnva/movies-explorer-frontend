@@ -4,22 +4,44 @@ import Footer from '../Footer/Footer';
 import MoviesPageForm from '../MoviesPageForm/MoviesPageForm';
 
 function Movies({
+  isPreloader,
   isLoggedIn,
-  listFilms,
   onClickBurger,
   onClickLike,
+  onClickDislike,
   isBurgerOpen,
-  isLiked,
+  listFilms,
+  isServerError,
+  onSubmit,
+  isSavedMovies,
+  onClickBtnMore,
+  onClickCheckbox,
+  isCheckbox, 
+  setCheckbox,
+  isMoviesNotFoundElse,
 }) {
+
   return (
     <>
-      <Header isLoggedIn={true} onClickBurger={onClickBurger} isBurgerOpen={isBurgerOpen} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        onClickBurger={onClickBurger}
+        isBurgerOpen={isBurgerOpen}
+      />
       <main className='content'>
         <MoviesPageForm
-          listFilms={listFilms}
+          isPreloader={isPreloader}
+          listFilms={listFilms || ''}
+          isSavedMovies={isSavedMovies}
           onClickLike={onClickLike}
-          isLiked={isLiked}
-          buttonClass='active'
+          onClickDislike={onClickDislike}
+          onSubmit={onSubmit}
+          isServerError={isServerError}
+          onClickBtnMore={onClickBtnMore}
+          onClickCheckbox={onClickCheckbox}
+          isCheckbox={isCheckbox}
+          setCheckbox={setCheckbox}
+          isMoviesNotFoundElse={isMoviesNotFoundElse}
         />
       </main>
       <Footer />

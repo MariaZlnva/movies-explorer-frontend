@@ -27,6 +27,8 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 1.18;
+  padding-bottom: 18px;
+  padding-top: 16px;
 }
 
 .profile__label:first-child {
@@ -38,14 +40,12 @@
   width: calc(100% - 80px);
   text-align: end;
   background-color: inherit;
-  padding: 15px;
   border: none;
   font-weight: 400;
   font-size: 11px;
   line-height: 1.18;
   padding: 0;
-  padding-bottom: 16px;
-  padding-top: 16px;
+
 }
 
 .profile__input:focus {
@@ -53,12 +53,22 @@
   border-bottom: 1px dotted gray;
 }
 
-.profile__input:invalid {
+.profile__input_invalid {
   color: #ee3465;
 }
 
-.profile__btn{
-  
+.profile-input__error {
+  opacity: 0;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #ee3465;
+  display: block;
+  height: 14px;
+  /* padding-top: 7px; */
+} 
+.profile-input__error_active{
+  opacity: 1;
 }
 
 .profile__btn-edit {
@@ -141,16 +151,24 @@
 }
 
 .profile__error{
-  margin-bottom: 20px;
-  margin-top: 173px;
-}
-
-.profile__error_active {
+  opacity: 0;
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
   text-align: center;
   color: #ff004c;
+  height: 14px;
+  padding: 7px 0;
+  margin-top: 159px;
+}
+
+.profile__error_active {
+  opacity: 1;
+}
+
+.profile__label:last-of-type {
+padding-top: 4px;
+/* margin-bottom: 180px; */
 }
 
 @media screen and (max-width: 960px) {
@@ -163,8 +181,16 @@
   }
 
   .profile__error {
-    margin-top: 162px;
+    margin-top: 154px;
   }
+
+  .profile__label {
+    padding-bottom: 15px;
+    padding-top: 12px;
+  }
+  .profile__label:last-of-type {
+    margin-bottom: 0px;
+    }
 }
 
 @media screen and (max-width: 560px) {
@@ -178,11 +204,16 @@
   }
 
   .profile__error{
-    margin-top: 328px;
+    margin-top: 322px;
   }
 
   .profile__btn-save {
     max-width: 260px;
     font-size: 12px;
   }
+  .profile-input__error {
+    font-size: 8px;
+  line-height: 1;
+  }
+  
 }

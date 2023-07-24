@@ -1,19 +1,18 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox() {
+function FilterCheckbox({ onClickCheckbox, isCheckbox }) {
   return (
-    <div className='checkbox'>
-      <label>
-        <input
-          className='checkbox__input-hidden'
-          type='checkbox'
-          name='shortFilms'
-          required
-        />
-        <span className='checkbox__visible'></span>
-      </label>
-      <p className='checkbox__text'>Короткометражки</p>
-    </div>
+    <label className='checkbox'>
+      <input
+        className='checkbox__input-hidden'
+        type='checkbox'
+        name='shortFilms'
+        checked={isCheckbox || false}
+        onChange={onClickCheckbox}
+      />
+      <span className='checkbox__visible'></span>
+      Короткометражки
+    </label>
   );
 }
 

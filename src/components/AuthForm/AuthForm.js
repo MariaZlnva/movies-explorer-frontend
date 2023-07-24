@@ -12,15 +12,19 @@ function AuthForm({
   text,
   textLink,
   onSubmit,
+  isValidForm,
+  isServerError
 }) {
+
   return (
     <main className='content'>
       <section className='authForm'>
       <LogoApp />
       <h1 className='authForm__title'>{title}</h1>
-      <form name={nameForm} className='authForm__form' onSubmit={onSubmit}>
+      <form name={nameForm} className='authForm__form' onSubmit={onSubmit} noValidate>
         {children}
-        <button type='submit' className='authForm__submit'>
+        <span className={isServerError ? 'authForm__error authForm__error_active' : 'authForm__error'}>{isServerError}</span>
+        <button type='submit' className='authForm__submit' disabled={!isValidForm}>
           {textSubmitBtn}
         </button>
       </form>
