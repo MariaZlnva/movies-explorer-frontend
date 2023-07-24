@@ -68,7 +68,7 @@ function App() {
       setCurrentUser(user);
       localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
       setSavedMovies(moviesSave);
-      navigate('/movies', { replace: true });
+      navigate(pathname, { replace: true });
       console.log('юзера и сохраненные получены - сохраняю их в переменные и ЛС')
     })
     .catch((err) => {
