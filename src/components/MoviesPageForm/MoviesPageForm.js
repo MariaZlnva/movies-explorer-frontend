@@ -20,7 +20,6 @@ function MoviesPageForm({
   isMoviesNotFoundElse,
 }) {
 
-  console.log('что в listFilms сейчас', listFilms)
   return (
     <>
       <SearchForm
