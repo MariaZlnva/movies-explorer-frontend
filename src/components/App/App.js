@@ -39,7 +39,6 @@ function App() {
   const [isCheckbox, setCheckbox] = useState(false);
   const [isMoviesNotFoundElse, setMoviesNotFoundElse] = useState(true);
   const [isRender, setRender] = useState(false);
-
   useEffect(() => {
     setServerError('');
   }, [pathname]);
@@ -47,21 +46,17 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      console.log('проверяет токен в базе')
       setLoading(true);
       checkToken(token);
     } else {
       setLoading(false);
-      console.log('токена нет, выключили прелоадер и ждем авторизации/регистрации')
       // navigate('/', { replace: true });
     }
   }, []);
 
   useEffect (() => {
     const token = localStorage.getItem('token');
-    console.log('токен пришел после логина isLogged', isLoggedIn)
     if (isLoggedIn) {
-      console.log('ЛогИн тру - включаю прелоадер и получу фильмы и юзера');
       setLoading(true);
     Promise.all([mainApi.getDataUser(token), mainApi.getUserMovies(token)])
     .then(([user, moviesSave])=> {
@@ -69,7 +64,6 @@ function App() {
       localStorage.setItem('savedMovies', JSON.stringify(moviesSave));
       setSavedMovies(moviesSave);
       navigate(pathname, { replace: true });
-      console.log('юзера и сохраненные получены - сохраняю их в переменные и ЛС')
     })
     .catch((err) => {
       console.log(err);
@@ -82,13 +76,10 @@ function App() {
   }, [isLoggedIn])
 
   function checkToken(token) {
-    // setLoading(true);
     mainApi
       .getDataUser(token)
       .then(() => {
-        // setCurrentUser(user);
         setIsLoggedIn(true);
-        console.log('токен верный - логИн делаем тру и прелоадер фалсе')
       })
       .catch((err) => {
         console.log(err);
@@ -119,11 +110,6 @@ function App() {
   }
 
   function handleLoginSubmit(data) {
-    console.log('вход на сайт')
-    
-    // if (!data.email || !data.password) {
-    //   return;
-    // }
     setPreloader(true);
     mainApi
       .login(data)
@@ -131,7 +117,6 @@ function App() {
         if (user) {
           localStorage.setItem('token', user.token);
           setIsLoggedIn(true);
-          // navigate('/movies', { replace: true });
         }
       })
       .catch((err) => {
@@ -202,7 +187,6 @@ function App() {
       );
       setMoviesForRender(moviesFoundSeach);
     }
-    // handleResizeRenderMovies();
   }
 
   function handlerSubmitSeachSavedMovies(query, isCheckbox) {
@@ -245,7 +229,6 @@ function App() {
   }
 
   function handleResizeRenderMovies() {
-    console.log(isRender)
     const moviesFoundSeach = JSON.parse(
       localStorage.getItem('moviesFoundSeach')
     );
@@ -261,7 +244,7 @@ function App() {
         if (moviesFilterCheckbox === null) {
           return;
         }
-        if (windowInnerWidth > SCREEN_WIDTH_TABLET && windowInnerWidth <= SCREEN_WIDTH_DESKTOP) {
+        if (windowInnerWidth > SCREEN_WIDTH_TABLET) {
           setMoviesForRender(moviesFilterCheckbox.slice(0, 7));
           setRenderMoreMovies(7);
         } else if (windowInnerWidth <= SCREEN_WIDTH_TABLET) {
@@ -272,7 +255,7 @@ function App() {
       } else if (moviesFoundSeach === null) {
         return;
       }
-      if (windowInnerWidth > SCREEN_WIDTH_TABLET && windowInnerWidth <= SCREEN_WIDTH_DESKTOP) {
+      if (windowInnerWidth > SCREEN_WIDTH_TABLET) {
         setMoviesForRender(moviesFoundSeach.slice(0, 7));
         setRenderMoreMovies(SHOW_MORE_DESKTOP_SIZE);
       } else if (windowInnerWidth <= SCREEN_WIDTH_TABLET) {
