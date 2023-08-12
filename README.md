@@ -10,7 +10,6 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-05122A?style=flat&logo=javascript)&nbsp;
 ![React](https://img.shields.io/badge/-React-05122A?style=flat&logo=react)&nbsp;
 ![React-router](https://img.shields.io/badge/-React_Router-05122A?style=flat&logo=react-router)&nbsp;
-![Webpack](https://img.shields.io/badge/-Webpack-05122A?style=flat&logo=webpack)&nbsp;
 ![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)&nbsp;
 
 React, HashRouter, Routes, Route, Link, useNavigate, Navigate.  
