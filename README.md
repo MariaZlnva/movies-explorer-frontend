@@ -38,7 +38,7 @@ npm i
 - при наведении на фильм - появления попапа с полным описанием.
 
 ### 🔗 Ссылки:
-- [Ссылка на проект](https://movies.zlnva.nomoredomains.rocks)
+- [Ссылка на проект](https://mariazlnva.github.io/movies-explorer-frontend/)
 - [Ссылка на API сервер проекта](https://api.movies.zlnva.nomoredomains.rocks)  
 - IP адрес проекта: 130.193.54.154
 - [Адрес репозитория backend](https://github.com/MariaZlnva/movies-explorer-api)
