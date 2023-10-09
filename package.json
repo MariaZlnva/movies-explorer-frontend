@@ -1,7 +1,6 @@
 {
-  
   "name": "movies-explorer-frontend",
-  "homepage": "https://MariaZlnva.github.io/movies-explorer-frontend",
+  "homepage": "https://MariaZlnva.github.io/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
